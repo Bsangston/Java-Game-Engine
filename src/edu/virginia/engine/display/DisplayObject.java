@@ -1,6 +1,7 @@
 package edu.virginia.engine.display;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class DisplayObject {
 	private Point pivot;
 	private double scaleX = 1;
 	private double scaleY = 1;
-	private int rotation = 0; //in degrees
+	private float rotation = 0f; //in degrees
 	private float alpha = 1.0f;
 	private boolean facingRight = true;
 
@@ -145,7 +146,7 @@ public class DisplayObject {
 
 			/* Actually draw the image, perform the pivot point translation here */
 			if (visible) {
-				g2d.drawImage(displayImage, 0, 0, getScaledWidth(), getScaledHeight(), null);
+				g2d.drawImage(displayImage, 0, 0, getUnscaledWidth(), getUnscaledHeight(), null);
 				//g2d.drawRect(getPivotX() - 10, getPivotY() - 10, 20, 20); //for pivot point debugging
 
 			}
@@ -164,11 +165,14 @@ public class DisplayObject {
 	 * */
 	protected void applyTransformations(Graphics2D g2d) {
 
+		g2d.translate(position.getX(), position.getY());
+
+		//g2d.translate(getUnscaledWidth()/2, getUnscaledHeight());
+		g2d.scale(scaleX, scaleY);
+		//g2d.translate(getUnscaledWidth()/2, getUnscaledHeight());
 
 		AlphaComposite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 		g2d.setComposite(comp);
-
-		g2d.translate(position.getX(), position.getY());
 
 		g2d.rotate(Math.toRadians(rotation), pivot.getX(), pivot.getY());
 
@@ -183,10 +187,14 @@ public class DisplayObject {
 
 		g2d.rotate(Math.toRadians(-rotation), pivot.getX(), pivot.getY());
 
-		g2d.translate(-position.getX(), -position.getY());
-
 		AlphaComposite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
 		g2d.setComposite(comp);
+
+		//g2d.translate(-getUnscaledWidth()/2, -getUnscaledWidth()/2);
+		g2d.scale(1/scaleX, 1/scaleY);
+		//g2d.translate(getUnscaledWidth()/2, getUnscaledWidth()/2);
+
+		g2d.translate(-position.getX(), -position.getY());
 
 
 	}
@@ -244,6 +252,35 @@ public class DisplayObject {
 		return id.equalsIgnoreCase(d.getId());
 	}
 
+	public void centerPivot() {
+		if (displayImage != null) {
+			setPivotX(getUnscaledWidth() / 2);
+			setPivotY(getUnscaledHeight() / 2);
+		}
+		setPosition(getPosX() - getPivotX(),getPosY() - getPivotY());
+	}
+
+	public Point getGlobalPosition() {
+		int x = getPosX(), y = getPosY();
+		DisplayObject p = parent;
+		while (p != null) {
+			x += p.getPosX() + getPosX();
+			y += p.getPosY() + getPosY();
+			p = p.getParent();
+		}
+		return new Point(x, y);
+	}
+
+
+
+	public void setParent(DisplayObject parent) {
+		this.parent = parent;
+	}
+
+	public DisplayObject getParent() {
+		return parent;
+	}
+
 	public void setFacingRight(boolean val) { facingRight = val; }
 
 	public boolean isVisible() {
@@ -269,6 +306,8 @@ public class DisplayObject {
 	public void setPosition(int x, int y) {
 		position.setLocation(x, y);
 	}
+
+	public void setPosition(Point p) { this.position = p; }
 
 	public void setPosX(int x) {
 		position.setLocation(x, position.getY());
@@ -302,13 +341,18 @@ public class DisplayObject {
 		pivot.setLocation(pivot.getX(), y);
 	}
 
+	public double getScale() { return scaleX; }
+
 	public double getScaleX() {
 		return scaleX;
 	}
 
+
 	public void setScaleX(double scaleX) {
 		this.scaleX = scaleX;
 	}
+
+	public void setScale(double scale) { this.scaleX = scale; this.scaleY = scale; }
 
 	public double getScaleY() {
 		return scaleY;
@@ -318,11 +362,11 @@ public class DisplayObject {
 		this.scaleY = scaleY;
 	}
 
-	public int getRotation() {
+	public float getRotation() {
 		return rotation;
 	}
 
-	public void setRotation(int rotation) {
+	public void setRotation(float rotation) {
 		this.rotation = rotation;
 	}
 
@@ -333,5 +377,6 @@ public class DisplayObject {
 	public void setAlpha(float alpha) {
 		this.alpha = alpha;
 	}
+
 
 }

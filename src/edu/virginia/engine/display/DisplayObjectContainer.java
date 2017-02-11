@@ -48,11 +48,13 @@ public class DisplayObjectContainer extends DisplayObject{
 
     /*Returns true if child successfully added, false if not*/
     public boolean addChild(DisplayObject d) {
+        d.setParent(this);
         return children.add(d);
     }
 
     /*Returns true if child successfully added, false if not*/
     public void addChildAtIndex(DisplayObject d, int index) {
+        d.setParent(this);
         children.add(index, d);
     }
 

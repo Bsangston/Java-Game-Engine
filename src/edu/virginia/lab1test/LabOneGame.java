@@ -6,14 +6,15 @@
 
 package edu.virginia.lab1test;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
 import edu.virginia.engine.util.GameClock;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * Example game that utilizes our engine. We can create a simple prototype game with just a couple lines of code

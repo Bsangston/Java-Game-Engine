@@ -20,11 +20,14 @@ public class Sprite extends DisplayObjectContainer {
 
 	public Sprite(String id, String imageFileName) {
 		super(id, imageFileName);
+		centerPivot();
 	}
 
 	public Sprite(String id, int index) {
 		super(id);
-		if (global_sprites != null) { setImage(global_sprites[index]); }
+		if (global_sprites != null) {
+			setImage(global_sprites[index]);
+		}
 	}
 
 	//Reads sprite sheet into BufferedImage array
@@ -50,7 +53,9 @@ public class Sprite extends DisplayObjectContainer {
 	}
 
 	@Override
-	public void update(ArrayList<Integer> pressedKeys) { super.update(pressedKeys);
-	}
+	public void update(ArrayList<Integer> pressedKeys) { super.update(pressedKeys); }
+
+	@Override
+	public void draw(Graphics g) { super.draw(g); }
 
 }
