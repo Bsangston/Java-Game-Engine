@@ -30,7 +30,7 @@ public class DisplayObject {
 	private boolean facingRight = true;
 
 	/* Display tree functionality */
-	private DisplayObject parent;
+	private DisplayObjectContainer parent;
 
 	/**
 	 * Constructors: can pass in the id OR the id and image's file path and
@@ -273,11 +273,11 @@ public class DisplayObject {
 
 
 
-	public void setParent(DisplayObject parent) {
+	public void setParent(DisplayObjectContainer parent) {
 		this.parent = parent;
 	}
 
-	public DisplayObject getParent() {
+	public DisplayObjectContainer getParent() {
 		return parent;
 	}
 

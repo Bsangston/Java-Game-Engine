@@ -10,6 +10,7 @@ import edu.virginia.engine.display.*;
 import edu.virginia.engine.util.GameClock;
 import sun.awt.image.BufferedImageDevice;
 
+import javax.sound.midi.MidiSystem;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -26,11 +27,18 @@ import java.util.ArrayList;
  * */
 public class LabThreeGame extends Game {
 
-    BufferedImage planetSprites = readImage("PLANETS.png");
-
     DisplayObjectContainer SolarSystem = new DisplayObjectContainer("Solar System");
     DisplayObjectContainer Planets = new DisplayObjectContainer("Planets");
     DisplayObject Background = new DisplayObject("Background", "space_background.png");
+
+    DisplayObjectContainer p1= new DisplayObjectContainer("p1");
+    DisplayObjectContainer p2= new DisplayObjectContainer("p2");
+    DisplayObjectContainer p3= new DisplayObjectContainer("p3");
+    DisplayObjectContainer p4= new DisplayObjectContainer("p4");
+    DisplayObjectContainer p5= new DisplayObjectContainer("p5");
+    DisplayObjectContainer p6= new DisplayObjectContainer("p6");
+    DisplayObjectContainer p7= new DisplayObjectContainer("p7");
+    DisplayObjectContainer p8= new DisplayObjectContainer("p8");
 
     Sprite sun = new Sprite("Sun", "sun.png");
     Sprite mercury = new Sprite("Mercury","mercury.png");
@@ -42,11 +50,12 @@ public class LabThreeGame extends Game {
     Sprite uranus = new Sprite("Uranus","uranus.png");
     Sprite neptune = new Sprite("Neptune","neptune.png");
 
-    Sprite[] planets;
+    Sprite moon = new Sprite("Moon", "moon.png");
+    Sprite iaepetus = new Sprite("Iaepetus", "iaepetus.png");
+    Sprite ganymede = new Sprite("Ganymede", "ganymede.png");
 
     int speed = 1;
-    float rotSpeed = 0.1f;
-    int frameClock = 0;
+    float rotSpeed = 0.05f;
 
     Point center = new Point(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
     int centerX = (int)center.getX();
@@ -70,52 +79,73 @@ public class LabThreeGame extends Game {
         //Create Display Tree Hierarchy
         addChild(Background);
         addChild(SolarSystem);
-
         SolarSystem.addChild(sun);
         SolarSystem.addChild(Planets);
 
-        Planets.addChild(mercury);
-        Planets.addChild(venus);
-        Planets.addChild(earth);
-        Planets.addChild(mars);
-        Planets.addChild(jupiter);
-        Planets.addChild(saturn);
-        Planets.addChild(uranus);
-        Planets.addChild(neptune);
+        //Invisible "sun" for each planet to control different rotation speeds
+        Planets.setPosition(centerX, centerY-sun.getScaledHeight()/2);
+        Planets.centerPivot();
+        Planets.addChild(p1);
+        Planets.addChild(p2);
+        Planets.addChild(p3);
+        Planets.addChild(p4);
+        Planets.addChild(p5);
+        Planets.addChild(p6);
+        Planets.addChild(p7);
+        Planets.addChild(p8);
+
+        //Planets
+        p1.addChild(mercury);
+        p2.addChild(venus);
+        p3.addChild(earth);
+        p4.addChild(mars);
+        p5.addChild(jupiter);
+        p6.addChild(saturn);
+        p7.addChild(uranus);
+        p8.addChild(neptune);
+
+        //Moons
+        earth.addChild(moon);
+        jupiter.addChild(ganymede);
+        saturn.addChild(iaepetus);
+
+
+        for (DisplayObject p : Planets.getChildren()) {
+            p.setPosition(sun.getPosition());
+            p.setPivot(sun.getPivot());
+        }
 
         sun.setScale(1);
-        Point oldPos = sun.getPosition();
-        SolarSystem.setScale(0.075);
-        sun.setPosition(oldPos);
+        SolarSystem.setScale(0.1);
+        Planets.setPosition(centerX, centerY-sun.getScaledHeight()/2);
 
-        System.out.println(SolarSystem.getGlobalPosition());
-        System.out.println(sun.getGlobalPosition());
-
-        planets = new Sprite[]{mercury, venus, earth, mars, jupiter, saturn, uranus, neptune};
-
-        mercury.setPosX(-100);
+        mercury.setPosition(centerX - sun.getScaledWidth(), centerY + sun.getScaledHeight());
         mercury.setScale(0.25);
 
-        venus.setPosX(1000);
-        venus.setScale(0.25);
+        venus.setPosition(centerX - sun.getScaledWidth()*2, centerY - sun.getScaledHeight()*2);
+        venus.setScale(0.2);
 
-        earth.setPosition(-1200, 1200);
+        earth.setPosition(centerX - sun.getScaledWidth()*3, centerY + sun.getScaledHeight()*3);
         earth.setScale(0.45);
 
-        mars.setPosition(1500, -1500);
-        mars.setScale(0.15);
+        mars.setPosition(centerX + sun.getScaledWidth()*2, centerY - sun.getScaledHeight()*4);
+        mars.setScale(0.2);
 
-        jupiter.setPosition(1750, 2500);
-        jupiter.setScale(4);
+        jupiter.setPosition(centerX, centerY + sun.getScaledHeight()*8);
+        jupiter.setScale(5);
+        ganymede.setScale(0.2);
+        ganymede.setPosX(ganymede.getPosX() - ganymede.getScaledWidth()/4);
 
-        saturn.setPosition(centerX-500, -4000);
-        saturn.setScale(3);
+        saturn.setPosition(centerX, centerY - sun.getScaledHeight()*12);
+        saturn.setScale(5);
+        iaepetus.setScale(0.125);
+        iaepetus.setPosX(saturn.getPosX() - iaepetus.getScaledWidth()/4);
 
-        uranus.setPosition(centerX-2000, -4500);
-        uranus.setScale(3);
+        uranus.setPosition(centerX - sun.getScaledWidth()*20, centerY);
+        uranus.setScale(8);
 
-        neptune.setPosition(-5000, 0);
-        neptune.setScale(1.5);
+        neptune.setPosition(centerX + sun.getScaledWidth()*25, centerY);
+        neptune.setScale(3);
 
 
 
@@ -129,56 +159,101 @@ public class LabThreeGame extends Game {
     public void update(ArrayList<Integer> pressedKeys) {
         super.update(pressedKeys);
 
+        if (Planets != null ) Planets.setPosition(Planets.getPosX(), Planets.getPosY() + 20);
+
         if (pressedKeys.size() > 0) {
 
+            //Transform
+            if (pressedKeys.contains(KeyEvent.VK_LEFT)) { //move right
+                setPosX(getPosX() + speed);
+            }
+            if (pressedKeys.contains(KeyEvent.VK_RIGHT)) { //move left
+                setPosX(getPosX() - speed);
+            }
+            if (pressedKeys.contains(KeyEvent.VK_DOWN)) { //move up
+                setPosY(getPosY() - speed);
+            }
+            if (pressedKeys.contains(KeyEvent.VK_UP)) { //move down
+                setPosY(getPosY() + speed);
+
+            }
+
             if (SolarSystem != null) {
+
                 //Scale
                 if (pressedKeys.contains(KeyEvent.VK_W)) { //scale up
-                        SolarSystem.setScale(SolarSystem.getScale() * 1.01);
+                    SolarSystem.setScale(SolarSystem.getScale() * 1.01);
 
                 }
                 if (pressedKeys.contains(KeyEvent.VK_Q)) { //scale down
-                        SolarSystem.setScale(SolarSystem.getScale() * 0.99);
+                    SolarSystem.setScale(SolarSystem.getScale() * 0.99);
 
                 }
 
+                if (pressedKeys.contains(KeyEvent.VK_S)) { //rotate counterclockwise
+                    SolarSystem.setRotation(SolarSystem.getRotation() + 0.25f);
+
+                }
+                if (pressedKeys.contains(KeyEvent.VK_A)) { //rotate clockwise
+                    SolarSystem.setRotation(SolarSystem.getRotation() - 0.25f);
+
+                }
             }
+            if (Background != null) {
+                if (pressedKeys.contains(KeyEvent.VK_S)) { //rotate counterclockwise
+                    Background.setRotation(Background.getRotation() - 0.01f);
+
+                }
+                if (pressedKeys.contains(KeyEvent.VK_A)) { //rotate clockwise
+                    Background.setRotation(Background.getRotation() + 0.01f);
+
+                }
+            }
+
         }
+
+        if (Planets != null ) Planets.setPosition(Planets.getPosX(), Planets.getPosY() + 20);
 
         if (SolarSystem != null) {
             SolarSystem.setRotation(SolarSystem.getRotation() + rotSpeed);
-            sun.setRotation(sun.getRotation() + rotSpeed);
-            mercury.setRotation(mercury.getRotation() + rotSpeed*3f);
-            venus.setRotation(venus.getRotation() + rotSpeed*2);
-            mars.setRotation(mars.getRotation() + rotSpeed*2.25f);
-            earth.setRotation(earth.getRotation() + rotSpeed*3f);
-            jupiter.setRotation(jupiter.getRotation() + rotSpeed*2f);
-            saturn.setRotation(saturn.getRotation() + rotSpeed*3f);
-            uranus.setRotation(uranus.getRotation() + rotSpeed*4f);
-            neptune.setRotation(neptune.getRotation() + rotSpeed*2f);
+
+            if (sun != null) sun.setRotation(sun.getRotation() + rotSpeed);
+
+            if (p1 != null) p1.setRotation(p1.getRotation() + rotSpeed * 3f);
+            if (p2 != null) p2.setRotation(p2.getRotation() + rotSpeed * 2.5f);
+            if (p3 != null) p3.setRotation(p3.getRotation() + rotSpeed * 2f);
+            if (p4 != null) p4.setRotation(p4.getRotation() + rotSpeed * 1.25f);
+            if (p5 != null) p5.setRotation(p5.getRotation() + rotSpeed * 1.15f);
+            if (p6 != null) p6.setRotation(p6.getRotation() + rotSpeed * 0.9f);
+            if (p7 != null) p7.setRotation(p7.getRotation() + rotSpeed * 0.75f);
+            if (p8 != null) p8.setRotation(p8.getRotation() + rotSpeed * 0.5f);
+
+            if (mercury != null) mercury.setRotation(mercury.getRotation() + rotSpeed * 5f);
+            if (venus != null) venus.setRotation(venus.getRotation() + rotSpeed * 4f);
+            if (earth != null) earth.setRotation(earth.getRotation() + rotSpeed * 3f);
+            if (moon != null) moon.setRotation(moon.getRotation() + rotSpeed * 2f);
+            if (mars != null) mars.setRotation(mars.getRotation() + rotSpeed * 1.25f);
+            if (jupiter != null) jupiter.setRotation(jupiter.getRotation() + rotSpeed * 1.75f);
+            if (saturn != null) saturn.setRotation(saturn.getRotation() + rotSpeed * 3f);
+            if (uranus != null) uranus.setRotation(uranus.getRotation() + rotSpeed * 2.5f);
+            if (neptune != null) neptune.setRotation(neptune.getRotation() + rotSpeed * 2.2f);
 
 
-            //TODO: fix elliptical & different rotation speeds
-//            speed = 1;
-//            for (Sprite p : planets) {
-//                p.setPosition(p.getPosX() + 1/speed, p.getPosY() + 1/speed);
-//                speed++;
-//            }
-//            speed = 1;
+            //Elliptical orbits
+            if (Planets != null ) Planets.setPosition(Planets.getPosX(), Planets.getPosY() - 40);
 
-        }
 
-        if (Background != null) {
-            Background.setRotation(Background.getRotation() + 0.0075f);
-        }
+            if (Background != null) {
+                Background.setRotation(Background.getRotation() + 0.0075f);
+            }
 
             //Exit game
-        if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
-            exitGame();
-            closeGame();
-        }
+            if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
+                exitGame();
+                closeGame();
+            }
 
-        frameClock++;
+        }
     }
 
     /**

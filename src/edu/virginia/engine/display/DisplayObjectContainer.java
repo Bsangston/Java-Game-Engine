@@ -49,6 +49,9 @@ public class DisplayObjectContainer extends DisplayObject{
     /*Returns true if child successfully added, false if not*/
     public boolean addChild(DisplayObject d) {
         d.setParent(this);
+        if (contains(d)) {
+
+        }
         return children.add(d);
     }
 
@@ -107,4 +110,9 @@ public class DisplayObjectContainer extends DisplayObject{
     public DisplayObject getChild(int index) {
         return children.get(index);
     }
+
+    public boolean hasChildren() {
+        return !children.isEmpty();
+    }
+
 }
