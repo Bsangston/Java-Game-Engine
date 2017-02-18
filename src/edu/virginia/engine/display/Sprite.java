@@ -52,6 +52,28 @@ public class Sprite extends DisplayObjectContainer {
 		global_sprites = parseSpriteSheet(sprite_sheet, cols, rows);
 	}
 
+	public boolean onTriggerEnter(DisplayObject other) {
+		return (other.getPosY() <= getPosY()+getScaledHeight()/2 && other.getPosY() >= getPosY()-getScaledHeight()/2)
+				&& (other.getPosX() <= getPosX() + getScaledWidth()/2
+				&& other.getPosX() >= getPosX()-getScaledWidth()/2);
+	}
+
+	public boolean onTriggerExit(DisplayObject other) {
+		if (onTriggerEnter(other)) {
+			return (other.getPosY() > getPosY()+getScaledHeight()/2 && other.getPosY() < getPosY()-getScaledHeight()/2)
+					&& (other.getPosX() > getPosX() + getScaledWidth()/2
+					&& other.getPosX() < getPosX()-getScaledWidth()/2);
+		}
+		return false;
+	}
+
+	public boolean inBounds(Game game) {
+		return getPosX() <= game.getMainFrame().getWidth() - getScaledWidth()/2 &&
+				getPosX() >= getScaledWidth()/2 && getPosY() >= getScaledHeight()/2 &&
+				getPosY() <= game.getMainFrame().getHeight() - getScaledHeight()/2;
+	}
+
+
 	@Override
 	public void update(ArrayList<Integer> pressedKeys) { super.update(pressedKeys); }
 

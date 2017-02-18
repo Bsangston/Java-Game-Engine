@@ -1,8 +1,9 @@
 package edu.virginia.engine.display;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import edu.virginia.engine.events.*;
+import edu.virginia.engine.events.Event;
+
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -32,6 +33,11 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	protected ArrayList<MouseEvent> mouseEvents = new ArrayList<MouseEvent>();
 	protected double mouse_x, mouse_y;
 
+	/* Center point of game scene for convenience */
+	protected Point center;
+	protected int centerX;
+	protected int centerY;
+
 	public Game(String gameId, int width, int height) {
 		super(gameId);
 		
@@ -41,6 +47,10 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		
 		/* Use an absolute layout */
 		scenePanel.setLayout(null);
+
+		center = new Point(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
+		centerX = (int)center.getX();
+		centerY = (int)center.getY();
 
 	}
 	

@@ -1,5 +1,7 @@
 package edu.virginia.engine.display;
 
+import edu.virginia.engine.events.EventDispatcher;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -13,7 +15,7 @@ import javax.imageio.ImageIO;
  * A very basic display object for a java based gaming engine
  * 
  * */
-public class DisplayObject {
+public class DisplayObject extends EventDispatcher{
 
 	/* All DisplayObject have a unique id */
 	private String id;
@@ -37,6 +39,7 @@ public class DisplayObject {
 	 * position OR the id and a buffered image and position
 	 */
 	public DisplayObject(String id) {
+		super();
 		this.setId(id);
 		visible = false;
 		position = new Point(0,0);
@@ -44,11 +47,13 @@ public class DisplayObject {
 	}
 
 	public DisplayObject(String id, String fileName) {
+		super();
 		this.setId(id);
 		this.setImage(fileName);
 		visible = true;
-		position = new Point(0,0);
+		position = new Point(getUnscaledWidth()/2, getUnscaledHeight());
 		pivot = new Point(position);
+
 	}
 
 	public void setId(String id) {
@@ -125,7 +130,7 @@ public class DisplayObject {
 	 * to update objects appropriately.
 	 * */
 	protected void update(ArrayList<Integer> pressedKeys) {
-		
+
 	}
 
 	/**
@@ -167,9 +172,8 @@ public class DisplayObject {
 
 		g2d.translate(position.getX(), position.getY());
 
-		//g2d.translate(getUnscaledWidth()/2, getUnscaledHeight());
 		g2d.scale(scaleX, scaleY);
-		//g2d.translate(getUnscaledWidth()/2, getUnscaledHeight());
+		g2d.translate(-getUnscaledWidth() / 2, -getUnscaledHeight() / 2);
 
 		AlphaComposite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 		g2d.setComposite(comp);
@@ -190,18 +194,15 @@ public class DisplayObject {
 		AlphaComposite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
 		g2d.setComposite(comp);
 
-		//g2d.translate(-getUnscaledWidth()/2, -getUnscaledWidth()/2);
+		g2d.translate(getUnscaledWidth()/2, getUnscaledHeight()/2);
 		g2d.scale(1/scaleX, 1/scaleY);
-		//g2d.translate(getUnscaledWidth()/2, getUnscaledWidth()/2);
 
 		g2d.translate(-position.getX(), -position.getY());
-
 
 	}
 
 	public void flip() {
 		setScaleX(-getScaleX());
-		setPosX(getPosX() - getScaledWidth());
 		facingRight = !facingRight;
 	}
 
@@ -210,15 +211,9 @@ public class DisplayObject {
 	}
 
 	public boolean wasClicked(double mouse_x, double mouse_y) {
-		if (mouse_y > getPosY() && mouse_y < getScaledHeight() + getPosY()) {
-			if (facingRight) {
-				if (mouse_x > getPosX() && mouse_x < getScaledWidth() + getPosX()) {
-					return true;
-				}
-			} else {
-				if (mouse_x < getPosX() && mouse_x > getScaledWidth() + getPosX()) {
-					return true;
-				}
+		if (mouse_y <= getPosY()+getScaledHeight()/2 && mouse_y >= getPosY()-getScaledHeight()/2) {
+			if (mouse_x <= getPosX() + getScaledWidth()/2 && mouse_x >= getPosX()-getScaledWidth()/2) {
+				return true;
 			}
 		}
 		return false;

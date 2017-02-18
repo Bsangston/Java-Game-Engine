@@ -159,6 +159,7 @@ public class LabThreeGame extends Game {
     public void update(ArrayList<Integer> pressedKeys) {
         super.update(pressedKeys);
 
+        //Elliptical orbits
         if (Planets != null ) Planets.setPosition(Planets.getPosX(), Planets.getPosY() + 20);
 
         if (pressedKeys.size() > 0) {
@@ -212,6 +213,7 @@ public class LabThreeGame extends Game {
 
         }
 
+        //Elliptical orbits
         if (Planets != null ) Planets.setPosition(Planets.getPosX(), Planets.getPosY() + 20);
 
         if (SolarSystem != null) {

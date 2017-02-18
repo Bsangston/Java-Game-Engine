@@ -30,6 +30,10 @@ public class LabOneGame extends Game {
 	boolean player1Win = false, player2Win = false;
 	GameClock gameClock = new GameClock();
 
+	Point center = new Point(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
+	int centerX = (int)center.getX();
+	int centerY = (int)center.getY();
+
 	//AnimatedSprite implementation
 	AnimatedSprite mario = new AnimatedSprite("Mario", "bigmario_sprites.png", 4, 2);
 
@@ -41,6 +45,8 @@ public class LabOneGame extends Game {
 
 		mario.addNewAnimation("idle", new int[] {0});
 		mario.addNewAnimation("run", new int[] {1,2,3,4});
+		mario.centerPivot();
+		mario.setPosition(center);
 		mario.setScaleX(0.5);
 		mario.setScaleY(0.5);
 		mario.setAnim("idle");
