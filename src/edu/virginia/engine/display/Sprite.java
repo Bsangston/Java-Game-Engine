@@ -53,16 +53,24 @@ public class Sprite extends DisplayObjectContainer {
 	}
 
 	public boolean onTriggerEnter(DisplayObject other) {
+		int flipped = 1;
+		if (!isFacingRight()) {
+			flipped = -1;
+		}
 		return (other.getPosY() <= getPosY()+getScaledHeight()/2 && other.getPosY() >= getPosY()-getScaledHeight()/2)
-				&& (other.getPosX() <= getPosX() + getScaledWidth()/2
-				&& other.getPosX() >= getPosX()-getScaledWidth()/2);
+				&& (other.getPosX() <= getPosX() + flipped*getScaledWidth()/2
+				&& other.getPosX() >= getPosX() - flipped*getScaledWidth()/2);
 	}
 
 	public boolean onTriggerExit(DisplayObject other) {
 		if (onTriggerEnter(other)) {
+			int flipped = 1;
+			if (!isFacingRight()) {
+				flipped = -1;
+			}
 			return (other.getPosY() > getPosY()+getScaledHeight()/2 && other.getPosY() < getPosY()-getScaledHeight()/2)
-					&& (other.getPosX() > getPosX() + getScaledWidth()/2
-					&& other.getPosX() < getPosX()-getScaledWidth()/2);
+					&& (other.getPosX() > getPosX() + flipped * getScaledWidth()/2
+					&& other.getPosX() < getPosX() - flipped * getScaledWidth()/2);
 		}
 		return false;
 	}
