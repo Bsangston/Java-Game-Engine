@@ -55,13 +55,9 @@ public class Sprite extends DisplayObjectContainer {
 	}
 
 	public boolean onTriggerEnter(Sprite other) {
-		int flipped = 1;
-		if (!isFacingRight()) {
-			flipped = -1;
-		}
 		if ((other.getPosY() <= getPosY()+getScaledHeight()/2 && other.getPosY() >= getPosY()-getScaledHeight()/2)
-				&& (other.getPosX() <= getPosX() + flipped*getScaledWidth()/2
-				&& other.getPosX() >= getPosX() - flipped*getScaledWidth()/2)) {
+				&& (other.getPosX() <= getPosX() + getScaledWidth()/2
+				&& other.getPosX() >= getPosX() - getScaledWidth()/2)) {
 			return true;
 		}
 		return false;

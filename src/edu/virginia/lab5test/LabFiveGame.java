@@ -44,7 +44,7 @@ public class LabFiveGame extends Game {
         mario.setAnimSpeed(speed/2);
 
         //Physics
-        //mario.addRigidBody2D();
+        mario.addRigidBody2D();
 
         coin.addNewAnimation("spin", new int[] {0,1,2,3,4,5,6,7,8,9});
         coin.centerPivot();
@@ -117,8 +117,8 @@ public class LabFiveGame extends Game {
 
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
                 if (mario != null && platform1 != null) {
-                    //System.out.println("Mario " +mario.getHitbox());
-                    //System.out.println("Platform "+platform1.getHitbox());
+                    System.out.println("Mario " +mario.getHitbox());
+                    System.out.println("Platform "+platform1.getHitbox());
                 }
             }
 
@@ -142,7 +142,7 @@ public class LabFiveGame extends Game {
 
         if (mario != null && platform1 != null) {
             if (mario.collidesWith(platform1)) {
-                mario.dispatchEvent(new Collision(mario, platform1));
+                mario.dispatchEvent(new Collision(Collision.GROUND, mario, platform1));
             }
         }
 
@@ -187,7 +187,7 @@ public class LabFiveGame extends Game {
     }
 
     private boolean inBoundsLeft(Sprite s) {
-        return (!s.isFacingRight() && s.getPosX() >= -s.getScaledWidth()/2) ||
+        return (!s.isFacingRight() && s.getPosX() >= s.getScaledWidth()/2) ||
                 (s.isFacingRight() && s.getPosX() >= s.getScaledWidth()/2);
     }
 

@@ -224,8 +224,9 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		
 	}
 
+	//TODO: expand collision resolution capabilities
 	public void resolveCollision(DisplayObject s, DisplayObject other) {
-
+		s.setPosY(other.getTop() - s.halfHeight());
 	}
 
 	public boolean detectCollisions(DisplayObject collider, DisplayObject collidee) {
@@ -237,7 +238,6 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		if (event instanceof Collision) {
 			Collision collision = (Collision)event;
 			resolveCollision((DisplayObject)collision.getSource(), collision.getCollidee());
-			System.out.println("Collision");
 		}
 	}
 }

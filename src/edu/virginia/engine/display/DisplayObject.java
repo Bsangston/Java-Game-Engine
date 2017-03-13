@@ -91,8 +91,12 @@ public class DisplayObject extends EventDispatcher {
 	}
 
 	public int getScaledWidth() {
+		int flipped = 1;
+		if (!isFacingRight()) {
+			flipped = -1;
+		}
 		if(displayImage == null) return 0;
-		return (int)(displayImage.getWidth()*scaleX);
+		return (int)(flipped*displayImage.getWidth()*scaleX);
 	}
 
 	public int getScaledHeight() {
@@ -282,20 +286,17 @@ public class DisplayObject extends EventDispatcher {
 	}
 
 	public boolean collidesWith(DisplayObject other) {
-		Rectangle hitbox_global = new Rectangle(hitbox);
-		hitbox_global.x = (int)(hitbox.x + position.x + halfWidth());
-		hitbox_global.y = (int)(hitbox.y + position.y + halfHeight());
-
-		Rectangle other_global = new Rectangle(other.getHitbox());
-		other_global.x = other.getHitbox().x + other.getPosX() + other.halfWidth();
-		other_global.y = other.getHitbox().y + other.getPosY() + other.halfHeight();
-
-		return hitbox_global.intersects(other_global);
-
+		return this.getHitbox().intersects(other.getHitbox());
 	}
 
 	public Rectangle getHitbox() {
-		return hitbox;
+		//Calculate global hitbox
+		Rectangle hitbox_global = new Rectangle(hitbox);
+		hitbox_global.x = (int)(hitbox.x + position.x - halfWidth());
+		hitbox_global.y = (int)(hitbox.y + position.y - halfHeight());
+		hitbox_global.width = getScaledWidth();
+		hitbox_global.height = getScaledHeight();
+		return hitbox_global;
 	}
 
 
@@ -432,19 +433,19 @@ public class DisplayObject extends EventDispatcher {
 	}
 
 	public int getTop() {
-		return hitbox.y;
+		return getHitbox().y;
 	}
 
 	public int getBottom() {
-		return hitbox.y + getScaledHeight();
+		return getHitbox().y + getHitbox().height;
 	}
 
 	public int getLeft() {
-		return hitbox.x;
+		return getHitbox().x;
 	}
 
 	public int getRight() {
-		return hitbox.x + getScaledWidth();
+		return getHitbox().x + getHitbox().width;
 	}
 
 	public boolean isCollidable() {
