@@ -15,7 +15,7 @@ import javax.swing.Timer;
  * Highest level class for creating a game in Java.
  * 
  * */
-public class Game extends DisplayObjectContainer implements ActionListener, KeyListener {
+public class Game extends DisplayObjectContainer implements ActionListener, KeyListener, IEventListener {
 
 	/* Frames per second this game runs at */
 	private int FRAMES_PER_SEC = 60;
@@ -37,6 +37,9 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	protected Point center;
 	protected int centerX;
 	protected int centerY;
+	private static double STICKY_THRESHOLD = 0.0004;
+
+	/* Collision handling */
 
 	public Game(String gameId, int width, int height) {
 		super(gameId);
@@ -73,6 +76,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		});
 		getMainFrame().addKeyListener(this);
 		getMainFrame().addMouseListener(new MouseAdapter() {
+
 
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -171,7 +175,8 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 			e.printStackTrace();
 		}
 	}
-	
+
+
 	@Override
 	public void draw(Graphics g){
 		/* Start with no transparency */
@@ -219,4 +224,20 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		
 	}
 
+	public void resolveCollision(DisplayObject s, DisplayObject other) {
+
+	}
+
+	public boolean detectCollisions(DisplayObject collider, DisplayObject collidee) {
+		return collider.collidesWith(collidee);
+	}
+
+	@Override
+	public void handleEvent(Event event) {
+		if (event instanceof Collision) {
+			Collision collision = (Collision)event;
+			resolveCollision((DisplayObject)collision.getSource(), collision.getCollidee());
+			System.out.println("Collision");
+		}
+	}
 }

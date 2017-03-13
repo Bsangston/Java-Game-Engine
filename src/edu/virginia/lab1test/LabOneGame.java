@@ -9,6 +9,7 @@ package edu.virginia.lab1test;
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
+import edu.virginia.engine.display.Vector2D;
 import edu.virginia.engine.util.GameClock;
 
 import java.awt.*;
@@ -30,7 +31,7 @@ public class LabOneGame extends Game {
 	boolean player1Win = false, player2Win = false;
 	GameClock gameClock = new GameClock();
 
-	Point center = new Point(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
+	Vector2D center = new Vector2D(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
 	int centerX = (int)center.getX();
 	int centerY = (int)center.getY();
 

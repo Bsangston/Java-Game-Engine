@@ -29,6 +29,8 @@ public class AnimatedSprite extends Sprite {
         frameList = parseSpriteSheet(super.getDisplayImage(), cols, rows);
         super.setImage(frameList[0]);
         frames = new HashMap<String, int[]>();
+
+        setHitbox(0,0, getDisplayImage().getWidth(), getDisplayImage().getHeight());
     }
 
     @Override

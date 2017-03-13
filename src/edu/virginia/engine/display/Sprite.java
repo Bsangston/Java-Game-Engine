@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * */
 public class Sprite extends DisplayObjectContainer {
 
+	private static float jumpForce = 10f;
+
 	protected static BufferedImage[] global_sprites;
 
 	public Sprite(String id) {
@@ -52,28 +54,35 @@ public class Sprite extends DisplayObjectContainer {
 		global_sprites = parseSpriteSheet(sprite_sheet, cols, rows);
 	}
 
-	public boolean onTriggerEnter(DisplayObject other) {
+	public boolean onTriggerEnter(Sprite other) {
 		int flipped = 1;
 		if (!isFacingRight()) {
 			flipped = -1;
 		}
-		return (other.getPosY() <= getPosY()+getScaledHeight()/2 && other.getPosY() >= getPosY()-getScaledHeight()/2)
+		if ((other.getPosY() <= getPosY()+getScaledHeight()/2 && other.getPosY() >= getPosY()-getScaledHeight()/2)
 				&& (other.getPosX() <= getPosX() + flipped*getScaledWidth()/2
-				&& other.getPosX() >= getPosX() - flipped*getScaledWidth()/2);
+				&& other.getPosX() >= getPosX() - flipped*getScaledWidth()/2)) {
+			return true;
+		}
+		return false;
 	}
 
-	public boolean onTriggerExit(DisplayObject other) {
+	public boolean onTriggerExit(Sprite other) {
 		if (onTriggerEnter(other)) {
 			int flipped = 1;
 			if (!isFacingRight()) {
 				flipped = -1;
 			}
-			return (other.getPosY() > getPosY()+getScaledHeight()/2 && other.getPosY() < getPosY()-getScaledHeight()/2)
+			if ((other.getPosY() > getPosY()+getScaledHeight()/2 && other.getPosY() < getPosY()-getScaledHeight()/2)
 					&& (other.getPosX() > getPosX() + flipped * getScaledWidth()/2
-					&& other.getPosX() < getPosX() - flipped * getScaledWidth()/2);
+					&& other.getPosX() < getPosX() - flipped * getScaledWidth()/2)) {
+				return true;
+			}
 		}
 		return false;
 	}
+
+
 
 	public boolean inBounds(Game game) {
 		return getPosX() <= game.getMainFrame().getWidth() - getScaledWidth()/2 &&
@@ -81,9 +90,16 @@ public class Sprite extends DisplayObjectContainer {
 				getPosY() <= game.getMainFrame().getHeight() - getScaledHeight()/2;
 	}
 
+	public void jump() {
+		if (rb2d != null) {
+			rb2d.applyForce(new Vector2D(0, jumpForce));
+		}
+	}
 
 	@Override
-	public void update(ArrayList<Integer> pressedKeys) { super.update(pressedKeys); }
+	public void update(ArrayList<Integer> pressedKeys) {
+		super.update(pressedKeys);
+	}
 
 	@Override
 	public void draw(Graphics g) { super.draw(g); }

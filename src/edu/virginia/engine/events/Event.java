@@ -6,8 +6,8 @@ package edu.virginia.engine.events;
 public class Event {
 
     public static final String COIN_PICKED_UP = "COIN_PICKED_UP";
-    public static final String QUEST_COMPLETE= "QUEST_COMPLETE";
-
+    public static final String QUEST_COMPLETE = "QUEST_COMPLETE";
+    public static final String COLLISION = "COLLISION";
 
     private String eventType;
     private IEventDispatcher source; //the object that created this event

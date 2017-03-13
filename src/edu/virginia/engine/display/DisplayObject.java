@@ -1,6 +1,7 @@
 package edu.virginia.engine.display;
 
-import edu.virginia.engine.events.EventDispatcher;
+import edu.virginia.engine.events.*;
+import edu.virginia.engine.events.Event;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -15,7 +16,7 @@ import javax.imageio.ImageIO;
  * A very basic display object for a java based gaming engine
  * 
  * */
-public class DisplayObject extends EventDispatcher{
+public class DisplayObject extends EventDispatcher {
 
 	/* All DisplayObject have a unique id */
 	private String id;
@@ -23,16 +24,25 @@ public class DisplayObject extends EventDispatcher{
 	/* The image that is displayed by this object */
 	private BufferedImage displayImage;
 	private boolean visible;
-	private Point position;
-	private Point pivot;
+	private Vector2D position;
+	private Vector2D pivot;
+	private float rotation = 0f; //in degrees
 	private double scaleX = 1;
 	private double scaleY = 1;
-	private float rotation = 0f; //in degrees
 	private float alpha = 1.0f;
 	private boolean facingRight = true;
 
 	/* Display tree functionality */
 	private DisplayObjectContainer parent;
+
+	/* Collision detection */
+	private Rectangle hitbox;
+	private boolean collidable;
+
+	/* Physics */
+	private boolean hasRigidBody = false;
+	protected RigidBody2D rb2d;
+
 
 	/**
 	 * Constructors: can pass in the id OR the id and image's file path and
@@ -42,8 +52,8 @@ public class DisplayObject extends EventDispatcher{
 		super();
 		this.setId(id);
 		visible = false;
-		position = new Point(0,0);
-		pivot = new Point(position);
+		position = new Vector2D(0,0);
+		pivot = new Vector2D(position);
 	}
 
 	public DisplayObject(String id, String fileName) {
@@ -51,8 +61,10 @@ public class DisplayObject extends EventDispatcher{
 		this.setId(id);
 		this.setImage(fileName);
 		visible = true;
-		position = new Point(getUnscaledWidth()/2, getUnscaledHeight());
-		pivot = new Point(position);
+		position = new Vector2D(getUnscaledWidth()/2, getUnscaledHeight()/2);
+		pivot = new Vector2D(position);
+
+		hitbox = new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight());
 
 	}
 
@@ -130,7 +142,9 @@ public class DisplayObject extends EventDispatcher{
 	 * to update objects appropriately.
 	 * */
 	protected void update(ArrayList<Integer> pressedKeys) {
-
+		if (hasRigidBody) {
+			rb2d.applyConstantForces();
+		}
 	}
 
 	/**
@@ -155,6 +169,7 @@ public class DisplayObject extends EventDispatcher{
 				//g2d.drawRect(getPivotX() - 10, getPivotY() - 10, 20, 20); //for pivot point debugging
 
 			}
+			g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 			/*
 			 * undo the transformations so this doesn't affect other display
 			 * objects
@@ -255,7 +270,7 @@ public class DisplayObject extends EventDispatcher{
 		setPosition(getPosX() - getPivotX(),getPosY() - getPivotY());
 	}
 
-	public Point getGlobalPosition() {
+	public Vector2D getGlobalPosition() {
 		int x = getPosX(), y = getPosY();
 		DisplayObject p = parent;
 		while (p != null) {
@@ -263,10 +278,56 @@ public class DisplayObject extends EventDispatcher{
 			y += p.getPosY() + getPosY();
 			p = p.getParent();
 		}
-		return new Point(x, y);
+		return new Vector2D(x, y);
+	}
+
+	public boolean collidesWith(DisplayObject other) {
+		Rectangle hitbox_global = new Rectangle(hitbox);
+		hitbox_global.x = (int)(hitbox.x + position.x + halfWidth());
+		hitbox_global.y = (int)(hitbox.y + position.y + halfHeight());
+
+		Rectangle other_global = new Rectangle(other.getHitbox());
+		other_global.x = other.getHitbox().x + other.getPosX() + other.halfWidth();
+		other_global.y = other.getHitbox().y + other.getPosY() + other.halfHeight();
+
+		return hitbox_global.intersects(other_global);
+
+	}
+
+	public Rectangle getHitbox() {
+		return hitbox;
 	}
 
 
+	public void setHitbox(int x, int y, int width, int height) {
+		hitbox.setBounds(x, y, width, height);
+	}
+
+	public void addRigidBody2D() {
+		this.rb2d = new RigidBody2D(this);
+		hasRigidBody = true;
+	}
+
+	public RigidBody2D getRigidBody() {
+		return rb2d;
+	}
+
+	public void removeRigidBody2D() {
+		this.rb2d = null;
+		hasRigidBody = false;
+	}
+
+	public int halfWidth() {
+		return getScaledWidth()/2;
+	}
+
+	public int halfHeight() {
+		return getScaledHeight()/2;
+	}
+
+	public boolean hasRigidBody() {
+		return hasRigidBody;
+	}
 
 	public void setParent(DisplayObjectContainer parent) {
 		this.parent = parent;
@@ -286,7 +347,7 @@ public class DisplayObject extends EventDispatcher{
 		this.visible = visible;
 	}
 
-	public Point getPosition() {
+	public Vector2D getPosition() {
 		return position;
 	}
 
@@ -299,20 +360,18 @@ public class DisplayObject extends EventDispatcher{
 	}
 
 	public void setPosition(int x, int y) {
-		position.setLocation(x, y);
+		position.setPosition(x, y);
 	}
 
-	public void setPosition(Point p) { this.position = p; }
+	public void setPosition(Vector2D p) { this.position = p; }
 
 	public void setPosX(int x) {
-		position.setLocation(x, position.getY());
+		position.setX(x);
 	}
 
-	public void setPosY(int y) {
-		position.setLocation(position.getX(), y);
-	}
+	public void setPosY(int y) { position.setY(y); }
 
-	public Point getPivot() {
+	public Vector2D getPivot() {
 		return pivot;
 	}
 
@@ -324,16 +383,16 @@ public class DisplayObject extends EventDispatcher{
 		return (int)pivot.getY();
 	}
 
-	public void setPivot(Point pivot) {
+	public void setPivot(Vector2D pivot) {
 		this.pivot = pivot;
 	}
 
 	public void setPivotX(int x) {
-		pivot.setLocation(x, pivot.getY());
+		pivot.setPosition(x, pivot.getY());
 	}
 
 	public void setPivotY(int y) {
-		pivot.setLocation(pivot.getX(), y);
+		pivot.setPosition(pivot.getX(), y);
 	}
 
 	public double getScale() { return scaleX; }
@@ -341,7 +400,6 @@ public class DisplayObject extends EventDispatcher{
 	public double getScaleX() {
 		return scaleX;
 	}
-
 
 	public void setScaleX(double scaleX) {
 		this.scaleX = scaleX;
@@ -373,5 +431,27 @@ public class DisplayObject extends EventDispatcher{
 		this.alpha = alpha;
 	}
 
+	public int getTop() {
+		return hitbox.y;
+	}
 
+	public int getBottom() {
+		return hitbox.y + getScaledHeight();
+	}
+
+	public int getLeft() {
+		return hitbox.x;
+	}
+
+	public int getRight() {
+		return hitbox.x + getScaledWidth();
+	}
+
+	public boolean isCollidable() {
+		return collidable;
+	}
+
+	public void setCollidable(boolean collidable) {
+		this.collidable = collidable;
+	}
 }
