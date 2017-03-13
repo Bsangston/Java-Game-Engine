@@ -68,6 +68,27 @@ public class DisplayObject extends EventDispatcher {
 
 	}
 
+	public DisplayObject(DisplayObject d) {
+		eventListeners = d.eventListeners;
+		id = d.getId();
+		displayImage = d.getDisplayImage();
+		visible = d.isVisible();
+		position = d.getPosition();
+		pivot = d.getPivot();
+		rotation = d.getRotation();
+		scaleX = d.getScaleX();
+		scaleY = d.getScaleY();
+		alpha = d.getAlpha();
+		facingRight = d.isFacingRight();
+
+		collidable = d.isCollidable();
+		hitbox = d.getLocalHitbox();
+
+		hasRigidBody = d.hasRigidBody();
+		rb2d = d.rb2d;
+
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -173,7 +194,7 @@ public class DisplayObject extends EventDispatcher {
 				//g2d.drawRect(getPivotX() - 10, getPivotY() - 10, 20, 20); //for pivot point debugging
 
 			}
-			g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+			//g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 			/*
 			 * undo the transformations so this doesn't affect other display
 			 * objects
@@ -299,9 +320,16 @@ public class DisplayObject extends EventDispatcher {
 		return hitbox_global;
 	}
 
+	public Rectangle getLocalHitbox() {
+		return hitbox;
+	}
 
 	public void setHitbox(int x, int y, int width, int height) {
 		hitbox.setBounds(x, y, width, height);
+	}
+
+	public void setHitbox(Rectangle hitbox) {
+		this.hitbox = hitbox;
 	}
 
 	public void addRigidBody2D() {
@@ -454,5 +482,10 @@ public class DisplayObject extends EventDispatcher {
 
 	public void setCollidable(boolean collidable) {
 		this.collidable = collidable;
+	}
+
+	public void updatePosition(Vector2D position) {
+		this.position.x += position.x;
+		this.position.y += position.y;
 	}
 }

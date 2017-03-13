@@ -9,14 +9,14 @@ import java.util.ArrayList;
  */
 public class RigidBody2D {
 
-    private static float gravity = 1.03f;
+    private static double gravity = Game.GRAVITY;
     private static Vector2D gravity2D;
     private boolean hasGravity;
 
     public Vector2D velocity;
     public Vector2D acceleration;
-    public float mass;
-    public float restitution;
+    public double mass;
+    public double restitution;
     public ArrayList<Vector2D> constantForces;
 
     private DisplayObject sprite;
@@ -24,9 +24,9 @@ public class RigidBody2D {
     public RigidBody2D(DisplayObject s) {
         sprite = s;
         velocity = new Vector2D(0, 0);
-        acceleration = new Vector2D(0, gravity);
-        mass = 1f;
-        restitution = 0.2f;
+        acceleration = new Vector2D(1, gravity);
+        mass = 1;
+        restitution = 0.2;
 
         constantForces = new ArrayList<>();
         gravity2D = new Vector2D(1, gravity);
@@ -46,18 +46,31 @@ public class RigidBody2D {
     //TODO: fix
     public void applyConstantForces() {
         for (Vector2D force : constantForces) {
-            acceleration.x = force.x / mass;
-            acceleration.y = force.y / mass;
-            sprite.setPosition((int)(sprite.getPosX() * acceleration.x), (int)(sprite.getPosY() * acceleration.y));
+            applyForce(force);
         }
 
     }
 
-    public void setMass(float mass) {
+    public void updateVelocity(Vector2D velocity) {
+        this.velocity = velocity;
+    }
+
+    public void addAcceleration(Vector2D accel) {
+        acceleration.x += accel.x;
+        acceleration.y += accel.y;
+    }
+
+    public void applyDrag(double drag)
+    {
+        this.velocity.x = (drag * this.velocity.x);
+        this.velocity.y = (drag * this.velocity.y);
+    }
+
+    public void setMass(double mass) {
         this.mass = mass;
     }
 
-    public float getMass() {
+    public double getMass() {
         return mass;
     }
 
@@ -77,11 +90,11 @@ public class RigidBody2D {
         return acceleration;
     }
 
-    public static void setGravity(float gravity) {
+    public static void setGravity(double gravity) {
         RigidBody2D.gravity = gravity;
     }
 
-    public static float getGravity() {
+    public static double getGravity() {
         return gravity;
     }
 

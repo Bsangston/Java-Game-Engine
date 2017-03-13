@@ -2,6 +2,7 @@ package edu.virginia.engine.display;
 
 import edu.virginia.engine.events.*;
 import edu.virginia.engine.events.Event;
+import edu.virginia.engine.util.GameClock;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -25,6 +26,11 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 
 	/* Timer that this game runs on */
 	private Timer gameTimer;
+	private GameClock gameClock;
+	private long timePassed = 0;
+	private long curTime = 0;
+	private long lastTime = 0;
+	private double timeFraction = 0.0;
 	
 	/* The JPanel for this game */
 	private GameScenePanel scenePanel;
@@ -37,9 +43,11 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	protected Point center;
 	protected int centerX;
 	protected int centerY;
-	private static double STICKY_THRESHOLD = 0.0004;
 
-	/* Collision handling */
+	/* Physics stuff */
+	public static double GRAVITY = 1.1;
+	public static double DRAG = 0.2;
+	public static double STICKY_THRESHOLD = 0.0004;
 
 	public Game(String gameId, int width, int height) {
 		super(gameId);
@@ -54,6 +62,8 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		center = new Point(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
 		centerX = (int)center.getX();
 		centerY = (int)center.getY();
+
+		gameClock = new GameClock();
 
 	}
 	
@@ -103,8 +113,10 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		if (gameTimer == null) {
 			gameTimer = new Timer(1000 / FRAMES_PER_SEC, this);
 			gameTimer.start();
+			gameClock.resetGameClock();
 		} else {
 			gameTimer.start();
+			gameClock.resetGameClock();
 		}
 	}
 
@@ -165,7 +177,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		try {
 			/* Update all objects on the stage */
 			this.update(pressedKeys);
-
+			//this.physicsUpdate();
 			/* Draw everything on the screen */
 			this.draw(g);
 		} catch (Exception e) {
@@ -185,6 +197,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		
 		super.draw(g);
 	}
+
 
 	public JFrame getMainFrame() {
 		return this.mainFrame;
@@ -209,7 +222,6 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 			pressedKeys.add(e.getKeyCode());
 	}
 
-
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(pressedKeys.contains(e.getKeyCode()))
@@ -226,7 +238,18 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 
 	//TODO: expand collision resolution capabilities
 	public void resolveCollision(DisplayObject s, DisplayObject other) {
-		s.setPosY(other.getTop() - s.halfHeight());
+		if (s.getBottom() >= other.getTop()) {
+			s.setPosY(other.getTop() - s.halfHeight());
+		}
+//		if (s.getRight() >= other.getLeft()) {
+//			s.setPosX(other.getLeft() - s.halfWidth());
+//		}
+//		if (s.getLeft() >= other.getRight()) {
+//			s.setPosX(other.getRight() + s.halfWidth());
+//		}
+//		if (s.getTop() <= other.getBottom()) {
+//			s.setPosY(other.getBottom() + s.halfHeight());
+//		}
 	}
 
 	public boolean detectCollisions(DisplayObject collider, DisplayObject collidee) {
@@ -239,5 +262,55 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 			Collision collision = (Collision)event;
 			resolveCollision((DisplayObject)collision.getSource(), collision.getCollidee());
 		}
+	}
+
+	private void physicsUpdate() {
+		curTime = System.currentTimeMillis();
+		updateTime();
+		constantForces();
+		sumForces();
+		moveObjects();
+	}
+
+	private void sumForces() {
+		for (DisplayObject child : children) {
+			if (child.hasRigidBody()) {
+				double vx = child.rb2d.velocity.x + (child.rb2d.acceleration.x * timeFraction);
+				double vy = child.rb2d.velocity.y + (child.rb2d.acceleration.y * timeFraction);
+
+				child.rb2d.updateVelocity(new Vector2D(vx, vy));
+
+				child.rb2d.applyDrag(1.0 - (timeFraction * Game.DRAG));
+			}
+
+		}
+	}
+
+	private void constantForces() {
+		for (DisplayObject child : children) {
+			if (child.hasRigidBody()) {
+				child.rb2d.applyConstantForces();
+			}
+		}
+	}
+
+	private void moveObjects() {
+		for (DisplayObject child : children) {
+			if (child.hasRigidBody()) {
+				double prevX = child.getPosX();
+				double prevY = child.getPosY();
+
+				double newX = prevX + (child.rb2d.velocity.x * timeFraction);
+				double newY = prevY + (child.rb2d.velocity.y * timeFraction);
+				child.updatePosition(new Vector2D(newX, newY));
+			}
+		}
+	}
+
+	private void updateTime() {
+		lastTime = curTime;
+		curTime = System.currentTimeMillis();
+		timePassed = (curTime - lastTime);
+		timeFraction = (timePassed / 1000.0);
 	}
 }

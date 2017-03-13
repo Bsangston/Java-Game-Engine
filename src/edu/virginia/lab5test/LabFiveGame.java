@@ -16,7 +16,6 @@ public class LabFiveGame extends Game {
     int speed = 12;
 
     QuestManager questManager = new QuestManager();
-
     DisplayObjectContainer GameWorld = new DisplayObjectContainer("GameWorld");
 
     AnimatedSprite mario = new AnimatedSprite("Mario", "bigmario_sprites.png", 4, 2);
@@ -32,7 +31,7 @@ public class LabFiveGame extends Game {
 
 
     public LabFiveGame() {
-        super("Lab Four Test Game", 1000, 600);
+        super("Lab Five Test Game", 1000, 600);
 
         mario.addNewAnimation("idle", new int[] {0});
         mario.addNewAnimation("run", new int[] {1,2,3,4});
@@ -58,23 +57,29 @@ public class LabFiveGame extends Game {
         platform1.setScale(0.25);
         platform1.addRigidBody2D();
         platform1.getRigidBody().toggleGravity(false);
+        platform1.setHitbox(platform1.getLocalHitbox().x, platform1.getLocalHitbox().y+platform1.getLocalHitbox().height/25,
+                platform1.getLocalHitbox().width, platform1.getLocalHitbox().height - platform1.getLocalHitbox().height/25);
 
         platform2.setPosition(mario.getPosX()+250, mario.getPosY());
         platform2.setScale(0.2);
         platform2.addRigidBody2D();
         platform2.getRigidBody().toggleGravity(false);
+        platform2.setHitbox(platform2.getLocalHitbox().x, platform2.getLocalHitbox().y+platform2.getLocalHitbox().height/25,
+                platform2.getLocalHitbox().width, platform2.getLocalHitbox().height - platform2.getLocalHitbox().height/25);
 
         platform3.setPosition(coin.getPosX(), coin.getPosY()+100);
         platform3.setScale(0.225);
         platform3.addRigidBody2D();
         platform3.getRigidBody().toggleGravity(false);
+        platform3.setHitbox(platform3.getLocalHitbox().x, platform3.getLocalHitbox().y+platform3.getLocalHitbox().height/25,
+                platform3.getLocalHitbox().width, platform3.getLocalHitbox().height - platform3.getLocalHitbox().height/25);
 
-        GameWorld.addChild(coin);
-        GameWorld.addChild(mario);
-        GameWorld.addChild(Platforms);
+        addChild(coin);
+        addChild(mario);
+        addChild(Platforms);
         Platforms.addChild(platform1);
-        //Platforms.addChild(platform2);
-        //Platforms.addChild(platform3);
+        Platforms.addChild(platform2);
+        Platforms.addChild(platform3);
 
         Quest q1 = new Quest("Games are Fun", "Collect the coin");
         questManager.setActiveQuest(q1);
@@ -90,7 +95,6 @@ public class LabFiveGame extends Game {
     @Override
     public void update(ArrayList<Integer> pressedKeys) {
         super.update(pressedKeys);
-        GameWorld.update(pressedKeys);
 
         if (pressedKeys.size() > 0) {
 
@@ -107,18 +111,14 @@ public class LabFiveGame extends Game {
                 }
                 mario.setPosX(mario.getPosX() - speed);
             }
-            if (pressedKeys.contains(KeyEvent.VK_UP) && inBoundsTop(mario)) { //move up
-                mario.setPosY(mario.getPosY() - speed);
-            }
             if (pressedKeys.contains(KeyEvent.VK_DOWN) && inBoundsBottom(mario)) { //move down
                 mario.setPosY(mario.getPosY() + speed);
 
             }
 
-            if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
+            if (pressedKeys.contains(KeyEvent.VK_SPACE) && inBoundsTop(mario)) {
                 if (mario != null && platform1 != null) {
-                    System.out.println("Mario " +mario.getHitbox());
-                    System.out.println("Platform "+platform1.getHitbox());
+                    mario.jump();
                 }
             }
 
@@ -140,11 +140,15 @@ public class LabFiveGame extends Game {
         }
 
 
-        if (mario != null && platform1 != null) {
-            if (mario.collidesWith(platform1)) {
-                mario.dispatchEvent(new Collision(Collision.GROUND, mario, platform1));
+        //TODO: make more efficient -will get really slow with lots of objects
+        if (mario != null) {
+            for (DisplayObject platform : Platforms.getChildren()) {
+                if (mario.collidesWith(platform)) {
+                    mario.dispatchEvent(new Collision(Collision.GROUND, mario, platform));
+                }
             }
         }
+
 
         //Exit game
         if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
@@ -163,7 +167,6 @@ public class LabFiveGame extends Game {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        GameWorld.draw(g);
 
         Font f = new Font("GUI", Font.ITALIC, 20);
 

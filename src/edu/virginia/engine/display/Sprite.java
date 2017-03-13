@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * */
 public class Sprite extends DisplayObjectContainer {
 
-	private static float jumpForce = 10f;
+	private static float jumpForce = 0.8f;
 
 	protected static BufferedImage[] global_sprites;
 
@@ -30,6 +30,10 @@ public class Sprite extends DisplayObjectContainer {
 		if (global_sprites != null) {
 			setImage(global_sprites[index]);
 		}
+	}
+
+	public Sprite(Sprite s) {
+		super(s);
 	}
 
 	//Reads sprite sheet into BufferedImage array
@@ -88,7 +92,7 @@ public class Sprite extends DisplayObjectContainer {
 
 	public void jump() {
 		if (rb2d != null) {
-			rb2d.applyForce(new Vector2D(0, jumpForce));
+			rb2d.applyForce(new Vector2D(1f, jumpForce));
 		}
 	}
 

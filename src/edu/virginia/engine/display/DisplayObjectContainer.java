@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class DisplayObjectContainer extends DisplayObject{
 
-    private ArrayList<DisplayObject> children;
+    protected ArrayList<DisplayObject> children;
 
     public DisplayObjectContainer(String id) {
         super(id);
@@ -18,6 +18,11 @@ public class DisplayObjectContainer extends DisplayObject{
     public DisplayObjectContainer(String id, String fileName) {
         super(id, fileName);
         children = new ArrayList<>();
+    }
+
+    public DisplayObjectContainer(DisplayObjectContainer d) {
+        super(d);
+        children = d.getChildren();
     }
 
     @Override
@@ -114,5 +119,7 @@ public class DisplayObjectContainer extends DisplayObject{
     public boolean hasChildren() {
         return !children.isEmpty();
     }
+
+
 
 }
