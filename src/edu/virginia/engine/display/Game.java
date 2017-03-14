@@ -238,18 +238,41 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 
 	//TODO: expand collision resolution capabilities
 	public void resolveCollision(DisplayObject s, DisplayObject other) {
-		if (s.getBottom() >= other.getTop()) {
-			s.setPosY(other.getTop() - s.halfHeight());
+		double dx = (s.getPosX() - other.getPosX()) / (double)other.halfWidth();
+		double dy = (s.getPosY() - other.getPosY()) / (double)other.halfHeight();
+		double absDX = Math.abs(dx);
+		double absDY = Math.abs(dy);
+
+		if (Math.abs(absDX - absDY) < 0.1) {
+			if (dx < 0) {
+				s.setPosX(other.getLeft() - s.halfWidth());
+			} else {
+				s.setPosX(other.getRight() + s.halfWidth());
+			}
+
+			if (dy < 0) {
+				s.setPosY(other.getTop() - s.halfHeight());
+			} else {
+				s.setPosY(other.getBottom() + s.halfHeight());
+			}
+
 		}
-//		if (s.getRight() >= other.getLeft()) {
-//			s.setPosX(other.getLeft() - s.halfWidth());
-//		}
-//		if (s.getLeft() >= other.getRight()) {
-//			s.setPosX(other.getRight() + s.halfWidth());
-//		}
-//		if (s.getTop() <= other.getBottom()) {
-//			s.setPosY(other.getBottom() + s.halfHeight());
-//		}
+		else if (absDY > absDX) {
+			if (dy < 0) {
+				s.setPosY(other.getTop() - s.halfHeight());
+			} else {
+				s.setPosY(other.getBottom() + s.halfHeight());
+			}
+
+		}
+		else {
+			if (dx < 0) {
+				s.setPosX(other.getLeft() - s.halfWidth());
+			} else {
+				s.setPosX(other.getRight() + s.halfWidth());
+			}
+		}
+
 	}
 
 	public boolean detectCollisions(DisplayObject collider, DisplayObject collidee) {

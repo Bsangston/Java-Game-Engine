@@ -315,7 +315,7 @@ public class DisplayObject extends EventDispatcher {
 		Rectangle hitbox_global = new Rectangle(hitbox);
 		hitbox_global.x = (int)(hitbox.x + position.x - halfWidth());
 		hitbox_global.y = (int)(hitbox.y + position.y - halfHeight());
-		hitbox_global.width = getScaledWidth();
+		hitbox_global.width =  getScaledWidth();
 		hitbox_global.height = getScaledHeight();
 		return hitbox_global;
 	}
@@ -460,13 +460,9 @@ public class DisplayObject extends EventDispatcher {
 		this.alpha = alpha;
 	}
 
-	public int getTop() {
-		return getHitbox().y;
-	}
+	public int getTop() { return getHitbox().y; }
 
-	public int getBottom() {
-		return getHitbox().y + getHitbox().height;
-	}
+	public int getBottom() { return getHitbox().y + getHitbox().height; }
 
 	public int getLeft() {
 		return getHitbox().x;
