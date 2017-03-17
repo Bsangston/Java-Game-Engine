@@ -10,6 +10,7 @@ public class SoundManager {
     public SoundManager () {
 
     }
+
     public void loadSoundEffect (String id, String filename) {
         try {
             InputStream in = new FileInputStream("resources" + File.separator + filename);

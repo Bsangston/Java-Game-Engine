@@ -18,6 +18,7 @@ public class LabFiveGame extends Game {
     int speed = 12;
     int frameClock = 0;
     int timeRemaining = 60, prevTime = 0;
+    int jmpCount = 15, jmp = 0;
     GameClock gameClock = new GameClock();
 
     QuestManager questManager = new QuestManager();
@@ -151,9 +152,10 @@ public class LabFiveGame extends Game {
             }
 
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
-                if (mario != null) {
+                if (mario != null && jmp <= jmpCount) {
                     mario.setAnim("jump");
                     mario.jump();
+                    ++jmp;
                     if (frameClock >= 10) soundManager.loadSoundEffect("jump", "jump.wav");
                     frameClock = 0;
                     if (mario.getPosY() <= 0) {
@@ -195,6 +197,7 @@ public class LabFiveGame extends Game {
                         else
                             mario.setAnim("idle");
                     }
+                    jmp = 0;
                 }
             }
 

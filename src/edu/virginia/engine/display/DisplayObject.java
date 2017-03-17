@@ -194,7 +194,7 @@ public class DisplayObject extends EventDispatcher {
 				//g2d.drawRect(getPivotX() - 10, getPivotY() - 10, 20, 20); //for pivot point debugging
 
 			}
-			//g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+			g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 			/*
 			 * undo the transformations so this doesn't affect other display
 			 * objects
