@@ -9,8 +9,8 @@ public class Event {
     public static final String QUEST_COMPLETE = "QUEST_COMPLETE";
     public static final String COLLISION = "COLLISION";
 
-    private String eventType;
-    private IEventDispatcher source; //the object that created this event
+    protected String eventType;
+    protected IEventDispatcher source; //the object that created this event
 
     public Event(String eventType, IEventDispatcher source) {
         this.eventType = eventType;

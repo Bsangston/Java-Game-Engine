@@ -21,7 +21,8 @@ public class Tween {
         sprite = object;
     }
 
-    public void animate(TweenableParams fieldToAnimate, double startVal, double endVal, double time) {
+    public void animate(TweenableParam fieldToAnimate, double startVal, double endVal, double time) {
+        TweenParam tparam = new TweenParam(fieldToAnimate, startVal, endVal, time);
 
     }
 
@@ -33,7 +34,7 @@ public class Tween {
         return true;
     }
 
-    public void setValue(TweenableParams param, double value) {
+    public void setValue(String param, double value) {
 
     }
 }

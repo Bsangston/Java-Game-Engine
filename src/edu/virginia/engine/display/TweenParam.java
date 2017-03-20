@@ -5,23 +5,19 @@ package edu.virginia.engine.display;
  */
 public class TweenParam {
 
-    public enum String {
-        X, Y, SCALE_X, SCALE_Y, ROTATION, ALPHA
-    }
-
-    private String param;
+    private TweenableParam param;
     private double start;
     private double end;
     private double time;
 
-    public TweenParam(String paramToTween, double startVal, double endVal, double time) {
+    public TweenParam(TweenableParam paramToTween, double startVal, double endVal, double time) {
         this.param = paramToTween;
         this.start = startVal;
         this.end = endVal;
         this.time = time;
     }
 
-    public String getParam() {
+    public TweenableParam getParam() {
         return param;
     }
 
