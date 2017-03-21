@@ -11,6 +11,15 @@ public class EventListener implements IEventListener {
 
     @Override
     public void handleEvent(Event event) {
+        if (event.getEventType().equals(Event.TWEEN_START)) {
+
+        }
+        else if (event.getEventType().equals(Event.TWEEN_END)) {
+
+        }
+        else if (event.getEventType().equals(Event.TWEEN_TICK)) {
+
+        }
 
     }
 

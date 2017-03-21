@@ -5,28 +5,19 @@ package edu.virginia.engine.display;
  */
 public class TweenTransition {
 
-    public static final String LINEAR = "LINEAR";
-    public static final String QUADRATIC = "QUADRATIC";
+    public static void applyTransition(double percentDone) {
 
-    String transitionType;
-
-
-    TweenTransition(String type) {
-        transitionType = type;
     }
 
-    public void applyTransition(double percentDone) {
-        //linear percentDone = x
-        //quadratic percentDone = ?
-
-        if (transitionType.equals(TweenTransition.LINEAR)) {
-            percentDone = percentDone;
-        } else if (transitionType.equals(TweenTransition.QUADRATIC)) {
-            percentDone = percentDone*percentDone;
-        }
+    public static void linearTransition(double percentDone){
+        percentDone += percentDone;
     }
 
-    public void easeInOut(double percentDone) {
+    public static void setQuadraticTransition(double percentDone) {
+        percentDone += percentDone*percentDone;
+    }
+
+    public static void easeInOut(double percentDone) {
 
     }
 }

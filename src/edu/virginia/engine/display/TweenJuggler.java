@@ -8,7 +8,7 @@ import java.util.Queue;
  */
 public class TweenJuggler {
 
-    private static Queue<Tween> tweens;
+    public static Queue<Tween> tweens;
 
     private static TweenJuggler tweenJuggler = new TweenJuggler();
 

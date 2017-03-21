@@ -8,6 +8,9 @@ public class Event {
     public static final String COIN_PICKED_UP = "COIN_PICKED_UP";
     public static final String QUEST_COMPLETE = "QUEST_COMPLETE";
     public static final String COLLISION = "COLLISION";
+    public static final String TWEEN_START = "TWEEN_START";
+    public static final String TWEEN_TICK = "TWEEN_TICK";
+    public static final String TWEEN_END = "TWEEN_END";
 
     protected String eventType;
     protected IEventDispatcher source; //the object that created this event
