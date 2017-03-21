@@ -33,8 +33,7 @@ public class Tween extends EventDispatcher {
     }
 
     public void animate(TweenableParam fieldToAnimate, double startVal, double endVal, double time) {
-        TweenParam tparam = new TweenParam(fieldToAnimate, startVal, endVal, time);
-
+        this.tparam = new TweenParam(fieldToAnimate, startVal, endVal, time);
     }
 
     public void update() {
@@ -45,13 +44,13 @@ public class Tween extends EventDispatcher {
             sprite.dispatchEvent(new Event(Event.TWEEN_END, sprite));
         }
 
-        double tick = tparam.getEnd()/tparam.getTime();
+        double tick = this.tparam.getEnd()/this.tparam.getTime();
 
-        if (tparam.getStart() > tparam.getEnd()) {
+        if (this.tparam.getStart() > this.tparam.getEnd()) {
             tick = -tick;
         }
 
-        switch(tparam.getParam()) {
+        switch(this.tparam.getParam()) {
             case ALPHA:
                 float a = sprite.getAlpha();
                 sprite.setAlpha((float)(a + tick));
@@ -79,7 +78,13 @@ public class Tween extends EventDispatcher {
         }
 
         sprite.dispatchEvent(new Event(Event.TWEEN_TICK, sprite));
-        percentComplete += (100*tick)/tparam.getEnd();
+
+        double end = tparam.getEnd();
+        if (end == 0) {
+            end = 0.000001;
+        }
+
+        percentComplete += (100*tick)/end;
 
     }
 

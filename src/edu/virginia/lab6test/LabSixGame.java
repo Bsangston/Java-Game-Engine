@@ -9,6 +9,7 @@ import edu.virginia.engine.util.GameClock;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Timer;
 
 /**
  * Created by BrandonSangston on 2/17/17.
@@ -20,6 +21,7 @@ public class LabSixGame extends Game {
     int timeRemaining = 60, prevTime = 0;
     int jmpCount = 15, jmp = 0;
     GameClock gameClock = new GameClock();
+    Timer timer = new Timer();
 
     QuestManager questManager = new QuestManager();
     DisplayObjectContainer GameWorld = new DisplayObjectContainer("GameWorld");
@@ -27,7 +29,7 @@ public class LabSixGame extends Game {
     AnimatedSprite mario = new AnimatedSprite("Mario", "bigmario_sprites.png", 4, 2);
     PickUp coin = new PickUp("Gold", "coin.png", 10, 1);
 
-    Tween coinTween = new Tween(mario);
+    Tween coinTween = new Tween(coin);
 
     DisplayObjectContainer Platforms = new DisplayObjectContainer("Platforms");
     Sprite platform1 = new Sprite("Platform1", "platform.png");
@@ -124,13 +126,13 @@ public class LabSixGame extends Game {
 
         soundManager.loadMusic("mario theme", "mario_theme.wav");
 
-        coinTween.animate(TweenableParam.ALPHA, 0, 1, 3000);
+        //coinTween = new Tween(coin);
         coinTween.addEventListener(new EventListener(), Event.TWEEN_START);
         coinTween.addEventListener(new EventListener(), Event.TWEEN_TICK);
         coinTween.addEventListener(new EventListener(), Event.TWEEN_END);
 
-        TweenJuggler tweenJuggler = new TweenJuggler();
-        tweenJuggler.add(coinTween);
+        coinTween.animate(TweenableParam.ROTATION, 0, 360, 3000);
+        //TweenJuggler.add(coinTween);
     }
 
     /**
@@ -140,11 +142,17 @@ public class LabSixGame extends Game {
     @Override
     public void update(ArrayList<Integer> pressedKeys) {
         super.update(pressedKeys);
-        TweenJuggler.tweens.element().update();
 
-        if (TweenJuggler.tweens.element().isComplete()) {
-            TweenJuggler.tweens.remove();
+//        TweenJuggler.tweens.element().update();
+//
+//        if (TweenJuggler.tweens.element().isComplete()) {
+//            TweenJuggler.tweens.remove();
+//        }
+
+        if (coinTween != null) {
+            coinTween.update();
         }
+
 
         if (pressedKeys.size() > 0) {
 
