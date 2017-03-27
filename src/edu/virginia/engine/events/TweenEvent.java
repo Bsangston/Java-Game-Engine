@@ -8,9 +8,9 @@ import edu.virginia.engine.display.Tween;
  */
 public class TweenEvent extends Event {
 
-    final static String TWEEN_COMPLETE = "TWEEN_COMPLETE";
-    final static String TWEEN_START = "TWEEN_START";
-
+    public final static String TWEEN_COMPLETE = "TWEEN_COMPLETE";
+    public final static String TWEEN_START = "TWEEN_START";
+    public final static String TWEEN_Tick = "TWEEN_TICK";
 
     public TweenEvent(String eventType, IEventDispatcher source) {
         super(eventType, source);

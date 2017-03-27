@@ -44,47 +44,70 @@ public class Tween extends EventDispatcher {
             sprite.dispatchEvent(new Event(Event.TWEEN_END, sprite));
         }
 
-        double tick = this.tparam.getEnd()/this.tparam.getTime();
+        if (!isComplete()) {
 
-        if (this.tparam.getStart() > this.tparam.getEnd()) {
-            tick = -tick;
+            double tick = this.tparam.getEnd() / this.tparam.getTime();
+
+            if (this.tparam.getStart() > this.tparam.getEnd()) {
+                tick = -tick;
+            }
+
+            double start = tparam.getStart();
+
+            switch (this.tparam.getParam()) {
+                case ALPHA:
+                    float a = sprite.getAlpha();
+                    if ((int)percentComplete == 0) {
+                        a = (float)start;
+                    }
+                    sprite.setAlpha((float)(a + (tick)));
+                    break;
+                case ROTATION:
+                    float r =  sprite.getRotation();
+                    if ((int)percentComplete == 0) {
+                        r = (float)start;
+                    }
+                    sprite.setRotation((float) (r + tick));
+                    break;
+                case X:
+                    int x = sprite.getPosX();
+                    if ((int)percentComplete == 0) {
+                        x = (int)start;
+                    }
+                    sprite.setPosX(x + (int) tick);
+                    break;
+                case Y:
+                    int y = sprite.getPosY();
+                    if ((int)percentComplete == 0) {
+                        y = (int)start;
+                    }
+                    sprite.setPosY(y + (int) tick);
+                    break;
+                case SCALE_X:
+                    double sx = sprite.getScaleX();
+                    if (percentComplete == 0) {
+                        sx = start;
+                    }
+                    sprite.setScaleX(sx + tick);
+                    break;
+                case SCALE_Y:
+                    double sy = sprite.getScaleY();
+                    if (percentComplete == 0) {
+                        sy = start;
+                    }
+                    sprite.setScaleY(sy + tick);
+                    break;
+            }
+
+            sprite.dispatchEvent(new Event(Event.TWEEN_TICK, sprite));
+
+            double end = tparam.getEnd();
+            if (end == 0) {
+                end = 0.01;
+            }
+
+            percentComplete += (100 * tick) / end;
         }
-
-        switch(this.tparam.getParam()) {
-            case ALPHA:
-                float a = sprite.getAlpha();
-                sprite.setAlpha((float)(a + tick));
-                break;
-            case ROTATION:
-                float r = sprite.getRotation();
-                sprite.setRotation((float)(r + tick));
-                break;
-            case X:
-                int x = sprite.getPosX();
-                sprite.setPosX(x + (int)tick);
-                break;
-            case Y:
-                int y = sprite.getPosY();
-                sprite.setPosY(y + (int)tick);
-                break;
-            case SCALE_X:
-                double sx = sprite.getScaleX();
-                sprite.setScaleX(sx + tick);
-                break;
-            case SCALE_Y:
-                double sy = sprite.getScaleY();
-                sprite.setScaleX(sy + tick);
-                break;
-        }
-
-        sprite.dispatchEvent(new Event(Event.TWEEN_TICK, sprite));
-
-        double end = tparam.getEnd();
-        if (end == 0) {
-            end = 0.000001;
-        }
-
-        percentComplete += (100*tick)/end;
 
     }
 

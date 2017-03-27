@@ -10,8 +10,8 @@ import java.awt.*;
  */
 public class AnimatedSprite extends Sprite {
 
-    private BufferedImage[] frameList;
-    private HashMap<String, int[]> frames; //each animation paired with an int array containing start and end indices
+    protected BufferedImage[] frameList;
+    protected HashMap<String, int[]> frames; //each animation paired with an int array containing start and end indices
 
     private int currentFrame = 0;
     private int startIndex = 0;

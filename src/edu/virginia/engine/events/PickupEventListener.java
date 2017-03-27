@@ -1,5 +1,6 @@
 package edu.virginia.engine.events;
 
+import edu.virginia.engine.display.AnimatedShadowSprite;
 import edu.virginia.engine.display.PickUp;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.events.IEventListener;
@@ -15,7 +16,7 @@ public class PickupEventListener implements IEventListener {
 
     @Override
     public void handleEvent(Event event) {
-        PickUp coin = (PickUp)event.getSource();
+        AnimatedShadowSprite coin = (AnimatedShadowSprite) event.getSource();
 
         coin.setVisible(false);
     }

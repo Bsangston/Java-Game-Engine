@@ -1,4 +1,4 @@
-package edu.virginia.lab6test;
+package edu.virginia.prototype;
 
 import edu.virginia.engine.display.*;
 import edu.virginia.engine.events.*;
@@ -13,44 +13,52 @@ import java.util.Timer;
 
 /**
  * Created by BrandonSangston on 2/17/17.
+ * TODO: Fix physics, tweening, stimulus duration/recharge, libpd, sound visualization,
+ * TODO: optimization, sound "collision", side-scrolling, optimization
  */
-public class LabSixGame extends Game {
+public class StimulusPrototype extends Game {
 
-    boolean pickedUp = false;
+    //Platform mechanics
     int speed = 12;
     int frameClock = 0;
     int timeRemaining = 60, prevTime = 0;
     int jmpCount = 15, jmp = 0;
+
+    //Stimulus mechanics
+    boolean shadow = false;
+    int shadowRecharge = 10;
+    int shadowClock = 0;
+    int shadowDuration = 5;
+    double start = 0;
     GameClock gameClock = new GameClock();
-    Timer timer = new Timer();
+
 
     QuestManager questManager = new QuestManager();
     DisplayObjectContainer GameWorld = new DisplayObjectContainer("GameWorld");
 
-    AnimatedSprite mario = new AnimatedSprite("Mario", "bigmario_sprites.png", 4, 2);
-    PickUp coin = new PickUp("Gold", "coin.png", 10, 1);
-
-    Tween coinTween = new Tween(coin);
-    Tween coinTween2 = new Tween(coin);
-    Tween coinTween3 = new Tween(coin);
-    Tween coinTween4 = new Tween(coin);
-    Tween coinTween5 = new Tween(coin);
-    Tween marioTween = new Tween(mario);
+    AnimatedShadowSprite mario = new AnimatedShadowSprite("Mario", "bigmario_sprites.png",
+            "shadow_mario_mag_b.png", 4, 2);
+    AnimatedShadowSprite coin = new AnimatedShadowSprite("Gold", "coin.png",
+            "shadow_coin_mag.png", 10, 1);
 
     DisplayObjectContainer Platforms = new DisplayObjectContainer("Platforms");
-    Sprite platform1 = new Sprite("Platform1", "platform.png");
-    Sprite platform2 = new Sprite("Platform2", "platform.png");
-    Sprite platform3 = new Sprite("Platform3", "platform.png");
-    Sprite platform4 = new Sprite("Platform4", "platform.png");
-    Sprite platform5 = new Sprite("Platform5", "platform.png");
+    ShadowSprite platform1 = new ShadowSprite("Platform1", "platform.png", "shadow_platform_mag_b.png");
+    ShadowSprite platform2 = new ShadowSprite("Platform2", "platform.png", "shadow_platform_mag_b.png");
+    ShadowSprite platform3 = new ShadowSprite("Platform3", "platform.png", "shadow_platform_mag_b.png");
+    ShadowSprite platform4 = new ShadowSprite("Platform4", "platform.png", "shadow_platform_mag_b.png");
+    ShadowSprite platform5 = new ShadowSprite("Platform5", "platform.png", "shadow_platform_mag_b.png");
+
+    ShadowSprite background = new ShadowSprite("Background", "background1.png", "shadow_background1_mag.png");
 
     ArrayList<DisplayObject> children = getChildren();
 
     SoundManager soundManager = new SoundManager();
 
 
-    public LabSixGame() {
-        super("Lab Six Test Game", 1200, 800);
+    public StimulusPrototype() {
+        super("Stimulus Prototype v1.0", 1200, 800);
+
+        background.setPosition(center);
 
         mario.addNewAnimation("idle", new int[] {0});
         mario.addNewAnimation("run", new int[] {1,2,3,4});
@@ -113,6 +121,8 @@ public class LabSixGame extends Game {
         coin.playAnim();
         coin.setAnimSpeed(speed/2);
 
+
+        addChild(background);
         addChild(coin);
         addChild(mario);
         addChild(Platforms);
@@ -129,22 +139,6 @@ public class LabSixGame extends Game {
         mario.addEventListener(this, Event.COLLISION);
 
         soundManager.loadMusic("mario theme", "mario_theme.wav");
-        coinTween.addEventListener(new EventListener(), TweenEvent.TWEEN_START);
-        coinTween.addEventListener(new EventListener(), TweenEvent.TWEEN_TICK);
-        coinTween.addEventListener(new EventListener(), TweenEvent.TWEEN_END);
-
-        marioTween.addEventListener(new EventListener(), TweenEvent.TWEEN_START);
-        marioTween.addEventListener(new EventListener(), TweenEvent.TWEEN_TICK);
-        marioTween.addEventListener(new EventListener(), TweenEvent.TWEEN_END);
-
-        coinTween.animate(TweenableParam.Y, coin.getPosY(), centerY, 15);
-        coinTween2.animate(TweenableParam.ROTATION, 0, 360, 15);
-        coinTween3.animate(TweenableParam.SCALE_X, coin.getScaleX(), 0.5, 15);
-        coinTween4.animate(TweenableParam.SCALE_Y, coin.getScaleY(), 0.5, 15);
-        coinTween5.animate(TweenableParam.ALPHA, 0f, 1.0f, 60);
-        //TweenJuggler.add(coinTween);
-
-        marioTween.animate(TweenableParam.ALPHA, 0f, 1.0f, 60);
     }
 
     /**
@@ -155,33 +149,6 @@ public class LabSixGame extends Game {
     public void update(ArrayList<Integer> pressedKeys) {
         super.update(pressedKeys);
 
-//        if (TweenJuggler.tweens != null && !TweenJuggler.tweens.isEmpty()) {
-//
-//            if (TweenJuggler.tweens.element().isComplete()) {
-//                TweenJuggler.tweens.remove();
-//            } else {
-//                TweenJuggler.tweens.element().update();
-//            }
-//        }
-
-        if (pickedUp) {
-            if (coinTween != null) {
-                coinTween.update();
-            }
-            if (coinTween2 != null) {
-                coinTween2.update();
-            }
-            if (coinTween3 != null) {
-                coinTween3.update();
-            }
-            if (coinTween4 != null) {
-                coinTween4.update();
-            }
-            if (coinTween5 != null) {
-                coinTween5.update();
-            }
-        }
-
         if (pressedKeys.size() > 0) {
 
             //Movement TODO: fix rotation hitboxes
@@ -190,12 +157,14 @@ public class LabSixGame extends Game {
                     mario.flip();
                 }
                 mario.setPosX(mario.getPosX() + speed);
+                //if (background != null) background.setPosX(background.getPosX() - 1);
             }
             if (pressedKeys.contains(KeyEvent.VK_LEFT) && inBoundsLeft(mario)) { //move left
                 if (mario.isFacingRight()) {
                     mario.flip();
                 }
                 mario.setPosX(mario.getPosX() - speed);
+                //if (background != null) background.setPosX(background.getPosX() + 1);
             }
             if (pressedKeys.contains(KeyEvent.VK_DOWN) && inBoundsBottom(mario)) { //move down
                 mario.setPosY(mario.getPosY() + speed);
@@ -215,10 +184,34 @@ public class LabSixGame extends Game {
                 }
             }
 
+
+
             if (isMoving() && !mario.getCurrentAnim().equals("jump")) {
                 mario.setAnim("run");
 
             }
+
+
+            //Toggle shadows
+            if (shadowClock >= shadowRecharge) {
+				if (pressedKeys.contains(KeyEvent.VK_F)) {
+					toggleShadows();
+
+                    if (shadow) {
+                        start = gameClock.getElapsedTime();
+                        //System.out.println(start);
+                    }
+
+				}
+                shadowClock = 0;
+            }
+
+//            //TODO: Shadow duration
+//            if (gameClock.getElapsedTime() - start >= shadowDuration && shadow) {
+//                System.out.println(gameClock.getElapsedTime() - start);
+//                toggleShadows();
+//            }
+
         }
 
         //Idle animation
@@ -227,15 +220,11 @@ public class LabSixGame extends Game {
         }
 
         if (mario != null && coin != null && mario.onTriggerEnter(coin)) {
-
             if (coin.isVisible()) {
                 soundManager.loadSoundEffect("coin", "coin.wav");
-                pickedUp = true;
-
             }
-            //coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
+            coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
             questManager.completeQuest("Games are Fun");
-
 
 
         }
@@ -256,17 +245,12 @@ public class LabSixGame extends Game {
                 }
             }
 
-            if (marioTween != null) {
-                marioTween.update();
-            }
-
             //Respawn
             if (mario.getPosY() >= 3000) {
                 mario.setPosition(mario.halfWidth(), 800 - mario.halfHeight());
             }
 
         }
-
 
         //Exit game
         if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
@@ -275,6 +259,7 @@ public class LabSixGame extends Game {
         }
 
         ++frameClock;
+        ++shadowClock;
 
         mouseEvents.clear();
     }
@@ -288,6 +273,12 @@ public class LabSixGame extends Game {
         super.draw(g);
 
         Font f = new Font("GUI", Font.ITALIC, 20);
+
+        if (shadow) {
+            g.setColor(Color.white);
+        } else {
+            g.setColor(Color.black);
+        }
 
         g.drawString("Current Quest: "+questManager.getActiveQuest().getId(), 25, 25);
         g.drawString("Objective: "+questManager.getActiveQuest().getObjective(), 25, 50);
@@ -328,12 +319,40 @@ public class LabSixGame extends Game {
 
     }
 
+    private void toggleShadows() {
+
+        toggleChildren(this);
+
+        if (getScenePanel().getBackground() != Color.BLACK) {
+            getScenePanel().setBackground(Color.BLACK);
+        } else {
+            getScenePanel().setBackground(Color.WHITE);
+        }
+
+        shadow = !shadow;
+    }
+
+
+    private void toggleChildren(DisplayObjectContainer t) {
+        if (hasChildren()) {
+            for (DisplayObject d : t.getChildren()) {
+                if (d instanceof ShadowSprite) {
+                    ((ShadowSprite) d).toggleShadow(!((ShadowSprite) d).isShadow());
+                } else if (d instanceof AnimatedShadowSprite) {
+                    ((AnimatedShadowSprite) d).toggleShadow(!((AnimatedShadowSprite) d).isShadow());
+                } else if (d instanceof DisplayObjectContainer) {
+                    toggleChildren((DisplayObjectContainer)d);
+                }
+            }
+        }
+    }
+
     /**
      * Quick main class that simply creates an instance of our game and starts the timer
      * that calls update() and draw() every frame
      */
     public static void main(String[] args) {
-        LabSixGame game = new LabSixGame();
+        StimulusPrototype game = new StimulusPrototype();
         game.start();
 
     }

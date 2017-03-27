@@ -12,7 +12,7 @@ public class TweenJuggler {
 
     private static TweenJuggler tweenJuggler = new TweenJuggler();
 
-    private TweenJuggler() { }
+    private TweenJuggler() {}
 
     public static TweenJuggler getInstance() {
         return tweenJuggler;
