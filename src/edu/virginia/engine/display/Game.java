@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import edu.virginia.engine.controller.GamePad;
+import net.java.games.input.*;
+
 
 /**
  * Highest level class for creating a game in Java.
@@ -34,6 +37,9 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	
 	/* The JPanel for this game */
 	private GameScenePanel scenePanel;
+
+	/* Controller support */
+	protected ArrayList<GamePad> controllers;
 
 	/* Mouse functionality */
 	protected ArrayList<MouseEvent> mouseEvents = new ArrayList<MouseEvent>();
@@ -64,6 +70,8 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		centerY = (int)center.getY();
 
 		gameClock = new GameClock();
+
+		setUpControllers();
 
 	}
 	
@@ -104,6 +112,26 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 				}
 			}
 		});
+	}
+
+
+	private void setUpControllers() {
+		controllers = new ArrayList<GamePad>();
+		ControllerEnvironment ce = ControllerEnvironment.getDefaultEnvironment();
+		Controller[] cs = ce.getControllers();
+		for (int i = 0; i < cs.length; i++) {
+			Controller controller = cs[i];
+			if (
+					controller.getType() == Controller.Type.STICK ||
+							controller.getType() == Controller.Type.GAMEPAD ||
+							controller.getType() == Controller.Type.WHEEL ||
+							controller.getType() == Controller.Type.FINGERSTICK
+					)
+			{
+				System.out.println("Found Controller: " + controller.getName() + ", " + controller.getType() );
+				controllers.add(new GamePad(controller));
+			}
+		}
 	}
 
 	/**
@@ -176,7 +204,8 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 
 		try {
 			/* Update all objects on the stage */
-			this.update(pressedKeys);
+			pollControllers();
+			this.update(pressedKeys, controllers);
 			//this.physicsUpdate();
 			/* Draw everything on the screen */
 			this.draw(g);
@@ -188,6 +217,14 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		}
 	}
 
+	/**
+	 * Searches all known controllers (ps3, etc.) and adds any pressed buttons to pressed keys
+	 * */
+	private void pollControllers(){
+		for(GamePad controller : controllers){
+			controller.update();
+		}
+	}
 
 	@Override
 	public void draw(Graphics g){

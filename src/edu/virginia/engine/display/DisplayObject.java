@@ -3,6 +3,9 @@ package edu.virginia.engine.display;
 import edu.virginia.engine.events.*;
 import edu.virginia.engine.events.Event;
 
+import edu.virginia.engine.controller.GamePad;
+import net.java.games.input.*;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -166,7 +169,7 @@ public class DisplayObject extends EventDispatcher {
 	 * objects state before the draw occurs. Should be overridden if necessary
 	 * to update objects appropriately.
 	 * */
-	protected void update(ArrayList<Integer> pressedKeys) {
+	protected void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
 		if (hasRigidBody) {
 			rb2d.applyConstantForces();
 		}
@@ -191,10 +194,14 @@ public class DisplayObject extends EventDispatcher {
 			/* Actually draw the image, perform the pivot point translation here */
 			if (visible) {
 				g2d.drawImage(displayImage, 0, 0, getUnscaledWidth(), getUnscaledHeight(), null);
+
 				//g2d.drawRect(getPivotX() - 10, getPivotY() - 10, 20, 20); //for pivot point debugging
 
 			}
+
+			//Draw Hitbox:
 			//g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+
 			/*
 			 * undo the transformations so this doesn't affect other display
 			 * objects

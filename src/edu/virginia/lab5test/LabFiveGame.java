@@ -1,5 +1,6 @@
 package edu.virginia.lab5test;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.*;
 import edu.virginia.engine.events.*;
 import edu.virginia.engine.events.Event;
@@ -128,8 +129,8 @@ public class LabFiveGame extends Game {
      * the set of keys (as keycode ints) that are currently being pressed down
      */
     @Override
-    public void update(ArrayList<Integer> pressedKeys) {
-        super.update(pressedKeys);
+    public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
+        super.update(pressedKeys, gamePads);
 
         if (pressedKeys.size() > 0) {
 

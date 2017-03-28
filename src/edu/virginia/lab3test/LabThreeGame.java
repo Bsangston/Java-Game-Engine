@@ -6,6 +6,7 @@
 
 package edu.virginia.lab3test;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.*;
 import edu.virginia.engine.util.GameClock;
 import sun.awt.image.BufferedImageDevice;
@@ -156,8 +157,8 @@ public class LabThreeGame extends Game {
      * the set of keys (as strings) that are currently being pressed down
      */
     @Override
-    public void update(ArrayList<Integer> pressedKeys) {
-        super.update(pressedKeys);
+    public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
+        super.update(pressedKeys, gamePads);
 
         //Elliptical orbits
         if (Planets != null ) Planets.setPosition(Planets.getPosX(), Planets.getPosY() + 20);

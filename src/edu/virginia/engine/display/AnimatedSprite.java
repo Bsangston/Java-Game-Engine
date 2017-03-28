@@ -1,4 +1,6 @@
 package edu.virginia.engine.display;
+import edu.virginia.engine.controller.GamePad;
+
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,8 +36,8 @@ public class AnimatedSprite extends Sprite {
     }
 
     @Override
-    public void update(ArrayList<Integer> pressedKeys) {
-	    super.update(pressedKeys);
+    public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
+	    super.update(pressedKeys, gamePads);
 
 	    if (isPlaying) {
 	        playAnim(currentAnim);

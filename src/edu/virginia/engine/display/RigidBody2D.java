@@ -110,4 +110,8 @@ public class RigidBody2D {
     public boolean hasGravity() {
         return hasGravity;
     }
+
+    public boolean isJumping() {
+        return getVelocity().y > 0;
+    }
 }

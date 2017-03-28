@@ -6,6 +6,7 @@
 
 package edu.virginia.lab1test;
 
+import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
@@ -60,12 +61,12 @@ public class LabOneGame extends Game {
 	 * the set of keys (as strings) that are currently being pressed down
 	 */
 	@Override
-	public void update(ArrayList<Integer> pressedKeys) {
-		super.update(pressedKeys);
+	public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
+		super.update(pressedKeys, gamePads);
 
 		/* Make sure mario is not null. Sometimes Swing can auto cause an extra frame to go before everything is initialized */
 		if (mario != null) {
-			mario.update(pressedKeys);
+			mario.update(pressedKeys, gamePads);
 
 
 		}

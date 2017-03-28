@@ -1,5 +1,7 @@
 package edu.virginia.prototype;
 
+import edu.virginia.engine.controller.GamePad;
+import edu.virginia.engine.controller.GamePadComponent;
 import edu.virginia.engine.display.*;
 import edu.virginia.engine.events.*;
 import edu.virginia.engine.events.Event;
@@ -146,32 +148,47 @@ public class StimulusPrototype extends Game {
      * the set of keys (as keycode ints) that are currently being pressed down
      */
     @Override
-    public void update(ArrayList<Integer> pressedKeys) {
-        super.update(pressedKeys);
+    public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
+        super.update(pressedKeys, gamePads);
 
-        if (pressedKeys.size() > 0) {
 
-            //Movement TODO: fix rotation hitboxes
-            if (pressedKeys.contains(KeyEvent.VK_RIGHT) && inBoundsRight(mario)) { //move right
+        if (pressedKeys.size() > 0 || gamePads.size() > 0) {
+
+            GamePad controller = gamePads.get(0);
+
+            //Movement
+            if ((pressedKeys.contains(KeyEvent.VK_RIGHT)
+                    || controller.isButtonPressed(GamePad.DPAD_RIGHT)
+                    || controller.getLeftStickXAxis() > 0.5)
+                    && inBoundsRight(mario)) { //move right
+
                 if (!mario.isFacingRight()) {
                     mario.flip();
                 }
+
                 mario.setPosX(mario.getPosX() + speed);
                 //if (background != null) background.setPosX(background.getPosX() - 1);
             }
-            if (pressedKeys.contains(KeyEvent.VK_LEFT) && inBoundsLeft(mario)) { //move left
+            if ((pressedKeys.contains(KeyEvent.VK_LEFT)
+                    || controller.isButtonPressed(GamePad.DPAD_LEFT)
+                    || controller.getLeftStickXAxis() < -0.5)
+                    && inBoundsLeft(mario)) { //move left
+
                 if (mario.isFacingRight()) {
                     mario.flip();
                 }
+
+
                 mario.setPosX(mario.getPosX() - speed);
                 //if (background != null) background.setPosX(background.getPosX() + 1);
+
             }
             if (pressedKeys.contains(KeyEvent.VK_DOWN) && inBoundsBottom(mario)) { //move down
                 mario.setPosY(mario.getPosY() + speed);
 
             }
 
-            if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
+            if (pressedKeys.contains(KeyEvent.VK_SPACE) || controller.isButtonPressed(GamePad.BUTTON_CROSS)) {
                 if (mario != null && jmp <= jmpCount) {
                     mario.setAnim("jump");
                     mario.jump();
@@ -184,17 +201,14 @@ public class StimulusPrototype extends Game {
                 }
             }
 
-
-
             if (isMoving() && !mario.getCurrentAnim().equals("jump")) {
                 mario.setAnim("run");
 
             }
 
-
             //Toggle shadows
             if (shadowClock >= shadowRecharge) {
-				if (pressedKeys.contains(KeyEvent.VK_F)) {
+				if (pressedKeys.contains(KeyEvent.VK_F) || controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
 					toggleShadows();
 
                     if (shadow) {
@@ -215,7 +229,7 @@ public class StimulusPrototype extends Game {
         }
 
         //Idle animation
-        if (mario != null && pressedKeys.isEmpty()) {
+        if (mario != null && pressedKeys.isEmpty() && !isMoving()) {
             mario.setAnim("idle");
         }
 
@@ -225,7 +239,6 @@ public class StimulusPrototype extends Game {
             }
             coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
             questManager.completeQuest("Games are Fun");
-
 
         }
 
@@ -280,12 +293,14 @@ public class StimulusPrototype extends Game {
             g.setColor(Color.black);
         }
 
-        g.drawString("Current Quest: "+questManager.getActiveQuest().getId(), 25, 25);
-        g.drawString("Objective: "+questManager.getActiveQuest().getObjective(), 25, 50);
+        if (questManager != null && questManager.getActiveQuest() != null) {
+            g.drawString("Current Quest: " + questManager.getActiveQuest().getId(), 25, 25);
+            g.drawString("Objective: " + questManager.getActiveQuest().getObjective(), 25, 50);
 
-        if (questManager.getActiveQuest().isComplete()) {
-            g.setFont(f);
-            g.drawString("\""+questManager.getActiveQuest().getId()+"\" Completed!", centerX-135, centerY);
+            if (questManager.getActiveQuest().isComplete()) {
+                g.setFont(f);
+                g.drawString("\""+questManager.getActiveQuest().getId()+"\" Completed!", centerX-135, centerY);
+            }
         }
 
     }
@@ -314,9 +329,13 @@ public class StimulusPrototype extends Game {
 
 
     private boolean isMoving() {
-        return (pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_LEFT)
-                || pressedKeys.contains(KeyEvent.VK_UP) || pressedKeys.contains(KeyEvent.VK_DOWN));
 
+        GamePad controller = controllers.get(0);
+
+        return (pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_LEFT)
+                || pressedKeys.contains(KeyEvent.VK_UP) || pressedKeys.contains(KeyEvent.VK_DOWN)
+                || controller.getLeftStickXAxis() > 0.5 || controller.getLeftStickXAxis() < -0.5
+                || controller.getLeftStickYAxis() > 0.5 || controller.getLeftStickYAxis() < -0.5);
     }
 
     private void toggleShadows() {
