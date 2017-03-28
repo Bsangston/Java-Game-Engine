@@ -1,6 +1,6 @@
 package edu.virginia.engine.display;
 
-import javafx.scene.effect.Shadow;
+//import javafx.scene.effect.Shadow;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
