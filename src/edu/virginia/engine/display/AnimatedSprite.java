@@ -35,6 +35,10 @@ public class AnimatedSprite extends Sprite {
         setHitbox(0,0, getDisplayImage().getWidth(), getDisplayImage().getHeight());
     }
 
+    public AnimatedSprite(String id) {
+        super(id);
+    }
+
     @Override
     public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
 	    super.update(pressedKeys, gamePads);

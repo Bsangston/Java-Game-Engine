@@ -491,4 +491,22 @@ public class DisplayObject extends EventDispatcher {
 		this.position.x += position.x;
 		this.position.y += position.y;
 	}
+
+	public void moveRight(int speed) {
+		if (!isFacingRight()) {
+			flip();
+		}
+
+		setPosX(getPosX() + speed);
+		//if (background != null) background.setPosX(background.getPosX() - 1);
+	}
+
+	public void moveLeft(int speed) {
+		if (isFacingRight()) {
+			flip();
+		}
+
+		setPosX(getPosX() - speed);
+		//if (background != null) background.setPosX(background.getPosX() + 1);
+	}
 }

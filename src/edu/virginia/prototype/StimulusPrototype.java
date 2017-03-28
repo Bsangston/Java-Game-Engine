@@ -25,12 +25,13 @@ public class StimulusPrototype extends Game {
     int frameClock = 0;
     int timeRemaining = 60, prevTime = 0;
     int jmpCount = 15, jmp = 0;
+    boolean jumping = false;
 
     //Stimulus mechanics
     boolean shadow = false;
-    int shadowRecharge = 10;
-    int shadowClock = 0;
-    int shadowDuration = 5;
+    int shadowRecharge = 180; //frames
+    int shadowClock = 180; //frames
+    int shadowDuration = 5000; //ms
     double start = 0;
     GameClock gameClock = new GameClock();
 
@@ -40,15 +41,15 @@ public class StimulusPrototype extends Game {
 
     AnimatedShadowSprite mario = new AnimatedShadowSprite("Mario", "bigmario_sprites.png",
             "shadow_mario_mag_b.png", 4, 2);
-    AnimatedShadowSprite coin = new AnimatedShadowSprite("Gold", "coin.png",
+    AnimatedShadowSprite coin = new AnimatedShadowSprite("Coin", "coin.png",
             "shadow_coin_mag.png", 10, 1);
 
     DisplayObjectContainer Platforms = new DisplayObjectContainer("Platforms");
     ShadowSprite platform1 = new ShadowSprite("Platform1", "platform.png", "shadow_platform_mag_b.png");
-    ShadowSprite platform2 = new ShadowSprite("Platform2", "platform.png", "shadow_platform_mag_b.png");
+    ShadowSprite platform2 = new ShadowSprite("Platform2", "shadow_platform_mag_b.png");
     ShadowSprite platform3 = new ShadowSprite("Platform3", "platform.png", "shadow_platform_mag_b.png");
     ShadowSprite platform4 = new ShadowSprite("Platform4", "platform.png", "shadow_platform_mag_b.png");
-    ShadowSprite platform5 = new ShadowSprite("Platform5", "platform.png", "shadow_platform_mag_b.png");
+    ShadowSprite platform5 = new ShadowSprite("Platform5", "platform.png","shadow_platform_mag_b.png");
 
     ShadowSprite background = new ShadowSprite("Background", "background1.png", "shadow_background1_mag.png");
 
@@ -62,6 +63,7 @@ public class StimulusPrototype extends Game {
 
         background.setPosition(center);
 
+        //Initialize player parameters
         mario.addNewAnimation("idle", new int[] {0});
         mario.addNewAnimation("run", new int[] {1,2,3,4});
         mario.addNewAnimation("jump", new int[] {4});
@@ -71,10 +73,9 @@ public class StimulusPrototype extends Game {
         mario.setAnim("idle");
         mario.playAnim();
         mario.setAnimSpeed(speed/2);
-
-        //Physics
         mario.addRigidBody2D();
 
+        //Initialize game object parameters
         platform1.setPosition(mario.getPosX(), mario.getPosY()+225);
         platform1.setScale(0.25);
         platform1.addRigidBody2D();
@@ -123,7 +124,7 @@ public class StimulusPrototype extends Game {
         coin.playAnim();
         coin.setAnimSpeed(speed/2);
 
-
+        //Construct Display Tree
         addChild(background);
         addChild(coin);
         addChild(mario);
@@ -134,13 +135,17 @@ public class StimulusPrototype extends Game {
         Platforms.addChild(platform4);
         Platforms.addChild(platform5);
 
+        //Objectives
         Quest q1 = new Quest("Games are Fun", "Collect the coin");
         questManager.setActiveQuest(q1);
 
+        //Event Listeners
         coin.addEventListener(questManager, Event.COIN_PICKED_UP);
         mario.addEventListener(this, Event.COLLISION);
 
+        //Music
         soundManager.loadMusic("mario theme", "mario_theme.wav");
+
     }
 
     /**
@@ -151,45 +156,22 @@ public class StimulusPrototype extends Game {
     public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
         super.update(pressedKeys, gamePads);
 
-
-        if (pressedKeys.size() > 0 || gamePads.size() > 0) {
-
-            GamePad controller = gamePads.get(0);
+        //Keyboard input
+        if (!pressedKeys.isEmpty()) {
 
             //Movement
-            if ((pressedKeys.contains(KeyEvent.VK_RIGHT)
-                    || controller.isButtonPressed(GamePad.DPAD_RIGHT)
-                    || controller.getLeftStickXAxis() > 0.5)
-                    && inBoundsRight(mario)) { //move right
+            if (pressedKeys.contains(KeyEvent.VK_RIGHT) && inBoundsRight(mario)) { //move right
 
-                if (!mario.isFacingRight()) {
-                    mario.flip();
-                }
-
-                mario.setPosX(mario.getPosX() + speed);
-                //if (background != null) background.setPosX(background.getPosX() - 1);
+                mario.moveRight(speed);
             }
-            if ((pressedKeys.contains(KeyEvent.VK_LEFT)
-                    || controller.isButtonPressed(GamePad.DPAD_LEFT)
-                    || controller.getLeftStickXAxis() < -0.5)
-                    && inBoundsLeft(mario)) { //move left
+            if (pressedKeys.contains(KeyEvent.VK_LEFT) && inBoundsLeft(mario)) { //move left
 
-                if (mario.isFacingRight()) {
-                    mario.flip();
-                }
-
-
-                mario.setPosX(mario.getPosX() - speed);
-                //if (background != null) background.setPosX(background.getPosX() + 1);
-
-            }
-            if (pressedKeys.contains(KeyEvent.VK_DOWN) && inBoundsBottom(mario)) { //move down
-                mario.setPosY(mario.getPosY() + speed);
+                mario.moveLeft(speed);
 
             }
 
-            if (pressedKeys.contains(KeyEvent.VK_SPACE) || controller.isButtonPressed(GamePad.BUTTON_CROSS)) {
-                if (mario != null && jmp <= jmpCount) {
+            if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
+                if (mario != null && jmp <= jmpCount && !jumping) {
                     mario.setAnim("jump");
                     mario.jump();
                     ++jmp;
@@ -198,6 +180,7 @@ public class StimulusPrototype extends Game {
                     if (mario.getPosY() <= 0) {
                         mario.setPosY(mario.halfHeight());
                     }
+                    if (jmp == jmpCount) jumping = true;
                 }
             }
 
@@ -208,24 +191,67 @@ public class StimulusPrototype extends Game {
 
             //Toggle shadows
             if (shadowClock >= shadowRecharge) {
-				if (pressedKeys.contains(KeyEvent.VK_F) || controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
+				if (pressedKeys.contains(KeyEvent.VK_F)) {
 					toggleShadows();
+
+                    if (shadow) {
+                        start = gameClock.getElapsedTime();
+
+                    }
+                    shadowClock = 0;
+				}
+            }
+        }
+
+        //Controller input
+        if (!gamePads.isEmpty()) {
+            GamePad controller = gamePads.get(0);
+
+            //Movement
+            if (controller.isButtonPressed(GamePad.DPAD_RIGHT) || controller.getLeftStickXAxis() > 0.5
+                    && inBoundsRight(mario)) { //move right
+
+                mario.moveRight(speed);
+            }
+            if (controller.isButtonPressed(GamePad.DPAD_LEFT) || controller.getLeftStickXAxis() < -0.5
+                    && inBoundsLeft(mario)) { //move left
+
+                mario.moveLeft(speed);
+
+            }
+
+            if (controller.isButtonPressed(GamePad.BUTTON_CROSS)) {
+                if (mario != null && jmp <= jmpCount && !jumping) {
+                    mario.setAnim("jump");
+                    mario.jump();
+                    ++jmp;
+                    if (frameClock >= 10) soundManager.loadSoundEffect("jump", "jump.wav");
+                    frameClock = 0;
+                    if (mario.getPosY() <= 0) {
+                        mario.setPosY(mario.halfHeight());
+                    }
+                    if (jmp == jmpCount) jumping = true;
+                }
+            }
+
+            if (isMoving() && !mario.getCurrentAnim().equals("jump")) {
+                mario.setAnim("run");
+
+            }
+
+            //Toggle shadows
+            if (shadowClock >= shadowRecharge) {
+                if (controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
+                    toggleShadows();
 
                     if (shadow) {
                         start = gameClock.getElapsedTime();
                         //System.out.println(start);
                     }
 
-				}
-                shadowClock = 0;
+                    shadowClock = 0;
+                }
             }
-
-//            //TODO: Shadow duration
-//            if (gameClock.getElapsedTime() - start >= shadowDuration && shadow) {
-//                System.out.println(gameClock.getElapsedTime() - start);
-//                toggleShadows();
-//            }
-
         }
 
         //Idle animation
@@ -242,8 +268,14 @@ public class StimulusPrototype extends Game {
 
         }
 
+        //Shadow duration
+        if (gameClock != null && gameClock.getElapsedTime() - start >= shadowDuration && shadow) {
+            toggleShadows();
+            shadowClock = 0;
+        }
 
-        //TODO: make more efficient -will get really slow with lots of objects
+
+        //TODO: make more efficient -will get really slow with lots of objects (implement collision grid?)
         if (mario != null) {
             for (DisplayObject platform : Platforms.getChildren()) {
                 if (mario.collidesWith(platform)) {
@@ -255,6 +287,7 @@ public class StimulusPrototype extends Game {
                             mario.setAnim("idle");
                     }
                     jmp = 0;
+                    jumping = false;
                 }
             }
 
@@ -262,7 +295,6 @@ public class StimulusPrototype extends Game {
             if (mario.getPosY() >= 3000) {
                 mario.setPosition(mario.halfWidth(), 800 - mario.halfHeight());
             }
-
         }
 
         //Exit game
@@ -302,7 +334,6 @@ public class StimulusPrototype extends Game {
                 g.drawString("\""+questManager.getActiveQuest().getId()+"\" Completed!", centerX-135, centerY);
             }
         }
-
     }
 
     private boolean inBounds(Sprite s) {
@@ -330,12 +361,18 @@ public class StimulusPrototype extends Game {
 
     private boolean isMoving() {
 
-        GamePad controller = controllers.get(0);
+        boolean controllerInput = false;
+        if (controllers != null && !controllers.isEmpty()) {
+            GamePad controller = controllers.get(0);
+            controllerInput = controller.getLeftStickXAxis() > 0.5 ||
+                    controller.getLeftStickXAxis() < -0.5 ||
+                    controller.getLeftStickYAxis() > 0.5 ||
+                    controller.getLeftStickYAxis() < -0.5;
+        }
 
         return (pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_LEFT)
-                || pressedKeys.contains(KeyEvent.VK_UP) || pressedKeys.contains(KeyEvent.VK_DOWN)
-                || controller.getLeftStickXAxis() > 0.5 || controller.getLeftStickXAxis() < -0.5
-                || controller.getLeftStickYAxis() > 0.5 || controller.getLeftStickYAxis() < -0.5);
+                || pressedKeys.contains(KeyEvent.VK_UP) || pressedKeys.contains(KeyEvent.VK_DOWN) || controllerInput);
+
     }
 
     private void toggleShadows() {
