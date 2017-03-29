@@ -1,18 +1,19 @@
 package edu.virginia.engine.display;
 
-
-import edu.virginia.engine.cole_tween.*;
+import edu.virginia.engine.cole_tween.Tween;
+import edu.virginia.engine.cole_tween.TweenJuggler;
 import edu.virginia.engine.controller.GamePad;
-import edu.virginia.engine.events.*;
-import edu.virginia.engine.events.Event;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static edu.virginia.engine.cole_tween.TweenableParams.*;
+import static edu.virginia.engine.cole_tween.TweenableParams.SCALE_X;
+import static edu.virginia.engine.cole_tween.TweenableParams.SCALE_Y;
 
-
-public class SoundSprite extends Sprite {
+/**
+ * Created by cole on 3/29/17.
+ */
+public class ShadowSoundSprite extends ShadowSprite {
 
     Sprite soundWave1 = new Sprite("soundWave1", "circle.png");
     Sprite soundWave2 = new Sprite("soundWave2", "circle.png");
@@ -26,8 +27,8 @@ public class SoundSprite extends Sprite {
     double startTime;
     double numWaves;
 
-    public SoundSprite(String id) {
-        super(id);
+    public ShadowSoundSprite(String id, String filename, String shadow_filename) {
+        super(id, filename, shadow_filename);
 
         numWaves = 0;
 
@@ -42,10 +43,30 @@ public class SoundSprite extends Sprite {
         soundWave3.setScaleX(.05);
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
+
     }
 
-    public SoundSprite(String id, String imageFileName) {
-        super(id, imageFileName);
+    public ShadowSoundSprite(String id, String shadow_filename) {
+        super(id, shadow_filename);
+
+        numWaves = 0;
+
+        soundWave1.setScaleX(.05);
+        soundWave1.setScaleY(.05);
+        soundWave1.setVisible(false);
+
+        soundWave2.setScaleX(.05);
+        soundWave2.setScaleY(.05);
+        soundWave2.setVisible(false);
+
+        soundWave3.setScaleX(.05);
+        soundWave3.setScaleY(.05);
+        soundWave3.setVisible(false);
+
+    }
+
+    public ShadowSoundSprite(String id) {
+        super(id);
 
         numWaves = 0;
 
@@ -146,16 +167,16 @@ public class SoundSprite extends Sprite {
     }
 
     @Override
-    public void setVisible(boolean visible){
-        super.setVisible(visible);
-        soundWave1.setVisible(visible);
-        soundWave2.setVisible(visible);
-        soundWave3.setVisible(visible);
+    public void toggleShadow(boolean s){
+        super.toggleShadow(s);
+
+        soundWave1.setVisible(s);
+        soundWave2.setVisible(s);
+        soundWave3.setVisible(s);
     }
 
     @Override
     public boolean collidesWith(DisplayObject other){
         return soundWave1.getHitbox().intersects(other.getHitbox());
     }
-
 }

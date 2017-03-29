@@ -54,7 +54,8 @@ public class StimulusPrototype extends Game {
 
     ShadowSprite background = new ShadowSprite("Background", "background1.png", "shadow_background1_mag.png");
 
-    Sprite sun = new SoundSprite("sun", "sun.png");
+    //Sprite sun = new SoundSprite("sun", "sun.png");
+    ShadowSoundSprite sun = new ShadowSoundSprite("sun", "sun.png");
 
     ArrayList<DisplayObject> children = getChildren();
 
@@ -113,7 +114,6 @@ public class StimulusPrototype extends Game {
                         - 300);
 
         sun.setPosition(1000, 350);
-        sun.setVisible(false);
 
         platform5.setPosition(centerX, centerY-150);
         platform5.setScale(0.25);
@@ -207,8 +207,6 @@ public class StimulusPrototype extends Game {
 				if (pressedKeys.contains(KeyEvent.VK_F)) {
 					toggleShadows();
 
-                    sun.setVisible(!sun.isVisible());
-
                     if (shadow) {
                         start = gameClock.getElapsedTime();
 
@@ -287,8 +285,6 @@ public class StimulusPrototype extends Game {
         if (gameClock != null && gameClock.getElapsedTime() - start >= shadowDuration && shadow) {
             toggleShadows();
             shadowClock = 0;
-
-            sun.setVisible(false);
         }
 
         //collision with soundsprite (sun)
