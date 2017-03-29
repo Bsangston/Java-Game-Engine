@@ -5,6 +5,9 @@ import edu.virginia.engine.display.*;
 import edu.virginia.engine.events.*;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.sound.SoundManager;
+import edu.virginia.engine.tween.Tween;
+import edu.virginia.engine.tween.TweenEvent;
+import edu.virginia.engine.tween.TweenableParam;
 import edu.virginia.engine.util.GameClock;
 
 import java.awt.*;

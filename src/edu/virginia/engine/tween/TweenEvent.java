@@ -1,7 +1,9 @@
-package edu.virginia.engine.events;
+package edu.virginia.engine.tween;
 
 
-import edu.virginia.engine.display.Tween;
+import edu.virginia.engine.events.Event;
+import edu.virginia.engine.events.IEventDispatcher;
+import edu.virginia.engine.tween.Tween;
 
 /**
  * Created by BrandonSangston on 3/17/17.

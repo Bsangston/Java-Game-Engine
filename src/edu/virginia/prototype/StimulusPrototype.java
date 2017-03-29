@@ -1,5 +1,6 @@
 package edu.virginia.prototype;
 
+import edu.virginia.engine.cole_tween.TweenJuggler;
 import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.controller.GamePadComponent;
 import edu.virginia.engine.display.*;
@@ -53,10 +54,13 @@ public class StimulusPrototype extends Game {
 
     ShadowSprite background = new ShadowSprite("Background", "background1.png", "shadow_background1_mag.png");
 
+    Sprite sun = new SoundSprite("sun", "sun.png");
+
     ArrayList<DisplayObject> children = getChildren();
 
     SoundManager soundManager = new SoundManager();
 
+    boolean soundSpriteCollision = false;
 
     public StimulusPrototype() {
         super("Stimulus Prototype v1.0", 1200, 800);
@@ -108,6 +112,9 @@ public class StimulusPrototype extends Game {
                 platform4.getLocalHitbox().width, platform4.getLocalHitbox().height - platform4.getLocalHitbox().height/25
                         - 300);
 
+        sun.setPosition(1000, 350);
+        sun.setVisible(false);
+
         platform5.setPosition(centerX, centerY-150);
         platform5.setScale(0.25);
         platform5.addRigidBody2D();
@@ -129,6 +136,7 @@ public class StimulusPrototype extends Game {
         addChild(coin);
         addChild(mario);
         addChild(Platforms);
+        addChild(sun);
         Platforms.addChild(platform1);
         Platforms.addChild(platform2);
         Platforms.addChild(platform3);
@@ -155,6 +163,11 @@ public class StimulusPrototype extends Game {
     @Override
     public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
         super.update(pressedKeys, gamePads);
+
+        TweenJuggler.nextFrame();
+
+        if(sun != null)
+            sun.update(pressedKeys, gamePads);
 
         //Keyboard input
         if (!pressedKeys.isEmpty()) {
@@ -193,6 +206,8 @@ public class StimulusPrototype extends Game {
             if (shadowClock >= shadowRecharge) {
 				if (pressedKeys.contains(KeyEvent.VK_F)) {
 					toggleShadows();
+
+                    sun.setVisible(!sun.isVisible());
 
                     if (shadow) {
                         start = gameClock.getElapsedTime();
@@ -272,8 +287,15 @@ public class StimulusPrototype extends Game {
         if (gameClock != null && gameClock.getElapsedTime() - start >= shadowDuration && shadow) {
             toggleShadows();
             shadowClock = 0;
+
+            sun.setVisible(false);
         }
 
+        //collision with soundsprite (sun)
+        if(mario != null && sun != null && sun.collidesWith(mario)){
+            mario.setPosition(mario.halfWidth(), 800 - mario.halfHeight());
+            soundSpriteCollision = true;
+        }
 
         //TODO: make more efficient -will get really slow with lots of objects (implement collision grid?)
         if (mario != null) {
@@ -319,6 +341,10 @@ public class StimulusPrototype extends Game {
 
         Font f = new Font("GUI", Font.ITALIC, 20);
 
+        if(sun != null){
+            sun.draw(g);
+        }
+
         if (shadow) {
             g.setColor(Color.white);
         } else {
@@ -333,6 +359,11 @@ public class StimulusPrototype extends Game {
                 g.setFont(f);
                 g.drawString("\""+questManager.getActiveQuest().getId()+"\" Completed!", centerX-135, centerY);
             }
+        }
+
+        if(soundSpriteCollision){
+            g.setFont(f);
+            g.drawString("You collided with the deathly sound sprite, restart!", centerX-300, centerY+100);
         }
     }
 

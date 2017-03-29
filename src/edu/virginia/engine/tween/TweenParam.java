@@ -1,4 +1,4 @@
-package edu.virginia.engine.display;
+package edu.virginia.engine.tween;
 
 /**
  * Created by BrandonSangston on 3/17/17.

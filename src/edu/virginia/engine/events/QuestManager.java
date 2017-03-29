@@ -2,6 +2,7 @@ package edu.virginia.engine.events;
 
 import edu.virginia.engine.display.AnimatedShadowSprite;
 import edu.virginia.engine.display.PickUp;
+import edu.virginia.engine.display.SoundSprite;
 
 import java.util.HashMap;
 
@@ -72,6 +73,10 @@ public class QuestManager extends EventDispatcher implements IEventListener{
         }
         /* Quest*/
         if (event.getSource() instanceof QuestManager) {
+
+        }
+
+        if(event.getSource() instanceof SoundSprite){
 
         }
     }

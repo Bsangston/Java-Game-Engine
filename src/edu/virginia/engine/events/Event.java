@@ -11,6 +11,7 @@ public class Event {
     public static final String TWEEN_START = "TWEEN_START";
     public static final String TWEEN_TICK = "TWEEN_TICK";
     public static final String TWEEN_END = "TWEEN_END";
+    public static final String SOUND_SPRITE_COLLISION = "SOUND_SPRITE_COLLISION";
 
     protected String eventType;
     protected IEventDispatcher source; //the object that created this event

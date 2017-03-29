@@ -1,10 +1,8 @@
-package edu.virginia.engine.display;
+package edu.virginia.engine.tween;
 
+import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.events.Event;
 import edu.virginia.engine.events.EventDispatcher;
-import edu.virginia.engine.events.IEventListener;
-
-import java.util.ArrayList;
 
 /**
  * Created by matthewleon on 3/17/17.

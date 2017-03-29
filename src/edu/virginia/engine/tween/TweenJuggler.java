@@ -1,6 +1,5 @@
-package edu.virginia.engine.display;
+package edu.virginia.engine.tween;
 
-import java.util.ArrayList;
 import java.util.Queue;
 
 /**
