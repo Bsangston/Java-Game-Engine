@@ -97,6 +97,7 @@ public class ShadowSoundSprite extends ShadowSprite {
             TweenJuggler.add(circleMove1);
 
             startTime = System.currentTimeMillis();
+
         }
 
         if(numWaves == 1 && System.currentTimeMillis() - startTime > 500){
@@ -106,6 +107,8 @@ public class ShadowSoundSprite extends ShadowSprite {
             circleMove2.animate(SCALE_X, .05, .5, 1500);
             circleMove2.animate(SCALE_Y, .05, .5, 1500);
             TweenJuggler.add(circleMove2);
+
+
 
         }
 
@@ -117,22 +120,27 @@ public class ShadowSoundSprite extends ShadowSprite {
             circleMove3.animate(SCALE_Y, .05, .5, 1500);
             TweenJuggler.add(circleMove3);
 
+
+
         }
 
-        if(TweenJuggler.activeTweens.size() == 2 && numWaves == 3){
+        if(TweenJuggler.activeTweens.size() < 3 && numWaves == 3){
 
             if(!TweenJuggler.activeTweens.contains(circleMove1)){
                 circleMove1.animate(SCALE_X, .05, .5, 1500);
                 circleMove1.animate(SCALE_Y, .05, .5, 1500);
                 TweenJuggler.add(circleMove1);
+
             } else if(!TweenJuggler.activeTweens.contains(circleMove2)){
                 circleMove2.animate(SCALE_X, .05, .5, 1500);
                 circleMove2.animate(SCALE_Y, .05, .5, 1500);
                 TweenJuggler.add(circleMove2);
+
             } else if(!TweenJuggler.activeTweens.contains(circleMove3)){
                 circleMove3.animate(SCALE_X, .05, .5, 1500);
                 circleMove3.animate(SCALE_Y, .05, .5, 1500);
                 TweenJuggler.add(circleMove3);
+
             }
         }
 
