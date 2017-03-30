@@ -1,7 +1,6 @@
 package edu.virginia.engine.display;
 
 import edu.virginia.engine.controller.GamePad;
-import sun.awt.image.BufferedImageDevice;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -93,7 +92,7 @@ public class Sprite extends DisplayObjectContainer {
 
 	public void jump() {
 		if (rb2d != null) {
-			rb2d.applyForce(new Vector2D(1f, jumpForce));
+			rb2d.applyForce(new Vec2(1f, jumpForce));
 		}
 	}
 

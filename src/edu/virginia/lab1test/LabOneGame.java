@@ -10,7 +10,7 @@ import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.AnimatedSprite;
 import edu.virginia.engine.display.Game;
 import edu.virginia.engine.display.Sprite;
-import edu.virginia.engine.display.Vector2D;
+import edu.virginia.engine.display.Vec2;
 import edu.virginia.engine.util.GameClock;
 
 import java.awt.*;
@@ -32,7 +32,7 @@ public class LabOneGame extends Game {
 	boolean player1Win = false, player2Win = false;
 	GameClock gameClock = new GameClock();
 
-	Vector2D center = new Vector2D(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
+	Vec2 center = new Vec2(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
 	int centerX = (int)center.getX();
 	int centerY = (int)center.getY();
 

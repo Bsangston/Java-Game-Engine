@@ -46,7 +46,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	protected double mouse_x, mouse_y;
 
 	/* Center point of game scene for convenience */
-	protected Vector2D center;
+	protected Vec2 center;
 	protected int centerX;
 	protected int centerY;
 
@@ -54,6 +54,10 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	public static double GRAVITY = 1.1;
 	public static double DRAG = 0.2;
 	public static double STICKY_THRESHOLD = 0.0004;
+
+	/*Parallax Scrolling */
+	protected ArrayList<DisplayObject> backgroundLayers;
+	protected int numLayers = 0;
 
 	public Game(String gameId, int width, int height) {
 		super(gameId);
@@ -65,7 +69,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		/* Use an absolute layout */
 		scenePanel.setLayout(null);
 
-		center = new Vector2D(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
+		center = new Vec2(getMainFrame().getWidth()/2, getMainFrame().getHeight()/2);
 		centerX = (int)center.getX();
 		centerY = (int)center.getY();
 
@@ -338,7 +342,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 				double vx = child.rb2d.velocity.x + (child.rb2d.acceleration.x * timeFraction);
 				double vy = child.rb2d.velocity.y + (child.rb2d.acceleration.y * timeFraction);
 
-				child.rb2d.updateVelocity(new Vector2D(vx, vy));
+				child.rb2d.updateVelocity(new Vec2(vx, vy));
 
 				child.rb2d.applyDrag(1.0 - (timeFraction * Game.DRAG));
 			}
@@ -362,7 +366,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 
 				double newX = prevX + (child.rb2d.velocity.x * timeFraction);
 				double newY = prevY + (child.rb2d.velocity.y * timeFraction);
-				child.updatePosition(new Vector2D(newX, newY));
+				child.updatePosition(new Vec2(newX, newY));
 			}
 		}
 	}
@@ -372,5 +376,26 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		curTime = System.currentTimeMillis();
 		timePassed = (curTime - lastTime);
 		timeFraction = (timePassed / 1000.0);
+	}
+
+	public void addBackgroundLayer(DisplayObject background) {
+		if (backgroundLayers == null) {
+			backgroundLayers = new ArrayList<DisplayObject>();
+		}
+		backgroundLayers.add(background);
+		numLayers = backgroundLayers.size();
+		this.addChild(background);
+
+	}
+
+	public void removeBackgroundLayer(DisplayObject background) {
+		if (backgroundLayers.contains(background)) {
+			backgroundLayers.remove(background);
+			this.removeChild(background);
+		}
+	}
+
+	public int getNumLayers() {
+		return numLayers;
 	}
 }

@@ -13,7 +13,7 @@ import static edu.virginia.engine.cole_tween.TweenableParams.SCALE_Y;
 /**
  * Created by cole on 3/29/17.
  */
-public class ShadowSoundSprite extends ShadowSprite {
+public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
     Sprite soundWave1 = new Sprite("soundWave1", "circle.png");
     Sprite soundWave2 = new Sprite("soundWave2", "circle.png");
@@ -27,8 +27,8 @@ public class ShadowSoundSprite extends ShadowSprite {
     double startTime;
     double numWaves;
 
-    public ShadowSoundSprite(String id, String filename, String shadow_filename) {
-        super(id, filename, shadow_filename);
+    public AnimatedShadowSoundSprite(String id, String imageFileName, String shadowFileName, int cols, int rows) {
+        super(id, imageFileName, shadowFileName, cols, rows);
 
         numWaves = 0;
 
@@ -46,8 +46,8 @@ public class ShadowSoundSprite extends ShadowSprite {
 
     }
 
-    public ShadowSoundSprite(String id, String shadow_filename) {
-        super(id, shadow_filename);
+    public AnimatedShadowSoundSprite(String id, String shadow_filename, int cols, int rows) {
+        super(id, shadow_filename, cols, rows);
 
         numWaves = 0;
 
@@ -65,7 +65,7 @@ public class ShadowSoundSprite extends ShadowSprite {
 
     }
 
-    public ShadowSoundSprite(String id) {
+    public AnimatedShadowSoundSprite(String id) {
         super(id);
 
         numWaves = 0;

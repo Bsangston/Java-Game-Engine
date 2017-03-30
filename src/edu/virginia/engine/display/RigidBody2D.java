@@ -1,7 +1,5 @@
 package edu.virginia.engine.display;
 
-import edu.virginia.engine.util.GameClock;
-
 import java.util.ArrayList;
 
 /**
@@ -10,33 +8,33 @@ import java.util.ArrayList;
 public class RigidBody2D {
 
     private static double gravity = Game.GRAVITY;
-    private static Vector2D gravity2D;
+    private static Vec2 gravity2D;
     private boolean hasGravity;
 
-    public Vector2D velocity;
-    public Vector2D acceleration;
+    public Vec2 velocity;
+    public Vec2 acceleration;
     public double mass;
     public double restitution;
-    public ArrayList<Vector2D> constantForces;
+    public ArrayList<Vec2> constantForces;
 
     private DisplayObject sprite;
 
     public RigidBody2D(DisplayObject s) {
         sprite = s;
-        velocity = new Vector2D(0, 0);
-        acceleration = new Vector2D(1, gravity);
+        velocity = new Vec2(0, 0);
+        acceleration = new Vec2(1, gravity);
         mass = 1;
         restitution = 0.2;
 
         constantForces = new ArrayList<>();
-        gravity2D = new Vector2D(1, gravity);
+        gravity2D = new Vec2(1, gravity);
         constantForces.add(gravity2D);
         hasGravity = true;
 
     }
 
     //TODO: fix
-    public void applyForce(Vector2D force) {
+    public void applyForce(Vec2 force) {
         acceleration.x = force.x/mass;
         acceleration.y = force.y/mass;
         sprite.setPosition((int)(sprite.getPosX() * acceleration.x), (int)(sprite.getPosY() * acceleration.y));
@@ -45,17 +43,17 @@ public class RigidBody2D {
 
     //TODO: fix
     public void applyConstantForces() {
-        for (Vector2D force : constantForces) {
+        for (Vec2 force : constantForces) {
             applyForce(force);
         }
 
     }
 
-    public void updateVelocity(Vector2D velocity) {
+    public void updateVelocity(Vec2 velocity) {
         this.velocity = velocity;
     }
 
-    public void addAcceleration(Vector2D accel) {
+    public void addAcceleration(Vec2 accel) {
         acceleration.x += accel.x;
         acceleration.y += accel.y;
     }
@@ -74,19 +72,19 @@ public class RigidBody2D {
         return mass;
     }
 
-    public void setVelocity(Vector2D velocity) {
+    public void setVelocity(Vec2 velocity) {
         this.velocity = velocity;
     }
 
-    public Vector2D getVelocity() {
+    public Vec2 getVelocity() {
         return velocity;
     }
 
-    public void setAcceleration(Vector2D acceleration) {
+    public void setAcceleration(Vec2 acceleration) {
         this.acceleration = acceleration;
     }
 
-    public Vector2D getAcceleration() {
+    public Vec2 getAcceleration() {
         return acceleration;
     }
 

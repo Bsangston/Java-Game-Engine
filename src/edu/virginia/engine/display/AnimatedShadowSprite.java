@@ -11,7 +11,7 @@ public class AnimatedShadowSprite extends AnimatedSprite{
     private BufferedImage shadow;
     private BufferedImage[] shadowFrameList;
     private boolean isShadow;
-    private boolean invisible;
+    private boolean onlyShadow = false;
 
     public AnimatedShadowSprite(String id, String imageFileName, String shadowFileName, int cols, int rows)
     {
@@ -19,7 +19,7 @@ public class AnimatedShadowSprite extends AnimatedSprite{
         isShadow = false;
         setShadow(shadowFileName);
         shadowFrameList = parseSpriteSheet(shadow, cols, rows);
-        invisible = false;
+
 
     }
 
@@ -29,8 +29,13 @@ public class AnimatedShadowSprite extends AnimatedSprite{
         isShadow = false;
         setShadow(shadowFileName);
         shadowFrameList = parseSpriteSheet(shadow, cols, rows);
-        invisible = true;
+        onlyShadow = true;
+    }
 
+    public AnimatedShadowSprite(String id) {
+        super(id);
+        isShadow = false;
+        onlyShadow = true;
     }
 
     protected void setShadow(String imageName) {
@@ -52,21 +57,20 @@ public class AnimatedShadowSprite extends AnimatedSprite{
     }
 
     public void addNewAnimation(String name, int[] set) {
-        if (!invisible) {
-            frames.put(name, set);
-        }
+        frames.put(name, set);
     }
 
     public boolean isShadow() {
         return isShadow;
     }
 
-    public void setInvisible(boolean invisible) {
-        this.invisible = invisible;
+    public void setOnlyShadow(boolean invisible) {
+        this.onlyShadow = invisible;
+        setVisible(!onlyShadow);
     }
 
-    public boolean isInvisible() {
-        return invisible;
+    public boolean isOnlyShadow() {
+        return onlyShadow;
     }
 
 }

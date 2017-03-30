@@ -1,13 +1,10 @@
 package edu.virginia.engine.display;
 
 import edu.virginia.engine.events.*;
-import edu.virginia.engine.events.Event;
 
 import edu.virginia.engine.controller.GamePad;
-import net.java.games.input.*;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +23,9 @@ public class DisplayObject extends EventDispatcher {
 
 	/* The image that is displayed by this object */
 	protected BufferedImage displayImage;
-	private boolean visible;
-	private Vector2D position;
-	private Vector2D pivot;
+	private boolean visible = true;
+	private Vec2 position;
+	private Vec2 pivot;
 	private float rotation = 0f; //in degrees
 	private double scaleX = 1;
 	private double scaleY = 1;
@@ -55,8 +52,8 @@ public class DisplayObject extends EventDispatcher {
 		super();
 		this.setId(id);
 		visible = false;
-		position = new Vector2D(0,0);
-		pivot = new Vector2D(position);
+		position = new Vec2(0,0);
+		pivot = new Vec2(position);
 	}
 
 	public DisplayObject(String id, String fileName) {
@@ -64,8 +61,8 @@ public class DisplayObject extends EventDispatcher {
 		this.setId(id);
 		this.setImage(fileName);
 		visible = true;
-		position = new Vector2D(getUnscaledWidth()/2, getUnscaledHeight()/2);
-		pivot = new Vector2D(position);
+		position = new Vec2(getUnscaledWidth()/2, getUnscaledHeight()/2);
+		pivot = new Vec2(position);
 
 		hitbox = new Rectangle(0, 0, getUnscaledWidth(), getUnscaledHeight());
 
@@ -302,7 +299,7 @@ public class DisplayObject extends EventDispatcher {
 		setPosition(getPosX() - getPivotX(),getPosY() - getPivotY());
 	}
 
-	public Vector2D getGlobalPosition() {
+	public Vec2 getGlobalPosition() {
 		int x = getPosX(), y = getPosY();
 		DisplayObject p = parent;
 		while (p != null) {
@@ -310,7 +307,7 @@ public class DisplayObject extends EventDispatcher {
 			y += p.getPosY() + getPosY();
 			p = p.getParent();
 		}
-		return new Vector2D(x, y);
+		return new Vec2(x, y);
 	}
 
 	public boolean collidesWith(DisplayObject other) {
@@ -383,7 +380,7 @@ public class DisplayObject extends EventDispatcher {
 		this.visible = visible;
 	}
 
-	public Vector2D getPosition() {
+	public Vec2 getPosition() {
 		return position;
 	}
 
@@ -399,7 +396,7 @@ public class DisplayObject extends EventDispatcher {
 		position.setPosition(x, y);
 	}
 
-	public void setPosition(Vector2D p) { this.position = p; }
+	public void setPosition(Vec2 p) { this.position = p; }
 
 	public void setPosX(int x) {
 		position.setX(x);
@@ -407,7 +404,7 @@ public class DisplayObject extends EventDispatcher {
 
 	public void setPosY(int y) { position.setY(y); }
 
-	public Vector2D getPivot() {
+	public Vec2 getPivot() {
 		return pivot;
 	}
 
@@ -419,7 +416,7 @@ public class DisplayObject extends EventDispatcher {
 		return (int)pivot.getY();
 	}
 
-	public void setPivot(Vector2D pivot) {
+	public void setPivot(Vec2 pivot) {
 		this.pivot = pivot;
 	}
 
@@ -487,7 +484,7 @@ public class DisplayObject extends EventDispatcher {
 		this.collidable = collidable;
 	}
 
-	public void updatePosition(Vector2D position) {
+	public void updatePosition(Vec2 position) {
 		this.position.x += position.x;
 		this.position.y += position.y;
 	}

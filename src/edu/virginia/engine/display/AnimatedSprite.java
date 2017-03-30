@@ -12,6 +12,11 @@ import java.awt.*;
  */
 public class AnimatedSprite extends Sprite {
 
+    public static final String IDLE = "IDLE";
+    public static final String JUMP = "JUMP";
+    public static final String RUN = "RUN";
+    public static final String WALK = "WALK";
+
     protected BufferedImage[] frameList;
     protected HashMap<String, int[]> frames; //each animation paired with an int array containing start and end indices
 
@@ -37,6 +42,7 @@ public class AnimatedSprite extends Sprite {
 
     public AnimatedSprite(String id) {
         super(id);
+        frames = new HashMap<String, int[]>();
     }
 
     @Override
@@ -111,6 +117,15 @@ public class AnimatedSprite extends Sprite {
 
     public String getCurrentAnim() {
 	    return currentAnim;
+    }
+
+    public void jump() {
+        super.jump();
+        if (frames.containsKey(AnimatedSprite.JUMP)) {
+            setAnim(AnimatedSprite.JUMP);
+        }
+
+
     }
 
 
