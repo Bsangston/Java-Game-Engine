@@ -5,12 +5,21 @@ import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.*;
 import edu.virginia.engine.events.*;
 import edu.virginia.engine.events.Event;
+import edu.virginia.engine.puredata.core.*;
+import edu.virginia.engine.puredata.core.PdReceiver;
+import edu.virginia.engine.puredata.core.utils.PdDispatcher;
+import edu.virginia.engine.sound.JavaSoundThread;
 import edu.virginia.engine.sound.SoundManager;
 import edu.virginia.engine.util.GameClock;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
+
+
+import org.puredata.core.*;
+import org.puredata.core.PdBase;
 
 /**
  * Created by BrandonSangston on 2/17/17.
@@ -181,8 +190,20 @@ public class StimulusPrototype extends Game {
         mario.addEventListener(this, Event.COLLISION);
 
         //Music
-        soundManager.loadMusic("mario theme", "mario_theme.wav");
+       //soundManager.loadMusic("mario theme", "mario_theme.wav");
 
+        JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
+        try {
+            int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
+            //int patch = PdBase.openPatch("resources/test-patch.pd");
+            System.out.println(patch);
+
+        } catch (java.io.IOException e) {
+            System.err.print("IO Exception w/ patch!");
+        }
+        audioThread.start();
+
+        PdBase.sendBang("shadow_on");
 
     }
 
@@ -442,10 +463,11 @@ public class StimulusPrototype extends Game {
 
         if (getScenePanel().getBackground() != Color.BLACK) {
             getScenePanel().setBackground(Color.BLACK);
+            PdBase.sendBang("shadow_off");
         } else {
             getScenePanel().setBackground(Color.WHITE);
+            PdBase.sendBang("shadow_on");
         }
-
 
         shadow = !shadow;
     }
@@ -490,7 +512,6 @@ public class StimulusPrototype extends Game {
 
         StimulusPrototype game = new StimulusPrototype();
         game.start();
-
     }
 
 }
