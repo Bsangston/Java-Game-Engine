@@ -154,7 +154,6 @@ public class LabFiveGame extends Game {
 
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
                 if (mario != null && jmp <= jmpCount) {
-                    mario.setAnim("jump");
                     mario.jump();
                     ++jmp;
                     if (frameClock >= 10) soundManager.loadSoundEffect("jump", "jump.wav");
@@ -182,7 +181,6 @@ public class LabFiveGame extends Game {
             }
             coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
             questManager.completeQuest("Games are Fun");
-
 
         }
 
@@ -231,12 +229,14 @@ public class LabFiveGame extends Game {
 
         Font f = new Font("GUI", Font.ITALIC, 20);
 
-        g.drawString("Current Quest: "+questManager.getActiveQuest().getId(), 25, 25);
-        g.drawString("Objective: "+questManager.getActiveQuest().getObjective(), 25, 50);
+        if (questManager != null) {
+            g.drawString("Current Quest: " + questManager.getActiveQuest().getId(), 25, 25);
+            g.drawString("Objective: " + questManager.getActiveQuest().getObjective(), 25, 50);
 
-        if (questManager.getActiveQuest().isComplete()) {
-            g.setFont(f);
-            g.drawString("\""+questManager.getActiveQuest().getId()+"\" Completed!", centerX-135, centerY);
+            if (questManager.getActiveQuest().isComplete()) {
+                g.setFont(f);
+                g.drawString("\"" + questManager.getActiveQuest().getId() + "\" Completed!", centerX - 135, centerY);
+            }
         }
 
     }

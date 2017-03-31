@@ -1,6 +1,7 @@
 package edu.virginia.engine.events;
 
 import edu.virginia.engine.display.AnimatedShadowSprite;
+import edu.virginia.engine.display.DisplayObject;
 import edu.virginia.engine.display.PickUp;
 import edu.virginia.engine.display.SoundSprite;
 
@@ -68,8 +69,8 @@ public class QuestManager extends EventDispatcher implements IEventListener{
     @Override
     public void handleEvent(Event event) {
         /* Pickup */
-        if (event.getSource() instanceof AnimatedShadowSprite) {
-            ((AnimatedShadowSprite) event.getSource()).setVisible(false);
+        if (event.getSource() instanceof DisplayObject) {
+            ((DisplayObject) event.getSource()).setVisible(false);
         }
         /* Quest*/
         if (event.getSource() instanceof QuestManager) {

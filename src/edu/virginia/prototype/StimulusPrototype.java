@@ -487,6 +487,7 @@ public class StimulusPrototype extends Game {
      * that calls update() and draw() every frame
      */
     public static void main(String[] args) {
+
         StimulusPrototype game = new StimulusPrototype();
         game.start();
 
