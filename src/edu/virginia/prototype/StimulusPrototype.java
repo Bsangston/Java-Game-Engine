@@ -196,9 +196,9 @@ public class StimulusPrototype extends Game {
 
         JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
         try {
-            int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
-            //int patch = PdBase.openPatch("resources/test-patch.pd");
-            System.out.println(patch);
+            //int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
+            int patch = PdBase.openPatch("resources/test-patch.pd");
+            //System.out.println(patch);
 
         } catch (java.io.IOException e) {
             System.err.print("IO Exception w/ patch!");

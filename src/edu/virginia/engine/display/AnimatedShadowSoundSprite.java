@@ -124,7 +124,7 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
         }
 
-        if(!TweenJuggler.activeTweens.isEmpty() && numWaves >= 3){
+        if(TweenJuggler.activeTweens.size() < 3 && numWaves >= 3){
 
             if(!TweenJuggler.activeTweens.contains(circleMove1)){
                 circleMove1.animate(SCALE_X, .05, .5, 1500);
