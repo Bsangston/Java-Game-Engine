@@ -22,8 +22,8 @@ import org.puredata.core.PdBase;
 
 /**
  * Created by BrandonSangston on 2/17/17.
- * TODO: Fix physics, tweening, stimulus duration/recharge, libpd, sound visualization,
- * TODO: optimization, sound "collision", side-scrolling, optimization
+ * Matthew Leon
+ * Cole Schafer
  */
 public class StimulusPrototype extends Game {
 
@@ -229,12 +229,12 @@ public class StimulusPrototype extends Game {
         if (!pressedKeys.isEmpty()) {
 
             //Movement
-            if (pressedKeys.contains(KeyEvent.VK_RIGHT) && inBoundsRight(mario)) { //move right
+            if ((pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_D)) && inBoundsRight(mario)) { //move right
 
                 mario.moveRight(speed);
                 //parallaxScrolling(speed, mario);
             }
-            if (pressedKeys.contains(KeyEvent.VK_LEFT) && inBoundsLeft(mario)) { //move left
+            if ((pressedKeys.contains(KeyEvent.VK_LEFT) || pressedKeys.contains(KeyEvent.VK_E)) && inBoundsLeft(mario)) { //move left
 
                 mario.moveLeft(speed);
                 //parallaxScrolling(speed, mario);
@@ -250,8 +250,8 @@ public class StimulusPrototype extends Game {
 
                     mario.jump();
                     ++jmp;
-                    if (frameClock >= 10) soundManager.loadSoundEffect("jump", "jump.wav");
-                    frameClock = 0;
+//                    if (frameClock >= 10) soundManager.loadSoundEffect("jump", "jump.wav");
+//                    frameClock = 0;
                     if (mario.getPosY() <= 0) {
                         mario.setPosY(mario.halfHeight());
                     }
@@ -299,15 +299,22 @@ public class StimulusPrototype extends Game {
             }
 
             if (controller.isButtonPressed(GamePad.BUTTON_CROSS)) {
-                if (mario != null && jmp <= jmpHeight && !jumping) {
+                if (mario != null && jmp <= jmpHeight && !jumping && jumpReady) {
+
+                    landed = false;
+                    if(jmp == 14)
+                        jumpReady = false;
+
                     mario.jump();
                     ++jmp;
-                    if (frameClock >= 10) soundManager.loadSoundEffect("jump", "jump.wav");
-                    frameClock = 0;
+//                    if (frameClock >= 10) soundManager.loadSoundEffect("jump", "jump.wav");
+//                    frameClock = 0;
                     if (mario.getPosY() <= 0) {
                         mario.setPosY(mario.halfHeight());
                     }
-                    if (jmp == jmpHeight) jumping = true;
+                    if (jmp == jmpHeight) {
+                        jumping = true;
+                    }
                 }
             }
 
@@ -380,7 +387,7 @@ public class StimulusPrototype extends Game {
             }
         }
 
-        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE)){
+        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE) && !controllers.get(0).isButtonPressed(GamePad.BUTTON_CROSS)){
             jumpReady = true;
         }
 
@@ -467,8 +474,10 @@ public class StimulusPrototype extends Game {
                     controller.getLeftStickYAxis() < -0.5;
         }
 
-        return (pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_LEFT)
-                || pressedKeys.contains(KeyEvent.VK_UP) || pressedKeys.contains(KeyEvent.VK_DOWN) || controllerInput);
+        return pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_LEFT)
+                || pressedKeys.contains(KeyEvent.VK_UP) || pressedKeys.contains(KeyEvent.VK_DOWN)
+                || pressedKeys.contains(KeyEvent.VK_D) || pressedKeys.contains(KeyEvent.VK_A)
+                || pressedKeys.contains(KeyEvent.VK_W) || pressedKeys.contains(KeyEvent.VK_S) || controllerInput;
 
     }
 
