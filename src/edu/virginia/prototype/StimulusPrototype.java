@@ -17,7 +17,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 import org.puredata.core.*;
 import org.puredata.core.PdBase;
 
@@ -60,7 +59,7 @@ public class StimulusPrototype extends Game {
     //Sprites
     DisplayObjectContainer Platforms = new DisplayObjectContainer("Platforms");
     ShadowSprite platform1 = new ShadowSprite("Platform1", "platform.png", "shadow_platform_mag_b.png");
-    ShadowSprite platform2 = new ShadowSprite("Platform2", "platform.png", "shadow_platform_mag_b.png");
+    ShadowSprite platform2 = new ShadowSprite("Platform2", "shadow_platform_mag_b.png");
     ShadowSprite platform3 = new ShadowSprite("Platform3", "platform.png", "shadow_platform_mag_b.png");
     ShadowSprite platform4 = new ShadowSprite("Platform4", "platform.png", "shadow_platform_mag_b.png");
     ShadowSprite platform5 = new ShadowSprite("Platform5", "platform.png","shadow_platform_mag_b.png");
