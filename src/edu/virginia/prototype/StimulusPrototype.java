@@ -78,6 +78,9 @@ public class StimulusPrototype extends Game {
 
     boolean soundSpriteCollision = false;
 
+    boolean jumpReady;
+    boolean landed;
+
     public StimulusPrototype() {
         super("Stimulus Prototype v1.0", 1200, 800);
 
@@ -204,6 +207,9 @@ public class StimulusPrototype extends Game {
 
         PdBase.sendBang("shadow_on");
 
+        jumpReady = true;
+        landed = true;
+
     }
 
     /**
@@ -236,7 +242,12 @@ public class StimulusPrototype extends Game {
             }
 
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
-                if (mario != null && jmp <= jmpHeight && !jumping) {
+                if (mario != null && jmp <= jmpHeight && !jumping && jumpReady) {
+
+                    landed = false;
+                    if(jmp == 14)
+                        jumpReady = false;
+
                     mario.jump();
                     ++jmp;
                     if (frameClock >= 10) soundManager.loadSoundEffect("jump", "jump.wav");
@@ -359,6 +370,7 @@ public class StimulusPrototype extends Game {
                     }
                     jmp = 0;
                     jumping = false;
+                    landed = true;
                 }
             }
 
@@ -366,6 +378,10 @@ public class StimulusPrototype extends Game {
             if (mario.getPosY() >= 3000) {
                 mario.setPosition(mario.halfWidth(), 800 - mario.halfHeight());
             }
+        }
+
+        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE)){
+            jumpReady = true;
         }
 
         //Exit game
