@@ -51,10 +51,13 @@ public class StimulusPrototype extends Game {
     //Animated Sprites
     AnimatedShadowSprite mario = new AnimatedShadowSprite("Mario", "bigmario_sprites.png",
             "shadow_mario_mag_b.png", 4, 2);
+
     AnimatedShadowSprite coin = new AnimatedShadowSprite("Coin", "coin.png",
             "shadow_coin_mag.png", 10, 1);
     AnimatedShadowSoundSprite enemy = new AnimatedShadowSoundSprite("Ghost", "shadow_boo.png",
             "shadow_boo.png", 3, 2);
+
+    AnimatedShadowSprite pickup = new AnimatedShadowSprite("Pickup", "pickupAnim.jpg", "pickupAnim.jpg", 8, 8);
 
     //Sprites
     DisplayObjectContainer Platforms = new DisplayObjectContainer("Platforms");
@@ -63,6 +66,7 @@ public class StimulusPrototype extends Game {
     ShadowSprite platform3 = new ShadowSprite("Platform3", "platform.png", "shadow_platform_mag_b.png");
     ShadowSprite platform4 = new ShadowSprite("Platform4", "platform.png", "shadow_platform_mag_b.png");
     ShadowSprite platform5 = new ShadowSprite("Platform5", "platform.png","shadow_platform_mag_b.png");
+
 
     //Backgrounds
     ShadowSprite background = new ShadowSprite("Background", "background1.png", "shadow_background1_mag.png");
@@ -84,7 +88,7 @@ public class StimulusPrototype extends Game {
     public StimulusPrototype() {
         super("Stimulus Prototype v1.0", 1200, 800);
 
-        background.setPosition(center);
+//        background.setPosition(center);
 //        addBackgroundLayer(sky);
 //        addBackgroundLayer(mountains1);
 //        addBackgroundLayer(mountains2);
@@ -93,12 +97,12 @@ public class StimulusPrototype extends Game {
 //        for (DisplayObject d : backgroundLayers) {
 //            d.setPosition(center);
 //        }
-//
-//        mountains2.setPosX(mountains2.getPosX()-500);
-//        mountains2.setPosY(mountains2.getPosY()+100);
-//        mountains3.setPosX(mountains2.getPosX()+250);
-//        mountains3.setPosY(mountains2.getPosY()+250);
-//        sky.setScale(2);
+
+        mountains2.setPosX(mountains2.getPosX()-500);
+        mountains2.setPosY(mountains2.getPosY()+100);
+        mountains3.setPosX(mountains2.getPosX()+250);
+        mountains3.setPosY(mountains2.getPosY()+250);
+        sky.setScale(2);
 
         //Initialize player parameters
         mario.addNewAnimation(AnimatedSprite.IDLE, new int[] {0});
@@ -147,6 +151,17 @@ public class StimulusPrototype extends Game {
                 platform4.getLocalHitbox().width, platform4.getLocalHitbox().height - platform4.getLocalHitbox().height/25
                         - 300);
 
+        pickup.addNewAnimation(AnimatedSprite.IDLE, new int[] {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+                21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,
+                54,55,56,57,58,59,60,61,62,63});
+        pickup.centerPivot();
+        pickup.setPosition(platform3.getPosX(), platform3.getPosY() - 100);
+        pickup.setScale(0.5);
+        pickup.setAnim(AnimatedSprite.IDLE);
+        pickup.setAnimSpeed(speed/4);
+        pickup.playAnim();
+        pickup.setOnlyShadow(true);
+
         //Invisible enemy
         enemy.setPosition(1005, 320);
         enemy.setOnlyShadow(true);
@@ -174,6 +189,7 @@ public class StimulusPrototype extends Game {
         //Construct Display Tree
         addChild(background);
         addChild(coin);
+        addChild(pickup);
         addChild(mario);
         addChild(Platforms);
         addChild(enemy);
@@ -232,12 +248,12 @@ public class StimulusPrototype extends Game {
             if ((pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_D)) && inBoundsRight(mario)) { //move right
 
                 mario.moveRight(speed);
-                //parallaxScrolling(speed, mario);
+                //parallaxScrolling(1, mario);
             }
             if ((pressedKeys.contains(KeyEvent.VK_LEFT) || pressedKeys.contains(KeyEvent.VK_E)) && inBoundsLeft(mario)) { //move left
 
                 mario.moveLeft(speed);
-                //parallaxScrolling(speed, mario);
+                //parallaxScrolling(1, mario);
 
             }
 
@@ -521,11 +537,13 @@ public class StimulusPrototype extends Game {
     private void parallaxScrolling(int speed, DisplayObject player) {
         for (DisplayObject d : backgroundLayers) {
             if (player.isFacingRight()) {
-                d.setPosX(d.getPosX() - speed*backgroundLayers.indexOf(d));
+                d.setPosX(d.getPosX() - speed*backgroundLayers.indexOf(d)) ;
             } else {
-                d.setPosX(d.getPosX() + speed*backgroundLayers.indexOf(d));
+                d.setPosX(d.getPosX() + speed * backgroundLayers.indexOf(d));
             }
         }
+
+
     }
 
     /**
