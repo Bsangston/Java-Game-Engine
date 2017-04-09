@@ -44,6 +44,7 @@ public class StimulusPrototype extends Game {
 
     //Platform Logic
     boolean platform6Up = true;
+    boolean platform7active = false, isPlatform7left = true;
 
     //Util
     ArrayList<Integer> lastKeyPressed = new ArrayList<>();
@@ -412,9 +413,8 @@ public class StimulusPrototype extends Game {
 
         //Platform movement
         if (platform6 != null) {
-            System.out.println(platform6.getPosY());
             if (platform6Up) {
-                if (platform6.getPosY() < centerY-200) {
+                if (platform6.getPosY() < centerY-100) {
                     platform6Up = false;
                 }
                 platform6.moveUp(speed/4);
@@ -424,7 +424,9 @@ public class StimulusPrototype extends Game {
                 }
                 platform6.moveDown(speed/4);
             }
+        }
 
+        if (platform7 != null) {
 
         }
 
