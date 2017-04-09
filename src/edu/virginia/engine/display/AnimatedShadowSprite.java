@@ -54,6 +54,11 @@ public class AnimatedShadowSprite extends AnimatedSprite{
         shadowFrameList = frameList;
         frameList = tmp;
 
+        if (onlyShadow && !isShadow) {
+            setCollidable(false);
+        } else if (onlyShadow && isShadow) {
+            setCollidable(true);
+        }
     }
 
     public void addNewAnimation(String name, int[] set) {

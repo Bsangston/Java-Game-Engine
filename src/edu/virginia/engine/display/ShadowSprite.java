@@ -2,6 +2,7 @@ package edu.virginia.engine.display;
 
 //import javafx.scene.effect.Shadow;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -24,6 +25,8 @@ public class ShadowSprite extends Sprite {
         super(id, null);
         setShadow(shadow_filename);
         onlyShadow = true;
+        setHitbox(hitbox.x, hitbox.y, shadow.getWidth(), shadow.getHeight());
+        setCollidable(false);
     }
 
     public ShadowSprite(String id) {
@@ -46,6 +49,12 @@ public class ShadowSprite extends Sprite {
         BufferedImage tmp = shadow;
         shadow = displayImage;
         displayImage = tmp;
+
+        if (onlyShadow && !isShadow) {
+            setCollidable(false);
+        } else if (onlyShadow && isShadow) {
+            setCollidable(true);
+        }
 
     }
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * */
 public class Sprite extends DisplayObjectContainer {
 
-	private static float jumpForce = 0.85f;
+	private static float jumpForce = 0.91f;
 
 	protected static BufferedImage[] global_sprites;
 

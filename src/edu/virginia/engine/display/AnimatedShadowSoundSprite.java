@@ -23,6 +23,7 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
     Tween circleMove2 = new Tween(soundWave2);
     Tween circleMove3 = new Tween(soundWave3);
 
+    float targetScale;
 
     double startTime;
     double numWaves;
@@ -44,6 +45,7 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
 
+        targetScale = (float)getScale()*0.25f;
     }
 
     public AnimatedShadowSoundSprite(String id, String shadow_filename, int cols, int rows) {
@@ -63,6 +65,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
 
+        targetScale = (float)getScale()*0.25f;
+
     }
 
     public AnimatedShadowSoundSprite(String id) {
@@ -81,6 +85,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleX(.05);
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
+
+        targetScale = (float)getScale()*0.25f;
     }
 
     @Override
@@ -92,8 +98,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
             numWaves++;
 
-            circleMove1.animate(SCALE_X, .05, .5, 1500);
-            circleMove1.animate(SCALE_Y, .05, .5, 1500);
+            circleMove1.animate(SCALE_X, .05, targetScale, 1500);
+            circleMove1.animate(SCALE_Y, .05, targetScale, 1500);
             TweenJuggler.add(circleMove1);
 
             startTime = System.currentTimeMillis();
@@ -104,8 +110,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
             numWaves++;
 
-            circleMove2.animate(SCALE_X, .05, .5, 1500);
-            circleMove2.animate(SCALE_Y, .05, .5, 1500);
+            circleMove2.animate(SCALE_X, .05, targetScale, 1500);
+            circleMove2.animate(SCALE_Y, .05, targetScale, 1500);
             TweenJuggler.add(circleMove2);
 
 
@@ -116,8 +122,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
             numWaves++;
 
-            circleMove3.animate(SCALE_X, .05, .5, 1500);
-            circleMove3.animate(SCALE_Y, .05, .5, 1500);
+            circleMove3.animate(SCALE_X, .05, targetScale, 1500);
+            circleMove3.animate(SCALE_Y, .05, targetScale, 1500);
             TweenJuggler.add(circleMove3);
 
 
@@ -127,18 +133,18 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         if(TweenJuggler.activeTweens.size() < 3 && numWaves >= 3){
 
             if(!TweenJuggler.activeTweens.contains(circleMove1)){
-                circleMove1.animate(SCALE_X, .05, .5, 1500);
-                circleMove1.animate(SCALE_Y, .05, .5, 1500);
+                circleMove1.animate(SCALE_X, .05, targetScale, 1500);
+                circleMove1.animate(SCALE_Y, .05, targetScale, 1500);
                 TweenJuggler.add(circleMove1);
 
             } else if(!TweenJuggler.activeTweens.contains(circleMove2)){
-                circleMove2.animate(SCALE_X, .05, .5, 1500);
-                circleMove2.animate(SCALE_Y, .05, .5, 1500);
+                circleMove2.animate(SCALE_X, .05, targetScale, 1500);
+                circleMove2.animate(SCALE_Y, .05, targetScale, 1500);
                 TweenJuggler.add(circleMove2);
 
             } else if(!TweenJuggler.activeTweens.contains(circleMove3)){
-                circleMove3.animate(SCALE_X, .05, .5, 1500);
-                circleMove3.animate(SCALE_Y, .05, .5, 1500);
+                circleMove3.animate(SCALE_X, .05, targetScale, 1500);
+                circleMove3.animate(SCALE_Y, .05, targetScale, 1500);
                 TweenJuggler.add(circleMove3);
 
             }
@@ -187,4 +193,13 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
     public boolean collidesWith(DisplayObject other){
         return soundWave1.getHitbox().intersects(other.getHitbox());
     }
+
+    public void setTargetScale(float targetScale) {
+        this.targetScale = targetScale;
+    }
+
+    public float getTargetScale() {
+        return targetScale;
+    }
 }
+

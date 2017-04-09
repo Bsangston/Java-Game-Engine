@@ -51,7 +51,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	protected int centerY;
 
 	/* Physics stuff */
-	public static double GRAVITY = 1.1;
+	public static double GRAVITY = 1.05;
 	public static double DRAG = 0.2;
 	public static double STICKY_THRESHOLD = 0.0004;
 
@@ -279,41 +279,41 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 
 	//TODO: expand collision resolution capabilities
 	public void resolveCollision(DisplayObject s, DisplayObject other) {
-		double dx = (s.getPosX() - other.getPosX()) / (double)other.halfWidth();
-		double dy = (s.getPosY() - other.getPosY()) / (double)other.halfHeight();
-		double absDX = Math.abs(dx);
-		double absDY = Math.abs(dy);
 
-		if (Math.abs(absDX - absDY) < 0.1) {
-			if (dx < 0) {
-				s.setPosX(other.getLeft() - s.halfWidth());
-			} else {
-				s.setPosX(other.getRight() + s.halfWidth());
+		if (s.isCollidable() && other.isCollidable()) {
+
+			//TODO: Fix horizontal collision resolution
+
+//			//Approaching from left
+//			if (s.getPosX() < other.getPosX()) {
+//				if (s.getRight() > other.getLeft()) {
+//					s.setPosX(other.getLeft() - s.halfWidth());
+//				}
+//
+//			}
+//			//Approaching from right
+//			else if (s.getPosX() > other.getPosX()) {
+//				if (s.getLeft() < other.getRight()) {
+//					s.setPosX(other.getRight() + s.halfWidth());
+//				}
+//
+//			}
+
+			//Approaching from top
+			if (s.getPosY() < other.getPosY()) {
+				if (s.getBottom() > other.getTop()) {
+					s.setPosY(other.getTop() - s.halfHeight());
+				}
 			}
 
-			if (dy < 0) {
-				s.setPosY(other.getTop() - s.halfHeight());
-			} else {
-				s.setPosY(other.getBottom() + s.halfHeight());
+			//Approaching from bottom
+			else if (s.getPosY() > other.getPosY()) {
+				if (s.getTop() < other.getBottom()) {
+					s.setPosY(other.getBottom() + s.halfHeight());
+				}
 			}
 
 		}
-		else if (absDY > absDX) {
-			if (dy < 0) {
-				s.setPosY(other.getTop() - s.halfHeight());
-			} else {
-				s.setPosY(other.getBottom() + s.halfHeight());
-			}
-
-		}
-		else {
-			if (dx < 0) {
-				s.setPosX(other.getLeft() - s.halfWidth());
-			} else {
-				s.setPosX(other.getRight() + s.halfWidth());
-			}
-		}
-
 	}
 
 	public boolean detectCollisions(DisplayObject collider, DisplayObject collidee) {

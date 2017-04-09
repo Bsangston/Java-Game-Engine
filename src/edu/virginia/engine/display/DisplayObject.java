@@ -36,8 +36,8 @@ public class DisplayObject extends EventDispatcher {
 	private DisplayObjectContainer parent;
 
 	/* Collision detection */
-	private Rectangle hitbox;
-	private boolean collidable;
+	protected Rectangle hitbox;
+	private boolean collidable = true;
 
 	/* Physics */
 	private boolean hasRigidBody = false;
@@ -170,6 +170,7 @@ public class DisplayObject extends EventDispatcher {
 		if (hasRigidBody) {
 			rb2d.applyConstantForces();
 		}
+
 	}
 
 	/**
@@ -197,7 +198,7 @@ public class DisplayObject extends EventDispatcher {
 			}
 
 			//Draw Hitbox:
-			//g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+			g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 			/*
 			 * undo the transformations so this doesn't affect other display
@@ -311,16 +312,23 @@ public class DisplayObject extends EventDispatcher {
 	}
 
 	public boolean collidesWith(DisplayObject other) {
-		return this.getHitbox().intersects(other.getHitbox());
+
+		return isCollidable() && this.getHitbox().intersects(other.getHitbox());
 	}
 
 	public Rectangle getHitbox() {
 		//Calculate global hitbox
 		Rectangle hitbox_global = new Rectangle(hitbox);
-		hitbox_global.x = (int)(hitbox.x + position.x - halfWidth());
+		hitbox_global.x = (int) (hitbox.x + position.x - halfWidth());
 		hitbox_global.y = (int)(hitbox.y + position.y - halfHeight());
-		hitbox_global.width =  getScaledWidth();
-		hitbox_global.height = getScaledHeight();
+		if (facingRight) {
+			hitbox_global.width = (int) (hitbox.width * scaleX);
+		} else {
+			hitbox_global.width = (int) (hitbox.width * -scaleX);
+		}
+		hitbox_global.height = (int)(hitbox.height*scaleY);
+
+
 		return hitbox_global;
 	}
 
@@ -438,10 +446,13 @@ public class DisplayObject extends EventDispatcher {
 		this.scaleX = scaleX;
 	}
 
-	public void setScale(double scale) { this.scaleX = scale; this.scaleY = scale; }
+	public void setScale(double scale) {
+		this.scaleX = scale; this.scaleY = scale;
+	}
 
 	public double getScaleY() {
 		return scaleY;
+
 	}
 
 	public void setScaleY(double scaleY) {
@@ -466,7 +477,9 @@ public class DisplayObject extends EventDispatcher {
 
 	public int getTop() { return getHitbox().y; }
 
-	public int getBottom() { return getHitbox().y + getHitbox().height; }
+	public int getBottom() {
+		return getHitbox().y + getHitbox().height;
+	}
 
 	public int getLeft() {
 		return getHitbox().x;
@@ -505,5 +518,13 @@ public class DisplayObject extends EventDispatcher {
 
 		setPosX(getPosX() - speed);
 		//if (background != null) background.setPosX(background.getPosX() + 1);
+	}
+
+	public void moveUp(int speed) {
+		setPosY(getPosY() - speed);
+	}
+
+	public void moveDown(int speed) {
+		setPosY(getPosY() + speed);
 	}
 }
