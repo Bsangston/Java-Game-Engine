@@ -25,6 +25,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
     int loopPerSec = 0;
 
+    double soundScale = 0.5f;
+
     double startTime;
     double numWaves;
 
@@ -45,6 +47,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
 
+        soundScale *= getScale();
+
     }
 
     public AnimatedShadowSoundSprite(String id, String shadow_filename, int cols, int rows) {
@@ -64,6 +68,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
 
+        soundScale *= getScale();
+
     }
 
     public AnimatedShadowSoundSprite(String id) {
@@ -82,6 +88,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleX(.05);
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
+
+        soundScale *= getScale();
     }
 
     @Override
@@ -93,8 +101,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
             numWaves++;
 
-            circleMove1.animate(SCALE_X, .05, .3, 1500);
-            circleMove1.animate(SCALE_Y, .05, .3, 1500);
+            circleMove1.animate(SCALE_X, .05, soundScale, 1500);
+            circleMove1.animate(SCALE_Y, .05, soundScale, 1500);
             TweenJuggler.add(circleMove1);
 
         }
@@ -103,8 +111,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
             numWaves++;
 
-            circleMove2.animate(SCALE_X, .05, .3, 1500);
-            circleMove2.animate(SCALE_Y, .05, .3, 1500);
+            circleMove2.animate(SCALE_X, .05, soundScale, 1500);
+            circleMove2.animate(SCALE_Y, .05, soundScale, 1500);
             TweenJuggler.add(circleMove2);
 
 
@@ -115,8 +123,8 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
             numWaves++;
 
-            circleMove3.animate(SCALE_X, .05, .3, 1500);
-            circleMove3.animate(SCALE_Y, .05, .3, 1500);
+            circleMove3.animate(SCALE_X, .05, soundScale, 1500);
+            circleMove3.animate(SCALE_Y, .05, soundScale, 1500);
             TweenJuggler.add(circleMove3);
         }
 
@@ -164,4 +172,19 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
     public boolean collidesWith(DisplayObject other){
         return soundWave1.getHitbox().intersects(other.getHitbox());
     }
+
+    public double getSoundScale() {
+        return soundScale;
+    }
+
+    public void setSoundScale(double soundScale) {
+        this.soundScale = soundScale;
+    }
+
+    @Override
+    public void setScale(double scale) {
+        super.setScale(scale);
+        setSoundScale(getScale()*0.5f);
+    }
 }
+

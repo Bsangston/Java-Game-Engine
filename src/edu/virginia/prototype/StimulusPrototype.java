@@ -36,8 +36,8 @@ public class StimulusPrototype extends Game {
 
     //Stimulus mechanics parameters
     boolean shadow = false;
-    double shadowClock = 1800; //frames
-    double shadowClockMax = 1800;
+    double shadowClock = 180; //frames
+    double shadowClockMax = 180;
     int soundModeBarLength = 200;
     int soundModeBarWidth = 30;
 
