@@ -44,7 +44,7 @@ public class StimulusPrototype extends Game {
 
     //Platform Logic
     boolean platform6Up = true;
-    boolean platform7active = false, isPlatform7left = true;
+    boolean platform7active = true, platform7left = true;
 
     //Util
     ArrayList<Integer> lastKeyPressed = new ArrayList<>();
@@ -183,6 +183,14 @@ public class StimulusPrototype extends Game {
                 platform6.getLocalHitbox().width, platform6.getLocalHitbox().height - platform6.getLocalHitbox().height/25
                         - 300);
 
+        platform7.setPosition(platform6.getPosX()-200, centerY-100);
+        platform7.setScale(0.15);
+        platform7.addRigidBody2D();
+        platform7.getRigidBody().toggleGravity(false);
+        platform7.setHitbox(platform7.getLocalHitbox().x, platform7.getLocalHitbox().y+platform7.getLocalHitbox().height/50,
+                platform7.getLocalHitbox().width, platform7.getLocalHitbox().height - platform7.getLocalHitbox().height/25
+                        - 300);
+
         //Invisible enemy
         enemy1.setScale(0.5f);
         enemy1.setPosition(platform5.getPosX(), platform5.getPosY() - 100);
@@ -235,7 +243,7 @@ public class StimulusPrototype extends Game {
         Platforms.addChild(platform4);
         Platforms.addChild(platform5);
         Platforms.addChild(platform6);
-//        Platforms.addChild(platform7);
+        Platforms.addChild(platform7);
 //        Platforms.addChild(platform8);
 //        Platforms.addChild(platform9);
 
@@ -427,7 +435,19 @@ public class StimulusPrototype extends Game {
         }
 
         if (platform7 != null) {
-
+            if (platform7active) {
+                if (platform7left) {
+                    if (platform7.getPosX() < 300) {
+                        platform7left = false;
+                    }
+                    platform7.moveRight(-speed / 4);
+                } else {
+                    if (platform7.getPosX() + platform7.getScaledWidth() >= platform6.getPosX() - platform7.getScaledWidth()) {
+                        platform7left = true;
+                    }
+                    platform7.moveRight(speed/4);
+                }
+            }
         }
 
         //Enemy movement
@@ -446,7 +466,13 @@ public class StimulusPrototype extends Game {
         if (mario != null) {
             for (DisplayObject platform : Platforms.getChildren()) {
                 if (mario.collidesWith(platform)) {
+
                     mario.dispatchEvent(new Collision(Collision.GROUND, mario, platform));
+
+                    if (platform.getId().equalsIgnoreCase("Platform7")) {
+                        platform7active = true;
+                    }
+
                     if (mario.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
                         if (isMoving())
                             mario.setAnim(AnimatedSprite.RUN);
@@ -459,6 +485,7 @@ public class StimulusPrototype extends Game {
                         jumping = false;
                         landed = true;
                     }
+
                 }
             }
 
@@ -476,8 +503,14 @@ public class StimulusPrototype extends Game {
             }
         }
 
-        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE) && !controllers.get(0).isButtonPressed(GamePad.BUTTON_CROSS)){
-            jumpReady = true;
+        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE)){
+                jumpReady = true;
+        }
+
+        if (!controllers.isEmpty()) {
+            if (landed && !jumpReady && controllers.get(0).isButtonPressed(GamePad.BUTTON_CROSS)) {
+                jumpReady = true;
+            }
         }
 
         //Exit game

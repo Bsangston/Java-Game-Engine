@@ -198,7 +198,7 @@ public class DisplayObject extends EventDispatcher {
 			}
 
 			//Draw Hitbox:
-			g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+			//g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 			/*
 			 * undo the transformations so this doesn't affect other display
