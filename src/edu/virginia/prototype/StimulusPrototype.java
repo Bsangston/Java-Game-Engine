@@ -613,8 +613,8 @@ public class StimulusPrototype extends Game {
             }
         }
 
-        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE) && (controllers.size() >= 1
-                && !controllers.get(0).isButtonPressed(GamePad.BUTTON_CROSS))){
+        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE) ||
+                (controllers.size() >= 1 && !controllers.get(0).isButtonPressed(GamePad.BUTTON_CROSS))){
                 jumpReady = true;
         }
 
