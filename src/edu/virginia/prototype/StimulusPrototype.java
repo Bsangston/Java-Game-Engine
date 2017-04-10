@@ -36,11 +36,10 @@ public class StimulusPrototype extends Game {
 
     //Stimulus mechanics parameters
     boolean shadow = false;
-    int shadowRecharge = 180; //frames
-    int shadowClock = 180; //frames
-    int shadowDuration = 5000; //ms
-    double start = 0;
-    GameClock gameClock = new GameClock();
+    double shadowClock = 1800; //frames
+    double shadowClockMax = 1800;
+    int soundModeBarLength = 200;
+    int soundModeBarWidth = 30;
 
     //Platform/Enemy Logic
     boolean enemy2left = true;
@@ -302,7 +301,7 @@ public class StimulusPrototype extends Game {
         //Music
        //soundManager.loadMusic("mario theme", "mario_theme.wav");
 
-        JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
+        /*JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
         try {
             //int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
             int music_patch = PdBase.openPatch("resources/AUTOMATONISM/GenerativeMusicPatches/_main.pd");
@@ -313,7 +312,7 @@ public class StimulusPrototype extends Game {
         }
         //audioThread.start();
 
-        PdBase.sendBang("shadow_on");
+        PdBase.sendBang("shadow_on");*/
 
         jumpReady = true;
         landed = true;
@@ -367,19 +366,18 @@ public class StimulusPrototype extends Game {
 
             }
 
-            //Toggle shadows
-            if (shadowClock >= shadowRecharge) {
-				if (pressedKeys.contains(KeyEvent.VK_F)) {
-					toggleShadows();
 
-                    if (shadow) {
-                        start = gameClock.getElapsedTime();
+        }
 
-                    }
-                    shadowClock = 0;
-				}
+        if(shadow && !pressedKeys.contains(KeyEvent.VK_F) && lastKeyPressed.contains(KeyEvent.VK_F)){
+            toggleShadows();
+            lastKeyPressed.remove(new Integer(KeyEvent.VK_F));
+        }
+
+        if(shadowClock > shadowClockMax / 4){
+            if (!shadow && !pressedKeys.contains(KeyEvent.VK_F) && lastKeyPressed != null && lastKeyPressed.contains(KeyEvent.VK_F)) {
+                toggleShadows();
             }
-
         }
 
         //Controller input
@@ -420,17 +418,13 @@ public class StimulusPrototype extends Game {
 
             }
 
-            //Toggle shadows
-            if (shadowClock >= shadowRecharge) {
-                if (controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
+            if(shadow && controller.isButtonPressed(GamePad.BUTTON_SQUARE)){
+                toggleShadows();
+            }
+
+            if(shadowClock > shadowClock / 4){
+                if (!shadow && controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
                     toggleShadows();
-
-                    if (shadow) {
-                        start = gameClock.getElapsedTime();
-                        //System.out.println(start);
-                    }
-
-                    shadowClock = 0;
                 }
             }
         }
@@ -450,9 +444,8 @@ public class StimulusPrototype extends Game {
         }
 
         //Shadow duration
-        if (gameClock != null && gameClock.getElapsedTime() - start >= shadowDuration && shadow) {
+        if (shadowClock <= 0 && shadow) {
             toggleShadows();
-            shadowClock = 0;
         }
 
 
@@ -626,7 +619,14 @@ public class StimulusPrototype extends Game {
         }
 
         ++frameClock;
-        ++shadowClock;
+
+        if(shadow){
+            shadowClock = shadowClock - 1;
+        } else if(shadowClock != shadowClockMax) {
+            shadowClock = shadowClock + .25;
+        }
+
+        lastKeyPressed = new ArrayList<>(pressedKeys);
 
         mouseEvents.clear();
 
@@ -662,6 +662,10 @@ public class StimulusPrototype extends Game {
 //            g.setFont(f);
 //            g.drawString("You collided with the deathly sound sprite, restart!", centerX-225, centerY-250);
 //        }
+
+        g.setColor(Color.red);
+        g.drawRect(300, 20, soundModeBarLength,soundModeBarWidth);
+        g.fillRect(300, 20, (int)((shadowClock * 1.0/ shadowClockMax) * soundModeBarLength),soundModeBarWidth);
     }
 
     private boolean inBounds(Sprite s) {
@@ -711,10 +715,10 @@ public class StimulusPrototype extends Game {
 
         if (getScenePanel().getBackground() != Color.BLACK) {
             getScenePanel().setBackground(Color.BLACK);
-            PdBase.sendBang("shadow_off");
+            //PdBase.sendBang("shadow_off");
         } else {
             getScenePanel().setBackground(Color.WHITE);
-            PdBase.sendBang("shadow_on");
+            //PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;
