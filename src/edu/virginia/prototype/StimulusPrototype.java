@@ -40,6 +40,7 @@ public class StimulusPrototype extends Game {
     double shadowClockMax = 180;
     int soundModeBarLength = 200;
     int soundModeBarWidth = 30;
+    double rechargeRate = 0.25;
 
     //Platform/Enemy Logic
     boolean enemy2left = true;
@@ -623,7 +624,7 @@ public class StimulusPrototype extends Game {
         if(shadow){
             shadowClock = shadowClock - 1;
         } else if(shadowClock != shadowClockMax) {
-            shadowClock = shadowClock + .25;
+            shadowClock = shadowClock + rechargeRate;
         }
 
         lastKeyPressed = new ArrayList<>(pressedKeys);

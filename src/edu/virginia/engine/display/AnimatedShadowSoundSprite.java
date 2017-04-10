@@ -170,7 +170,10 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
 
     @Override
     public boolean collidesWith(DisplayObject other){
-        return soundWave1.getHitbox().intersects(other.getHitbox());
+
+        return soundWave1.getHitbox().intersects(other.getHitbox())
+                || soundWave2.getHitbox().intersects(other.getHitbox())
+                || soundWave3.getHitbox().intersects(other.getHitbox());
     }
 
     public double getSoundScale() {
