@@ -116,7 +116,6 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
             TweenJuggler.add(circleMove2);
 
 
-
         }
 
         if(loopPerSec == 120){

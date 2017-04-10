@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ee991f7-9467-49bf-9f93-902544a2ca2c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/AnimatedShadowSoundSprite.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/AnimatedShadowSoundSprite.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/prototype/StimulusPrototype.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/prototype/StimulusPrototype.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedShadowSoundSprite.java" afterPath="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedShadowSoundSprite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java" afterPath="$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java" />
     </list>
     <ignored path="Java-Game-Engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,8 +30,8 @@
       <file leaf-file-name="StimulusPrototype.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="41" column="31" lean-forward="true" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
+            <state relative-caret-position="225">
+              <caret line="33" column="32" lean-forward="true" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -43,26 +40,14 @@
       <file leaf-file-name="AnimatedShadowSoundSprite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedShadowSoundSprite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="168" column="5" lean-forward="true" selection-start-line="168" selection-start-column="5" selection-end-line="168" selection-end-column="5" />
+            <state relative-caret-position="285">
+              <caret line="25" column="23" lean-forward="true" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4529#4530#0" expanded="true" />
-                <element signature="e#4562#4563#0" expanded="true" />
-                <element signature="e#4614#4615#0" expanded="true" />
-                <element signature="e#4658#4659#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DisplayObject.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/display/DisplayObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="444" column="24" lean-forward="false" selection-start-line="444" selection-start-column="16" selection-end-line="444" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#4528#4529#0" expanded="true" />
+                <element signature="e#4561#4562#0" expanded="true" />
+                <element signature="e#4613#4614#0" expanded="true" />
+                <element signature="e#4657#4658#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,8 +74,8 @@
       <find>jump</find>
       <find>bound</find>
       <find>enemy1</find>
-      <find>setScale</find>
       <find>toggleShadow</find>
+      <find>setScale</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -132,8 +117,8 @@
         <option value="$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java" />
         <option value="$PROJECT_DIR$/src/edu/virginia/engine/display/Sprite.java" />
         <option value="$PROJECT_DIR$/src/edu/virginia/engine/display/DisplayObject.java" />
-        <option value="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedShadowSoundSprite.java" />
         <option value="$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java" />
+        <option value="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedShadowSoundSprite.java" />
       </list>
     </option>
   </component>
@@ -572,7 +557,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491845040991</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Finished first level, added recharge bar, fixed soundsprite scaling">
+      <created>1491845615684</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1491845615684</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -935,22 +927,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedShadowSoundSprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="168" column="5" lean-forward="true" selection-start-line="168" selection-start-column="5" selection-end-line="168" selection-end-column="5" />
+        <state relative-caret-position="285">
+          <caret line="25" column="23" lean-forward="true" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4529#4530#0" expanded="true" />
-            <element signature="e#4562#4563#0" expanded="true" />
-            <element signature="e#4614#4615#0" expanded="true" />
-            <element signature="e#4658#4659#0" expanded="true" />
+            <element signature="e#4528#4529#0" expanded="true" />
+            <element signature="e#4561#4562#0" expanded="true" />
+            <element signature="e#4613#4614#0" expanded="true" />
+            <element signature="e#4657#4658#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="41" column="31" lean-forward="true" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
+        <state relative-caret-position="225">
+          <caret line="33" column="32" lean-forward="true" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
           <folding />
         </state>
       </provider>
