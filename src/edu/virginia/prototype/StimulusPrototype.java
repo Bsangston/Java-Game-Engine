@@ -302,18 +302,19 @@ public class StimulusPrototype extends Game {
         //Music
        //soundManager.loadMusic("mario theme", "mario_theme.wav");
 
-        /*JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
+        JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
         try {
-            //int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
-            int music_patch = PdBase.openPatch("resources/AUTOMATONISM/GenerativeMusicPatches/_main.pd");
+            int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
+            //int music_patch = PdBase.openPatch("resources/AUTOMATONISM/GenerativeMusicPatches/_main.pd");
             //System.out.println(patch);
 
         } catch (java.io.IOException e) {
             System.err.print("IO Exception w/ patch!");
         }
-        //audioThread.start();
+        audioThread.start();
 
-        PdBase.sendBang("shadow_on");*/
+        PdBase.sendBang("toggle-music");
+        PdBase.sendBang("shadow-on");
 
         jumpReady = true;
         landed = true;
@@ -716,10 +717,10 @@ public class StimulusPrototype extends Game {
 
         if (getScenePanel().getBackground() != Color.BLACK) {
             getScenePanel().setBackground(Color.BLACK);
-            //PdBase.sendBang("shadow_off");
+            PdBase.sendBang("shadow_off");
         } else {
             getScenePanel().setBackground(Color.WHITE);
-            //PdBase.sendBang("shadow_on");
+            PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;
