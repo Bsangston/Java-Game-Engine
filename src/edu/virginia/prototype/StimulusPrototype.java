@@ -346,10 +346,6 @@ public class StimulusPrototype extends Game {
 
             }
 
-            if (pressedKeys.contains(KeyEvent.VK_J)) {
-                mario.setPosition(platform10.getPosX(), platform10.getPosY() - mario.halfHeight());
-            }
-
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
                 if (mario != null && jmp <= jmpHeight && !jumping && jumpReady) {
 

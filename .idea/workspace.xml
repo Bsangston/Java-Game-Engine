@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ee991f7-9467-49bf-9f93-902544a2ca2c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/AnimatedShadowSoundSprite.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/AnimatedShadowSoundSprite.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/DisplayObject.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/DisplayObject.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/Game.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/RigidBody2D.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/RigidBody2D.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/Sprite.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/Sprite.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/prototype/StimulusPrototype.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/prototype/StimulusPrototype.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedShadowSoundSprite.java" afterPath="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedShadowSoundSprite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/engine/display/DisplayObject.java" afterPath="$PROJECT_DIR$/src/edu/virginia/engine/display/DisplayObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java" afterPath="$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/engine/display/RigidBody2D.java" afterPath="$PROJECT_DIR$/src/edu/virginia/engine/display/RigidBody2D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/engine/display/Sprite.java" afterPath="$PROJECT_DIR$/src/edu/virginia/engine/display/Sprite.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java" afterPath="$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java" />
     </list>
     <ignored path="Java-Game-Engine.iws" />
@@ -41,8 +30,8 @@
       <file leaf-file-name="StimulusPrototype.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state relative-caret-position="229">
+              <caret line="347" column="0" lean-forward="false" selection-start-line="347" selection-start-column="0" selection-end-line="347" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -679,7 +668,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491777556993</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Finished first level, adjusted physics implementation">
+      <created>1491798643784</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1491798643784</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -761,7 +757,8 @@
     <MESSAGE value="Added SoundSprite implementation for animated sprites, started attempting parallax code" />
     <MESSAGE value="Adapted jump fix to controller support" />
     <MESSAGE value="Reworked and fixed collision detection, started building first level" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reworked and fixed collision detection, started building first level" />
+    <MESSAGE value="Finished first level, adjusted physics implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished first level, adjusted physics implementation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1053,8 +1050,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/prototype/StimulusPrototype.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="229">
+          <caret line="347" column="0" lean-forward="false" selection-start-line="347" selection-start-column="0" selection-end-line="347" selection-end-column="0" />
           <folding />
         </state>
       </provider>
