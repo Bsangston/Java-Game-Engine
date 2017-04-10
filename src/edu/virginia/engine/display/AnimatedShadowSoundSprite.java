@@ -45,7 +45,7 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
 
-        targetScale = (float)getScale()*0.25f;
+        targetScale = (float)getScale()*0.5f;
     }
 
     public AnimatedShadowSoundSprite(String id, String shadow_filename, int cols, int rows) {
@@ -65,7 +65,7 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
 
-        targetScale = (float)getScale()*0.25f;
+        targetScale = (float)getScale()*0.5f;
 
     }
 
@@ -86,7 +86,7 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
         soundWave3.setScaleY(.05);
         soundWave3.setVisible(false);
 
-        targetScale = (float)getScale()*0.25f;
+        targetScale = (float)getScale()*0.5f;
     }
 
     @Override
@@ -195,7 +195,13 @@ public class AnimatedShadowSoundSprite extends AnimatedShadowSprite {
     }
 
     public void setTargetScale(float targetScale) {
-        this.targetScale = targetScale;
+        this.targetScale = targetScale*0.5f;
+    }
+
+    @Override
+    public void setScale(double scale) {
+        super.setScale(scale);
+        this.targetScale = (float)getScale()*0.5f;
     }
 
     public float getTargetScale() {

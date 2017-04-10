@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * */
 public class Sprite extends DisplayObjectContainer {
 
-	private static float jumpForce = 0.91f;
+	private static float jumpForce = 20f;
 
 	protected static BufferedImage[] global_sprites;
 
@@ -92,7 +92,7 @@ public class Sprite extends DisplayObjectContainer {
 
 	public void jump() {
 		if (rb2d != null) {
-			rb2d.applyForce(new Vec2(1f, jumpForce));
+			rb2d.applyForce(new Vec2(0f, -(Game.GRAVITY + jumpForce)));
 		}
 	}
 

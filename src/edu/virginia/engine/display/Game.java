@@ -51,7 +51,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	protected int centerY;
 
 	/* Physics stuff */
-	public static double GRAVITY = 1.05;
+	public static double GRAVITY = 20f;
 	public static double DRAG = 0.2;
 	public static double STICKY_THRESHOLD = 0.0004;
 

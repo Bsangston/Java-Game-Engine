@@ -198,7 +198,7 @@ public class DisplayObject extends EventDispatcher {
 			}
 
 			//Draw Hitbox:
-			//g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+			g2d.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 			/*
 			 * undo the transformations so this doesn't affect other display
@@ -526,5 +526,13 @@ public class DisplayObject extends EventDispatcher {
 
 	public void moveDown(int speed) {
 		setPosY(getPosY() + speed);
+	}
+
+	public void translateRight(int speed) {
+		setPosX(getPosX() + speed);
+	}
+
+	public void translateLeft(int speed) {
+		setPosX(getPosX() - speed);
 	}
 }

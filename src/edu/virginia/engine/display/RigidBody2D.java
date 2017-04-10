@@ -22,12 +22,12 @@ public class RigidBody2D {
     public RigidBody2D(DisplayObject s) {
         sprite = s;
         velocity = new Vec2(0, 0);
-        acceleration = new Vec2(1, gravity);
+        acceleration = new Vec2(0, gravity);
         mass = 1;
         restitution = 0.2;
 
         constantForces = new ArrayList<>();
-        gravity2D = new Vec2(1, gravity);
+        gravity2D = new Vec2(0, gravity);
         constantForces.add(gravity2D);
         hasGravity = true;
 
@@ -37,7 +37,7 @@ public class RigidBody2D {
     public void applyForce(Vec2 force) {
         acceleration.x = force.x/mass;
         acceleration.y = force.y/mass;
-        sprite.setPosition((int)(sprite.getPosX() * acceleration.x), (int)(sprite.getPosY() * acceleration.y));
+        sprite.setPosition((int)(sprite.getPosX() + acceleration.x), (int)(sprite.getPosY() + acceleration.y));
 
     }
 
