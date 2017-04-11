@@ -603,7 +603,7 @@ public class StimulusPrototype extends Game {
             }
 
             //Respawn
-            if (mario.getPosY() >= 3000) {
+            if (mario.getPosY() >= 1500) {
                 mario.setPosition(100, centerY + 150);
             }
         }
