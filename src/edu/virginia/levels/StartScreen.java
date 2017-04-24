@@ -253,8 +253,9 @@ public class StartScreen extends DisplayObjectContainer {
 
         if(gameWon){
             g.setFont(f1);
-            g.drawString("Congrats, you've beaten the game!", 300, 300);
+            g.drawString("Congrats, you've beaten the game!", 225, 425);
         }
+
     }
 
     private boolean isMoving() {

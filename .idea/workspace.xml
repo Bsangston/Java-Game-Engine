@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ee991f7-9467-49bf-9f93-902544a2ca2c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/basic_platform.png" afterPath="$PROJECT_DIR$/resources/basic_platform.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedSprite.java" afterPath="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedSprite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java" afterPath="$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/StartScreen.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/StartScreen.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java" afterPath="$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java" />
     </list>
     <ignored path="Java-Game-Engine.iws" />
@@ -29,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="StartScreen.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StartScreen.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="175" column="2" lean-forward="true" selection-start-line="175" selection-start-column="2" selection-end-line="175" selection-end-column="2" />
+            <state relative-caret-position="276">
+              <caret line="256" column="9" lean-forward="true" selection-start-line="256" selection-start-column="9" selection-end-line="256" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="37" column="34" lean-forward="true" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
+            <state relative-caret-position="315">
+              <caret line="33" column="29" lean-forward="true" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -187,8 +186,8 @@
         <option value="$PROJECT_DIR$/src/edu/virginia/levels/Level5.java" />
         <option value="$PROJECT_DIR$/src/edu/virginia/levels/Level3.java" />
         <option value="$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedSprite.java" />
-        <option value="$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java" />
         <option value="$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java" />
+        <option value="$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java" />
       </list>
     </option>
   </component>
@@ -1156,16 +1155,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="175" column="2" lean-forward="true" selection-start-line="175" selection-start-column="2" selection-end-line="175" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/display/AnimatedSprite.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
@@ -1176,9 +1165,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="37" column="34" lean-forward="true" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
+        <state relative-caret-position="315">
+          <caret line="33" column="29" lean-forward="true" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="256" column="9" lean-forward="true" selection-start-line="256" selection-start-column="9" selection-end-line="256" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
