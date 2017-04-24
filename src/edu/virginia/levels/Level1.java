@@ -338,7 +338,7 @@ public class Level1 extends DisplayObjectContainer {
 
             //Respawn
             if (player.getPosY() >= 1500) {
-                player.setPosition(225, g.centerY-150);
+                respawn();
             }
         }
 
@@ -447,10 +447,10 @@ public class Level1 extends DisplayObjectContainer {
 
         if (g.getScenePanel().getBackground() != Color.BLACK) {
             g.getScenePanel().setBackground(Color.BLACK);
-            //PdBase.sendBang("shadow_off");
+            PdBase.sendBang("shadow_off");
         } else {
             g.getScenePanel().setBackground(Color.WHITE);
-            //PdBase.sendBang("shadow_on");
+            PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;
@@ -475,6 +475,10 @@ public class Level1 extends DisplayObjectContainer {
                 }
             }
         }
+    }
+
+    private void respawn() {
+        player.setPosition(225, g.centerY-150);
     }
 
 }

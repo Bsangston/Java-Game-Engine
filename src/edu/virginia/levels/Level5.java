@@ -583,14 +583,14 @@ public class Level5 extends DisplayObjectContainer {
             for (DisplayObject enemy : Enemies.getChildren()) {
                 if (player.collidesWith(enemy)) {
                     player.dispatchEvent(new Collision(Collision.ENEMY, player, enemy));
-                    player.setPosition(100, game.centerY + 150);
+                    respawn();
                     soundSpriteCollision = true;
                 }
             }
 
             //Respawn
             if (player.getPosY() >= 1500) {
-                player.setPosition(100, game.centerY + 150);
+                respawn();
                 soundSpriteCollision = false;
             }
         }
@@ -704,10 +704,10 @@ public class Level5 extends DisplayObjectContainer {
 
         if (game.getScenePanel().getBackground() != Color.BLACK) {
             game.getScenePanel().setBackground(Color.BLACK);
-            //PdBase.sendBang("shadow_off");
+            PdBase.sendBang("shadow_off");
         } else {
             game.getScenePanel().setBackground(Color.WHITE);
-            //PdBase.sendBang("shadow_on");
+            PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;
@@ -732,5 +732,9 @@ public class Level5 extends DisplayObjectContainer {
                 }
             }
         }
+    }
+
+    private void respawn() {
+        player.setPosition(100, game.centerY + 150);
     }
 }

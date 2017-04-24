@@ -1,11 +1,16 @@
 package edu.virginia.levels;
 
 import edu.virginia.engine.controller.GamePad;
-import edu.virginia.engine.display.Game;
+import edu.virginia.engine.display.*;
 import edu.virginia.engine.events.LevelEventManager;
 import edu.virginia.engine.events.QuestManager;
+import edu.virginia.engine.sound.JavaSoundThread;
+import org.puredata.core.PdBase;
+import java.util.Random;
+
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Stimulus extends Game{
@@ -20,7 +25,10 @@ public class Stimulus extends Game{
     Level5 l5 = new Level5(this);
 
     boolean startScreen = true;
+    boolean shadow = false;
     int currentLevel = 1;
+
+    int frameClock = 0;
 
     public Stimulus() {
         super("Stimulus", 1400, 850);
@@ -41,13 +49,35 @@ public class Stimulus extends Game{
 
         this.addChild(home);
 
+        JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
+        try {
+            int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
+
+        } catch (IOException e) {
+            System.err.print("IO Exception w/ patch!");
+        }
+        audioThread.start();
+
+        Random rand = new Random();
+
+        PdBase.sendBang("toggle-music");
+        PdBase.sendBang("shadow-on");
+        PdBase.sendFloat("_RandomSeed", rand.nextInt(86400));
+        PdBase.sendFloat("_Key", rand.nextInt(12));
+        PdBase.sendFloat("_Global_Bpm", 68);
+
     }
 
     @Override
     public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
         super.update(pressedKeys, gamePads);
 
+        if (frameClock >= 10) {
+            PdBase.sendBang("Clear");
+            frameClock = 0;
+        }
 
+        ++frameClock;
     }
 
     @Override
@@ -83,4 +113,5 @@ public class Stimulus extends Game{
     public StartScreen getStartScreen(){
         return home;
     }
+
 }
