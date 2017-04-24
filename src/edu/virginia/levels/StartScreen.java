@@ -171,10 +171,10 @@ public class StartScreen extends DisplayObjectContainer {
                     }
                 }
 
-                if (isMoving() && !mario.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
-                    mario.setAnim(AnimatedSprite.RUN);
-
-                }
+//                if (isMoving() && !mario.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
+//                    mario.setAnim(AnimatedSprite.RUN);
+//
+//                }
             }
 
             //TODO: make more efficient -will get really slow with lots of objects (implement collision grid?)

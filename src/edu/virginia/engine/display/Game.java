@@ -22,7 +22,7 @@ import net.java.games.input.*;
 public class Game extends DisplayObjectContainer implements ActionListener, KeyListener, IEventListener {
 
 	/* Frames per second this game runs at */
-	private int FRAMES_PER_SEC = 40;
+	private int FRAMES_PER_SEC = 60;
 
 	/* The main JFrame that holds this game */
 	private JFrame mainFrame;

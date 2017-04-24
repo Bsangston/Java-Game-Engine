@@ -129,8 +129,42 @@ public class AnimatedSprite extends Sprite {
         if (frames.containsKey(AnimatedSprite.JUMP)) {
             setAnim(AnimatedSprite.JUMP);
         }
+    }
 
+    public void moveUp(int speed) {
+        setPosY(getPosY() - speed);
+        if (frames.containsKey(AnimatedSprite.RUN)) {
+            setAnim(AnimatedSprite.RUN);
+        }
+    }
 
+    public void moveDown(int speed) {
+        setPosY(getPosY() + speed);
+        if (frames.containsKey(AnimatedSprite.RUN)) {
+            setAnim(AnimatedSprite.RUN);
+        }
+    }
+
+    public void moveRight(int speed) {
+        if (!isFacingRight()) {
+            flip();
+        }
+        setPosX(getPosX() + speed);
+        if (frames.containsKey(AnimatedSprite.RUN)) {
+            setAnim(AnimatedSprite.RUN);
+        }
+        //if (background != null) background.setPosX(background.getPosX() - 1);
+    }
+
+    public void moveLeft(int speed) {
+        if (isFacingRight()) {
+            flip();
+        }
+        if (frames.containsKey(AnimatedSprite.RUN)) {
+            setAnim(AnimatedSprite.RUN);
+        }
+        setPosX(getPosX() - speed);
+        //if (background != null) background.setPosX(background.getPosX() + 1);
     }
 
 
