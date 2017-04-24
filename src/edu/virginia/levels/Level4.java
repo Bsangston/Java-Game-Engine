@@ -470,12 +470,28 @@ public class Level4 extends DisplayObjectContainer {
                 }
             }
 
+            ArrayList<Float> distList = new ArrayList<>();
+
             for (DisplayObject enemy : Enemies.getChildren()) {
+
+                float dist = calcDistance(player.getPosition(), enemy.getPosition());
+                distList.add(dist);
+
                 if (player.collidesWith(enemy)) {
                     player.dispatchEvent(new Collision(Collision.ENEMY, player, enemy));
                     respawn();
                     soundSpriteCollision = true;
                 }
+
+                float closestEnemyDistance = 600;
+
+                for (int i = 0; i < distList.size(); i++) {
+                    if (distList.get(i) < closestEnemyDistance) {
+                        closestEnemyDistance = distList.get(i);
+                    }
+                }
+                PdBase.sendFloat("enemy_distance", closestEnemyDistance);
+
             }
 
 
@@ -628,5 +644,9 @@ public class Level4 extends DisplayObjectContainer {
 
     private void respawn() {
         player.setPosition(112, game.centerY-200);
+    }
+
+    private float calcDistance(Vec2 a, Vec2 b) {
+        return (float)(Math.sqrt((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y)));
     }
 }
