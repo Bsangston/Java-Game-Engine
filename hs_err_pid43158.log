@@ -99,8 +99,8 @@ C  [libpdnative.jnilib+0xc03c7]  Java_org_puredata_core_PdBase_openFile+0x67
 j  org.puredata.core.PdBase.openFile(Ljava/lang/String;Ljava/lang/String;)J+0
 j  org.puredata.core.PdBase.openPatch(Ljava/io/File;)I+43
 j  org.puredata.core.PdBase.openPatch(Ljava/lang/String;)I+8
-j  edu.virginia.prototype.StimulusPrototype.<init>()V+1575
-j  edu.virginia.prototype.StimulusPrototype.main([Ljava/lang/String;)V+4
+j  edu.virginia.prototype.LevelOne.<init>()V+1575
+j  edu.virginia.prototype.LevelOne.main([Ljava/lang/String;)V+4
 v  ~StubRoutines::call_stub
 V  [libjvm.dylib+0x2ecf06]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x6ae
 V  [libjvm.dylib+0x4d1214]  Reflection::invoke(instanceKlassHandle, methodHandle, Handle, bool, objArrayHandle, BasicType, objArrayHandle, bool, Thread*)+0xe12
@@ -125,8 +125,8 @@ Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
 j  org.puredata.core.PdBase.openFile(Ljava/lang/String;Ljava/lang/String;)J+0
 j  org.puredata.core.PdBase.openPatch(Ljava/io/File;)I+43
 j  org.puredata.core.PdBase.openPatch(Ljava/lang/String;)I+8
-j  edu.virginia.prototype.StimulusPrototype.<init>()V+1575
-j  edu.virginia.prototype.StimulusPrototype.main([Ljava/lang/String;)V+4
+j  edu.virginia.prototype.LevelOne.<init>()V+1575
+j  edu.virginia.prototype.LevelOne.main([Ljava/lang/String;)V+4
 v  ~StubRoutines::call_stub
 j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
 j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+100
@@ -566,7 +566,7 @@ Dynamic libraries:
 
 VM Arguments:
 jvm_args: -Didea.launcher.port=7535 -Didea.launcher.bin.path=/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8 
-java_command: com.intellij.rt.execution.application.AppMain edu.virginia.prototype.StimulusPrototype
+java_command: com.intellij.rt.execution.application.AppMain edu.virginia.prototype.LevelOne
 java_class_path (initial): /Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/jaccess.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jfxswt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home
 Launcher Type: SUN_STANDARD
 

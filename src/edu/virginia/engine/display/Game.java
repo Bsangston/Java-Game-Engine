@@ -22,7 +22,7 @@ import net.java.games.input.*;
 public class Game extends DisplayObjectContainer implements ActionListener, KeyListener, IEventListener {
 
 	/* Frames per second this game runs at */
-	private int FRAMES_PER_SEC = 60;
+	private int FRAMES_PER_SEC = 40;
 
 	/* The main JFrame that holds this game */
 	private JFrame mainFrame;
@@ -39,16 +39,16 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 	private GameScenePanel scenePanel;
 
 	/* Controller support */
-	protected ArrayList<GamePad> controllers;
+	public ArrayList<GamePad> controllers;
 
 	/* Mouse functionality */
-	protected ArrayList<MouseEvent> mouseEvents = new ArrayList<MouseEvent>();
+	public ArrayList<MouseEvent> mouseEvents = new ArrayList<MouseEvent>();
 	protected double mouse_x, mouse_y;
 
 	/* Center point of game scene for convenience */
-	protected Vec2 center;
-	protected int centerX;
-	protected int centerY;
+	public Vec2 center;
+	public int centerX;
+	public int centerY;
 
 	/* Physics stuff */
 	public static double GRAVITY = 20f;
@@ -78,8 +78,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		setUpControllers();
 
 	}
-	
-	
+
 	public void setFramesPerSecond(int fps){
 		if(fps > 0) this.FRAMES_PER_SEC = fps;
 	}
@@ -255,7 +254,7 @@ public class Game extends DisplayObjectContainer implements ActionListener, KeyL
 		return scenePanel;
 	}
 
-	protected ArrayList<Integer> pressedKeys = new ArrayList<>();
+	public ArrayList<Integer> pressedKeys = new ArrayList<>();
 
 	@Override
 	public void keyPressed(KeyEvent e) {

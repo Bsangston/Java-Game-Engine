@@ -1,31 +1,29 @@
-package edu.virginia.prototype;
+package edu.virginia.levels;
 
 import edu.virginia.engine.cole_tween.TweenJuggler;
 import edu.virginia.engine.controller.GamePad;
 import edu.virginia.engine.display.*;
-import edu.virginia.engine.events.*;
+import edu.virginia.engine.events.Collision;
 import edu.virginia.engine.events.Event;
-import edu.virginia.engine.puredata.core.*;
-import edu.virginia.engine.puredata.core.PdReceiver;
-import edu.virginia.engine.puredata.core.utils.PdDispatcher;
+import edu.virginia.engine.events.Quest;
+import edu.virginia.engine.events.QuestManager;
 import edu.virginia.engine.sound.JavaSoundThread;
 import edu.virginia.engine.sound.SoundManager;
-import edu.virginia.engine.util.GameClock;
+import org.puredata.core.PdBase;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.puredata.core.*;
-import org.puredata.core.PdBase;
-
 /**
  * Created by BrandonSangston on 2/17/17.
  * Matthew Leon
  * Cole Schafer
  */
-public class StimulusPrototype extends Game {
+public class Level5 extends DisplayObjectContainer {
+
+    Game game;
 
     //Platform mechanics parameters
     int speed = 4;
@@ -40,7 +38,7 @@ public class StimulusPrototype extends Game {
     double shadowClockMax = 180;
     int soundModeBarLength = 200;
     int soundModeBarWidth = 30;
-    double rechargeRate = 0.25;
+    double rechargeRate = 0.5;
 
     //Platform/Enemy Logic
     boolean enemy2left = true;
@@ -51,13 +49,14 @@ public class StimulusPrototype extends Game {
 
     //Util
     ArrayList<Integer> lastKeyPressed = new ArrayList<>();
+    boolean shadowToggled = false;
 
     QuestManager questManager = new QuestManager();
     DisplayObjectContainer GameWorld = new DisplayObjectContainer("GameWorld");
     DisplayObjectContainer Enemies = new DisplayObjectContainer("Enemies");
 
     //Animated Sprites
-    AnimatedShadowSprite mario = new AnimatedShadowSprite("Mario", "bigmario_sprites.png",
+    AnimatedShadowSprite player = new AnimatedShadowSprite("player", "bigmario_sprites.png",
             "shadow_mario_mag_b.png", 4, 2);
 
     AnimatedShadowSprite coin = new AnimatedShadowSprite("Coin", "coin.png",
@@ -77,35 +76,29 @@ public class StimulusPrototype extends Game {
 
     //Sprites
     DisplayObjectContainer Platforms = new DisplayObjectContainer("Platforms");
-    ShadowSprite platform1 = new ShadowSprite("Platform1", "platform.png", "shadow_platform_mag_b.png");
-    ShadowSprite platform2 = new ShadowSprite("Platform2", "platform.png", "shadow_platform_mag_b.png");
-    ShadowSprite platform3 = new ShadowSprite("Platform3", "shadow_platform_mag_b.png");
-    ShadowSprite platform4 = new ShadowSprite("Platform4", "platform.png", "shadow_platform_mag_b.png");
-    ShadowSprite platform5 = new ShadowSprite("Platform5", "shadow_platform_mag_b.png");
-    ShadowSprite platform6 = new ShadowSprite("Platform6", "platform.png", "shadow_platform_mag_b.png");
-    ShadowSprite platform7 = new ShadowSprite("Platform7", "platform.png","shadow_platform_mag_b.png");
-    ShadowSprite platform8 = new ShadowSprite("Platform8",  "platform.png","shadow_platform_mag_b.png");
-    ShadowSprite platform9 = new ShadowSprite("Platform9", "platform.png","shadow_platform_mag_b.png");
-    ShadowSprite platform10 = new ShadowSprite("Platform10", "platform.png","shadow_platform_mag_b.png");
-    ShadowSprite platform11 = new ShadowSprite("Platform11", "platform.png","shadow_platform_mag_b.png");
-    ShadowSprite platform12 = new ShadowSprite("Platform12", "platform.png","shadow_platform_mag_b.png");
-    ShadowSprite platform13 = new ShadowSprite("Platform13", "platform.png","shadow_platform_mag_b.png");
-    ShadowSprite platform14 = new ShadowSprite("Platform14", "shadow_platform_mag_b.png");
-    ShadowSprite platform15 = new ShadowSprite("Platform15", "platform.png","shadow_platform_mag_b.png");
-    ShadowSprite platform16 = new ShadowSprite("Platform16", "shadow_platform_mag_b.png");
-    ShadowSprite platform17 = new ShadowSprite("Platform17", "platform.png","shadow_platform_mag_b.png");
+    ShadowSprite platform1 = new ShadowSprite("Platform1", "basic_platform.png", "shadow_basic_platform.png");
+    ShadowSprite platform2 = new ShadowSprite("Platform2", "basic_platform.png", "shadow_basic_platform.png");
+    ShadowSprite platform3 = new ShadowSprite("Platform3", "shadow_basic_platform.png");
+    ShadowSprite platform4 = new ShadowSprite("Platform4", "basic_platform.png", "shadow_basic_platform.png");
+    ShadowSprite platform5 = new ShadowSprite("Platform5", "shadow_basic_platform.png");
+    ShadowSprite platform6 = new ShadowSprite("Platform6", "basic_platform.png", "shadow_basic_platform.png");
+    ShadowSprite platform7 = new ShadowSprite("Platform7", "basic_platform.png","shadow_basic_platform.png");
+    ShadowSprite platform8 = new ShadowSprite("Platform8",  "basic_platform.png","shadow_basic_platform.png");
+    ShadowSprite platform9 = new ShadowSprite("Platform9", "basic_platform.png","shadow_basic_platform.png");
+    ShadowSprite platform10 = new ShadowSprite("Platform10", "basic_platform.png","shadow_basic_platform.png");
+    ShadowSprite platform11 = new ShadowSprite("Platform11", "basic_platform.png","shadow_basic_platform.png");
+    ShadowSprite platform12 = new ShadowSprite("Platform12", "basic_platform.png","shadow_basic_platform.png");
+    ShadowSprite platform13 = new ShadowSprite("Platform13", "basic_platform.png","shadow_basic_platform.png");
+    ShadowSprite platform14 = new ShadowSprite("Platform14", "shadow_basic_platform.png");
+    ShadowSprite platform15 = new ShadowSprite("Platform15", "basic_platform.png","shadow_basic_platform.png");
+    ShadowSprite platform16 = new ShadowSprite("Platform16", "shadow_basic_platform.png");
+    ShadowSprite platform17 = new ShadowSprite("Platform17", "basic_platform.png","shadow_basic_platform.png");
 
     //Backgrounds
     ShadowSprite background = new ShadowSprite("Background", "background1.png", "shadow_background1_mag.png");
-    Sprite sky = new Sprite("Sky", "sky.png");
-    DisplayObject mountains1 = new DisplayObject("Mountains1", "mountains1.png");
-    DisplayObject mountains2 = new DisplayObject("Mountains2", "mountains2.png");
-    DisplayObject mountains3 = new DisplayObject("Mountains3", "mountains3.png");
-
-
     ArrayList<DisplayObject> children = getChildren();
 
-    Vec2 spawnPoint = new Vec2(100, centerY + 150);
+    Vec2 spawnPoint;
 
     SoundManager soundManager = new SoundManager();
 
@@ -114,43 +107,33 @@ public class StimulusPrototype extends Game {
     boolean jumpReady;
     boolean landed;
 
-    public StimulusPrototype() {
-        super("Stimulus Prototype v1.0", 1400, 850);
+    public Level5(Game game) {
+        super("Stimulus Beta");
 
-        background.setPosition(center);
-//        addBackgroundLayer(sky);
-//        addBackgroundLayer(mountains1);
-//        addBackgroundLayer(mountains2);
-//        addBackgroundLayer(mountains3);
-//
-//        for (DisplayObject d : backgroundLayers) {
-//            d.setPosition(center);
-//        }
+        this.game = game;
 
-        mountains2.setPosX(mountains2.getPosX()-500);
-        mountains2.setPosY(mountains2.getPosY()+100);
-        mountains3.setPosX(mountains2.getPosX()+250);
-        mountains3.setPosY(mountains2.getPosY()+250);
-        sky.setScale(2);
+        spawnPoint = new Vec2(100, game.centerY + 150);
+
+        background.setPosition(game.center);
 
         //Initialize player parameters
-        mario.addNewAnimation(AnimatedSprite.IDLE, new int[] {0});
-        mario.addNewAnimation(AnimatedSprite.RUN, new int[] {1,2,3,4});
-        mario.addNewAnimation(AnimatedSprite.JUMP, new int[] {4});
-        mario.centerPivot();
-        mario.setScale(0.2);
-        mario.setPosition(100, centerY + 150);
-        mario.setAnim(AnimatedSprite.IDLE);
-        mario.playAnim();
-        mario.setAnimSpeed(speed);
-        mario.addRigidBody2D();
+        player.addNewAnimation(AnimatedSprite.IDLE, new int[] {0});
+        player.addNewAnimation(AnimatedSprite.RUN, new int[] {1,2,3,4});
+        player.addNewAnimation(AnimatedSprite.JUMP, new int[] {4});
+        player.centerPivot();
+        player.setScale(0.2f);
+        player.setPosition(100, game.centerY + 150);
+        player.setAnim(AnimatedSprite.IDLE);
+        player.setAnimSpeed(speed);
+        player.playAnim();
+        player.addRigidBody2D();
 
         //spawnPoint = new Vec2(100, centerY + 150);
 
         //Initialize game object parameters
         platform1.setPosition((int)spawnPoint.x, (int)spawnPoint.y + 200);
 
-        platform2.setPosition(mario.getPosX()+200, 650);
+        platform2.setPosition(player.getPosX()+200, 650);
 
         platform3.setPosition(platform2.getPosX()+200, 650);
         platform3.setOnlyShadow(true);
@@ -164,9 +147,9 @@ public class StimulusPrototype extends Game {
 
         platform6.setPosition(platform8.getPosX(), 500);
 
-        platform7.setPosition(platform6.getPosX()-200, centerY-100);
+        platform7.setPosition(platform6.getPosX()-200, game.centerY-100);
 
-        platform9.setPosition(platform1.getPosX(), centerY-100);
+        platform9.setPosition(platform1.getPosX(), game.centerY-100);
 
         platform10.setPosition(platform9.getPosX()+150, 150);
 
@@ -199,7 +182,7 @@ public class StimulusPrototype extends Game {
         enemy1.setAnimSpeed(24);
 
         enemy2.setScale(0.4f);
-        enemy2.setPosition(centerX*2 + enemy2.getScaledWidth(), centerY*2 - 150);
+        enemy2.setPosition(game.centerX*2 + enemy2.getScaledWidth(), game.centerY*2 - 150);
         enemy2.setOnlyShadow(true);
         enemy2.addNewAnimation(AnimatedSprite.IDLE, new int[] {0, 1, 2, 4, 5});
         enemy2.setAnim(AnimatedSprite.IDLE);
@@ -207,7 +190,7 @@ public class StimulusPrototype extends Game {
         enemy2.setAnimSpeed(24);
 
         enemy3.setScale(0.25f);
-        enemy3.setPosition(platform2.getPosX()+50, centerY - 400);
+        enemy3.setPosition(platform2.getPosX()+50, game.centerY - 400);
         enemy3.setOnlyShadow(true);
         enemy3.addNewAnimation(AnimatedSprite.IDLE, new int[] {0, 1, 2, 4, 5});
         enemy3.setAnim(AnimatedSprite.IDLE);
@@ -223,7 +206,7 @@ public class StimulusPrototype extends Game {
         enemy4.setAnimSpeed(24);
 
         enemy5.setScale(0.25f);
-        enemy5.setPosition(platform4.getPosX()+50, centerY - 400);
+        enemy5.setPosition(platform4.getPosX()+50, game.centerY - 400);
         enemy5.setOnlyShadow(true);
         enemy5.addNewAnimation(AnimatedSprite.IDLE, new int[] {0, 1, 2, 4, 5});
         enemy5.setAnim(AnimatedSprite.IDLE);
@@ -254,7 +237,7 @@ public class StimulusPrototype extends Game {
         addChild(background);
         addChild(coin);
         //addChild(pickup);
-        addChild(mario);
+        addChild(player);
         addChild(Platforms);
         addChild(Enemies);
         Enemies.addChild(enemy1);
@@ -281,40 +264,34 @@ public class StimulusPrototype extends Game {
         Platforms.addChild(platform17);
 
         for (DisplayObject platform : Platforms.getChildren()) {
-            platform.setScale(0.135);
+            platform.setScale(0.175f);
             platform.addRigidBody2D();
             platform.getRigidBody().toggleGravity(false);
-            platform.setHitbox(platform.getLocalHitbox().x, platform.getLocalHitbox().y+platform.getLocalHitbox().height/50,
-                    platform.getLocalHitbox().width, platform.getLocalHitbox().height - platform.getLocalHitbox().height/25
-                            - 300);
         }
 
         moveDown(50);
 
         //Objectives
-        Quest q1 = new Quest("Learning the Ropes", "Find a way to collect the coin");
+        Quest q1 = new Quest("The Gauntlet", "Collect the coin. Good luck.");
         questManager.setActiveQuest(q1);
 
         //Event Listeners
         coin.addEventListener(questManager, Event.COIN_PICKED_UP);
-        mario.addEventListener(this, Event.COLLISION);
+        player.addEventListener(this, Event.COLLISION);
 
-        //Music
-       //soundManager.loadMusic("mario theme", "mario_theme.wav");
-
-        JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
+        /*JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
         try {
             int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
             //int music_patch = PdBase.openPatch("resources/AUTOMATONISM/GenerativeMusicPatches/_main.pd");
             //System.out.println(patch);
 
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             System.err.print("IO Exception w/ patch!");
         }
         audioThread.start();
 
         PdBase.sendBang("toggle-music");
-        PdBase.sendBang("shadow-on");
+        PdBase.sendBang("shadow-on");*/
 
         jumpReady = true;
         landed = true;
@@ -335,37 +312,32 @@ public class StimulusPrototype extends Game {
         if (!pressedKeys.isEmpty()) {
 
             //Movement
-            if ((pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_D)) && inBoundsRight(mario)) { //move right
+            if ((pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_D)) && inBoundsRight(player)) { //move right
 
-                mario.moveRight(speed);
-                //parallaxScrolling(1, mario);
+                player.moveRight(speed);
+                //parallaxScrolling(1, player);
             }
-            if ((pressedKeys.contains(KeyEvent.VK_LEFT) || pressedKeys.contains(KeyEvent.VK_A)) && inBoundsLeft(mario)) { //move left
+            if ((pressedKeys.contains(KeyEvent.VK_LEFT) || pressedKeys.contains(KeyEvent.VK_A)) && inBoundsLeft(player)) { //move left
 
-                mario.moveLeft(speed);
-                //parallaxScrolling(1, mario);
+                player.moveLeft(speed);
+                //parallaxScrolling(1, player);
 
             }
 
             if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
-                if (mario != null && jmp <= jmpHeight && !jumping && jumpReady) {
+                if (player != null && jmp <= jmpHeight && !jumping && jumpReady) {
 
                     landed = false;
                     if(jmp == jmpHeight-1)
                         jumpReady = false;
 
-                    mario.jump();
+                    player.jump();
                     ++jmp;
 
                     if (jmp == jmpHeight) {
                         jumping = true;
                     }
                 }
-            }
-
-            if (isMoving() && !mario.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
-                mario.setAnim(AnimatedSprite.RUN);
-
             }
 
 
@@ -388,25 +360,25 @@ public class StimulusPrototype extends Game {
 
             //Movement
             if (controller.isButtonPressed(GamePad.DPAD_RIGHT) || controller.getLeftStickXAxis() > 0.5
-                    && inBoundsRight(mario)) { //move right
+                    && inBoundsRight(player)) { //move right
 
-                mario.moveRight(speed);
+                player.moveRight(speed);
             }
             if (controller.isButtonPressed(GamePad.DPAD_LEFT) || controller.getLeftStickXAxis() < -0.5
-                    && inBoundsLeft(mario)) { //move left
+                    && inBoundsLeft(player)) { //move left
 
-                mario.moveLeft(speed);
+                player.moveLeft(speed);
 
             }
 
             if (controller.isButtonPressed(GamePad.BUTTON_CROSS)) {
-                if (mario != null && jmp <= jmpHeight && !jumping && jumpReady) {
+                if (player != null && jmp <= jmpHeight && !jumping && jumpReady) {
 
                     landed = false;
                     if(jmp == jmpHeight-1)
                         jumpReady = false;
 
-                    mario.jump();
+                    player.jump();
                     ++jmp;
 
                     if (jmp == jmpHeight) {
@@ -415,33 +387,47 @@ public class StimulusPrototype extends Game {
                 }
             }
 
-            if (isMoving() && !mario.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
-                mario.setAnim(AnimatedSprite.RUN);
+            if (isMoving() && !player.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
+                player.setAnim(AnimatedSprite.RUN);
 
             }
 
-            if(shadow && controller.isButtonPressed(GamePad.BUTTON_SQUARE)){
-                toggleShadows();
-            }
+//            if (shadow && controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
+//                toggleShadows();
+//            } else if (shadowClock > shadowClockMax / 4){
+//                if (!shadow && controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
+//                    toggleShadows();
+//                }
+//            }
 
-            if(shadowClock > shadowClock / 4){
-                if (!shadow && controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
+            if (controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
+                if (!shadow) {
+                    if (shadowClock > shadowClockMax/4) {
+                        toggleShadows();
+                    }
+                } else if (shadow) {
                     toggleShadows();
                 }
             }
+
         }
 
         //Idle animation
-        if (mario != null && pressedKeys.isEmpty() && !isMoving()) {
-            mario.setAnim(AnimatedSprite.IDLE);
+        if (player != null && pressedKeys.isEmpty() && !isMoving()) {
+            player.setAnim(AnimatedSprite.IDLE);
         }
 
-        if (mario != null && coin != null && mario.onTriggerEnter(coin)) {
+        if (player != null && coin != null && player.onTriggerEnter(coin)) {
             if (coin.isVisible()) {
                 soundManager.loadSoundEffect("coin", "coin.wav");
             }
             coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
-            questManager.completeQuest("Learning the Ropes");
+            questManager.completeQuest("The Gauntlet");
+
+            if(shadow)
+                toggleShadows();
+
+            this.dispatchEvent(new Event("end_level_5", this));
 
         }
 
@@ -455,12 +441,12 @@ public class StimulusPrototype extends Game {
         //Platform movement
         if (platform6 != null) {
             if (platform6Up) {
-                if (platform6.getPosY() < centerY-100) {
+                if (platform6.getPosY() < game.centerY-100) {
                     platform6Up = false;
                 }
                 platform6.moveUp(speed/4);
             } else {
-                if (platform6.getPosY() - platform6.getScaledHeight()-15>= centerY) {
+                if (platform6.getPosY() - platform6.getScaledHeight() >= game.centerY+50) {
                     platform6Up = true;
                 }
                 platform6.moveDown(speed/4);
@@ -488,7 +474,7 @@ public class StimulusPrototype extends Game {
                 }
                 platform9.moveUp(speed/4);
             } else {
-                if (platform9.getPosY() - platform9.getScaledHeight()>= centerY-100) {
+                if (platform9.getPosY() - platform9.getScaledHeight()>= game.centerY-100) {
                     platform9up = true;
                 }
                 platform9.moveDown(speed/4);
@@ -497,22 +483,22 @@ public class StimulusPrototype extends Game {
 
         //Enemy movement
         if (enemy2 != null) {
-           if (enemy2left) {
-               if (enemy2.getPosX() < platform2.getPosX()) {
-                   enemy2left = false;
-               }
-               enemy2.moveRight(-speed/2);
-           } else {
-               if (enemy2.getPosX() + enemy2.getScaledWidth() >= 2*centerX - enemy2.halfWidth()) {
-                   enemy2left = true;
-               }
-               enemy2.moveLeft(-speed/2);
-           }
+            if (enemy2left) {
+                if (enemy2.getPosX() < platform2.getPosX()) {
+                    enemy2left = false;
+                }
+                enemy2.moveRight(-speed/2);
+            } else {
+                if (enemy2.getPosX() + enemy2.getScaledWidth() >= 2*game.centerX - enemy2.halfWidth()) {
+                    enemy2left = true;
+                }
+                enemy2.moveLeft(-speed/2);
+            }
 
         }
 
         if (enemy3 != null) {
-            float startPoint = centerY - 350;
+            float startPoint = game.centerY - 350;
             if (enemy3up) {
                 if (enemy3.getPosY() < startPoint) {
                     enemy3up = false;
@@ -527,7 +513,7 @@ public class StimulusPrototype extends Game {
         }
 
         if (enemy4 != null) {
-            float startPoint = centerY - 350;
+            float startPoint = game.centerY - 350;
             if (enemy4up) {
                 if (enemy4.getPosY() < startPoint) {
                     enemy4up = false;
@@ -542,7 +528,7 @@ public class StimulusPrototype extends Game {
         }
 
         if (enemy5 != null) {
-            float startPoint = centerY - 350;
+            float startPoint = game.centerY - 350;
             if (enemy5up) {
                 if (enemy5.getPosY() < startPoint) {
                     enemy5up = false;
@@ -557,18 +543,18 @@ public class StimulusPrototype extends Game {
         }
 
         //TODO: make more efficient -will get really slow with lots of objects (implement collision grid?)
-        if (mario != null) {
+        if (player != null) {
             for (DisplayObject platform : Platforms.getChildren()) {
-                if (mario.collidesWith(platform)) {
+                if (player.collidesWith(platform)) {
 
-                    mario.dispatchEvent(new Collision(Collision.GROUND, mario, platform));
+                    player.dispatchEvent(new Collision(Collision.GROUND, player, platform));
 
                     if (platform.getId().equalsIgnoreCase("Platform7")) {
                         platform7active = true;
                         if (platform7left) {
-                            mario.translateLeft(speed/4);
+                            player.translateLeft(speed/4);
                         } else {
-                            mario.translateRight(speed/4);
+                            player.translateRight(speed/4);
                         }
                     }
 
@@ -578,14 +564,14 @@ public class StimulusPrototype extends Game {
                     }
 
 
-                    if (mario.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
+                    if (player.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
                         if (isMoving())
-                            mario.setAnim(AnimatedSprite.RUN);
+                            player.setAnim(AnimatedSprite.RUN);
                         else
-                            mario.setAnim(AnimatedSprite.IDLE);
+                            player.setAnim(AnimatedSprite.IDLE);
                     }
 
-                    if (mario.getPosY() < platform.getPosY()) {
+                    if (player.getPosY() < platform.getPosY()) {
                         jmp = 0;
                         jumping = false;
                         landed = true;
@@ -595,29 +581,29 @@ public class StimulusPrototype extends Game {
             }
 
             for (DisplayObject enemy : Enemies.getChildren()) {
-                if (mario.collidesWith(enemy)) {
-                    mario.dispatchEvent(new Collision(Collision.ENEMY, mario, enemy));
-                    mario.setPosition(100, centerY + 150);
+                if (player.collidesWith(enemy)) {
+                    player.dispatchEvent(new Collision(Collision.ENEMY, player, enemy));
+                    player.setPosition(100, game.centerY + 150);
                     soundSpriteCollision = true;
                 }
             }
 
             //Respawn
-            if (mario.getPosY() >= 1500) {
-                mario.setPosition(100, centerY + 150);
+            if (player.getPosY() >= 1500) {
+                player.setPosition(100, game.centerY + 150);
+                soundSpriteCollision = false;
             }
         }
 
-        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE) ||
-                (controllers.size() >= 1 && !controllers.get(0).isButtonPressed(GamePad.BUTTON_CROSS))){
-                jumpReady = true;
+        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE)){
+            jumpReady = true;
         }
 
 
         //Exit game
         if (pressedKeys.contains(KeyEvent.VK_ESCAPE)) {
-            exitGame();
-            closeGame();
+            game.exitGame();
+            game.closeGame();
         }
 
         ++frameClock;
@@ -630,13 +616,13 @@ public class StimulusPrototype extends Game {
 
         lastKeyPressed = new ArrayList<>(pressedKeys);
 
-        mouseEvents.clear();
+        game.mouseEvents.clear();
 
     }
 
     /**
-     * Engine automatically invokes draw() every frame as well. If we want to make sure mario gets drawn to
-     * the screen, we need to make sure to override this method and call mario's draw method.
+     * Engine automatically invokes draw() every frame as well. If we want to make sure player gets drawn to
+     * the screen, we need to make sure to override this method and call player's draw method.
      */
     @Override
     public void draw(Graphics g) {
@@ -651,23 +637,23 @@ public class StimulusPrototype extends Game {
         }
 
         if (questManager != null && questManager.getActiveQuest() != null) {
-            g.drawString("Current Quest: " + questManager.getActiveQuest().getId(), 25, 25);
-            g.drawString("Objective: " + questManager.getActiveQuest().getObjective(), 25, 50);
+            g.drawString("Level 5: " + questManager.getActiveQuest().getId(), 15, 20); //25
+            g.drawString("Objective: " + questManager.getActiveQuest().getObjective(), 15, 40); //50
 
             if (questManager.getActiveQuest().isComplete()) {
                 g.setFont(f);
-                g.drawString("\""+questManager.getActiveQuest().getId()+"\" Completed!", centerX-135, centerY);
+                g.drawString("Level 5 Completed!", game.centerX-120, game.centerY);
             }
         }
 
-//        if(soundSpriteCollision){
-//            g.setFont(f);
-//            g.drawString("You collided with the deathly sound sprite, restart!", centerX-225, centerY-250);
-//        }
+        if(soundSpriteCollision){
+            g.setFont(f);
+            g.drawString("You collided with the deathly sound sprite, restart!", game.centerX-250, game.centerY-300);
+        }
 
         g.setColor(Color.red);
-        g.drawRect(300, 20, soundModeBarLength,soundModeBarWidth);
-        g.fillRect(300, 20, (int)((shadowClock * 1.0/ shadowClockMax) * soundModeBarLength),soundModeBarWidth);
+        g.drawRect(2*game.centerX-soundModeBarLength-15, 15, soundModeBarLength,soundModeBarWidth);
+        g.fillRect(2*game.centerX-soundModeBarLength-15, 15, (int)((shadowClock * 1.0/ shadowClockMax) * soundModeBarLength),soundModeBarWidth);
     }
 
     private boolean inBounds(Sprite s) {
@@ -676,7 +662,7 @@ public class StimulusPrototype extends Game {
     }
 
     private boolean inBoundsRight(Sprite s) {
-        return s.getPosX() <= getMainFrame().getWidth() - s.getScaledWidth()/2;
+        return s.getPosX() <= game.getMainFrame().getWidth() - s.getScaledWidth()/2;
     }
 
     private boolean inBoundsLeft(Sprite s) {
@@ -689,25 +675,26 @@ public class StimulusPrototype extends Game {
     }
 
     private boolean inBoundsBottom(Sprite s) {
-        return s.getPosY() <= getMainFrame().getHeight() - s.getScaledHeight()/2;
+        return s.getPosY() <= game.getMainFrame().getHeight() - s.getScaledHeight()/2;
     }
 
 
     private boolean isMoving() {
 
         boolean controllerInput = false;
-        if (controllers != null && !controllers.isEmpty()) {
-            GamePad controller = controllers.get(0);
+        if (game.controllers != null && !game.controllers.isEmpty()) {
+            GamePad controller = game.controllers.get(0);
             controllerInput = controller.getLeftStickXAxis() > 0.5 ||
                     controller.getLeftStickXAxis() < -0.5 ||
                     controller.getLeftStickYAxis() > 0.5 ||
                     controller.getLeftStickYAxis() < -0.5;
         }
 
-        return pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_LEFT)
-                || pressedKeys.contains(KeyEvent.VK_UP) || pressedKeys.contains(KeyEvent.VK_DOWN)
-                || pressedKeys.contains(KeyEvent.VK_D) || pressedKeys.contains(KeyEvent.VK_A)
-                || pressedKeys.contains(KeyEvent.VK_W) || pressedKeys.contains(KeyEvent.VK_S) || controllerInput;
+        return game.pressedKeys.contains(KeyEvent.VK_RIGHT) || game.pressedKeys.contains(KeyEvent.VK_LEFT)
+                || game.pressedKeys.contains(KeyEvent.VK_UP) || game.pressedKeys.contains(KeyEvent.VK_DOWN)
+                || game.pressedKeys.contains(KeyEvent.VK_D) || game.pressedKeys.contains(KeyEvent.VK_A)
+                || game.pressedKeys.contains(KeyEvent.VK_W) || game.pressedKeys.contains(KeyEvent.VK_S) || controllerInput;
+
 
     }
 
@@ -715,12 +702,12 @@ public class StimulusPrototype extends Game {
 
         toggleChildren(this);
 
-        if (getScenePanel().getBackground() != Color.BLACK) {
-            getScenePanel().setBackground(Color.BLACK);
-            PdBase.sendBang("shadow_off");
+        if (game.getScenePanel().getBackground() != Color.BLACK) {
+            game.getScenePanel().setBackground(Color.BLACK);
+            //PdBase.sendBang("shadow_off");
         } else {
-            getScenePanel().setBackground(Color.WHITE);
-            PdBase.sendBang("shadow_on");
+            game.getScenePanel().setBackground(Color.WHITE);
+            //PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;
@@ -746,28 +733,4 @@ public class StimulusPrototype extends Game {
             }
         }
     }
-
-    //TODO: fix (not working)
-    private void parallaxScrolling(int speed, DisplayObject player) {
-        for (DisplayObject d : backgroundLayers) {
-            if (player.isFacingRight()) {
-                d.setPosX(d.getPosX() - speed*backgroundLayers.indexOf(d)) ;
-            } else {
-                d.setPosX(d.getPosX() + speed * backgroundLayers.indexOf(d));
-            }
-        }
-
-
-    }
-
-    /**
-     * Quick main class that simply creates an instance of our game and starts the timer
-     * that calls update() and draw() every frame
-     */
-    public static void main(String[] args) {
-
-        StimulusPrototype game = new StimulusPrototype();
-        game.start();
-    }
-
 }

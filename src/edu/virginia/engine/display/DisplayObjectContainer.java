@@ -1,6 +1,8 @@
 package edu.virginia.engine.display;
 
 import edu.virginia.engine.controller.GamePad;
+import edu.virginia.engine.events.*;
+import edu.virginia.engine.events.Event;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by BrandonSangston on 2/8/17.
  */
-public class DisplayObjectContainer extends DisplayObject{
+public class DisplayObjectContainer extends DisplayObject implements IEventListener{
 
     protected ArrayList<DisplayObject> children;
 
@@ -122,6 +124,50 @@ public class DisplayObjectContainer extends DisplayObject{
         return !children.isEmpty();
     }
 
+    //TODO: expand collision resolution capabilities
+    public void resolveCollision(DisplayObject s, DisplayObject other) {
 
+        if (s.isCollidable() && other.isCollidable()) {
 
+            //TODO: Fix horizontal collision resolution
+
+//			//Approaching from left
+//			if (s.getPosX() < other.getPosX()) {
+//				if (s.getRight() > other.getLeft()) {
+//					s.setPosX(other.getLeft() - s.halfWidth());
+//				}
+//
+//			}
+//			//Approaching from right
+//			else if (s.getPosX() > other.getPosX()) {
+//				if (s.getLeft() < other.getRight()) {
+//					s.setPosX(other.getRight() + s.halfWidth());
+//				}
+//
+//			}
+
+            //Approaching from top
+            if (s.getPosY() < other.getPosY()) {
+                if (s.getBottom() > other.getTop()) {
+                    s.setPosY(other.getTop() - s.halfHeight());
+                }
+            }
+
+            //Approaching from bottom
+            else if (s.getPosY() > other.getPosY()) {
+                if (s.getTop() < other.getBottom()) {
+                    s.setPosY(other.getBottom() + s.halfHeight());
+                }
+            }
+
+        }
+    }
+
+    @Override
+    public void handleEvent(Event event) {
+        if (event instanceof Collision) {
+            Collision collision = (Collision)event;
+            resolveCollision((DisplayObject)collision.getSource(), collision.getCollidee());
+        }
+    }
 }

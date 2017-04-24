@@ -63,18 +63,23 @@ public class AnimatedSprite extends Sprite {
         isPlaying = true;
     }
 
-    public void setAnim(String name) { //returns true if setting to different animation, false otherwise
+    public boolean setAnim(String name) { //returns true if setting to different animation, false otherwise
 
+        boolean retVal = false;
         prevAnim = currentAnim;
-        currentAnim = name;
 
-        if (currentAnim != null && !currentAnim.equalsIgnoreCase(name)) {
-           currentFrame = startIndex;
+        if (prevAnim != null && !prevAnim.equalsIgnoreCase(name) || prevAnim == null) {
+
+            currentFrame = startIndex;
+            currentFrameSet = frames.get(name);
+            startIndex = currentFrameSet[0];
+            endIndex = currentFrameSet.length;
+
+            currentAnim = name;
+            retVal = true;
+
         }
-
-        currentFrameSet = frames.get(name);
-        startIndex = currentFrameSet[0];
-        endIndex = currentFrameSet.length;
+        return retVal;
     }
 
     private boolean isTransition(String name) {
