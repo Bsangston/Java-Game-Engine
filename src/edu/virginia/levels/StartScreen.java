@@ -30,6 +30,8 @@ public class StartScreen extends DisplayObjectContainer {
     boolean jumpReady;
     boolean landed;
 
+    ArrayList<String> lastButtonPressed = new ArrayList<>();
+
     //Animated Sprites
     AnimatedSprite mario = new AnimatedSprite("Mario", "bigmario_sprites.png", 4, 2);
     AnimatedSprite coin1 = new AnimatedSprite("Coin1", "coin.png", 10, 1);
@@ -169,12 +171,9 @@ public class StartScreen extends DisplayObjectContainer {
                             jumping = true;
                         }
                     }
+                    if (!lastButtonPressed.contains(GamePad.BUTTON_CROSS)) lastButtonPressed.add(GamePad.BUTTON_CROSS);
                 }
 
-//                if (isMoving() && !mario.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
-//                    mario.setAnim(AnimatedSprite.RUN);
-//
-//                }
             }
 
             //TODO: make more efficient -will get really slow with lots of objects (implement collision grid?)
@@ -212,8 +211,7 @@ public class StartScreen extends DisplayObjectContainer {
                 mario.setAnim(AnimatedSprite.IDLE);
             }
 
-            if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE) ||
-                    (g.controllers.size() >= 1 && !g.controllers.get(0).isButtonPressed(GamePad.BUTTON_CROSS))){
+            if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE) && !lastButtonPressed.contains(GamePad.BUTTON_CROSS)){
                 jumpReady = true;
             }
 

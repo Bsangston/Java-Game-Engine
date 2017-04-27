@@ -49,7 +49,7 @@ public class Level5 extends DisplayObjectContainer {
 
     //Util
     ArrayList<Integer> lastKeyPressed = new ArrayList<>();
-    boolean shadowToggled = false;
+    ArrayList<String> lastButtonPressed = new ArrayList<>();
 
     QuestManager questManager = new QuestManager();
     DisplayObjectContainer GameWorld = new DisplayObjectContainer("GameWorld");
@@ -385,6 +385,7 @@ public class Level5 extends DisplayObjectContainer {
                         jumping = true;
                     }
                 }
+                if (!lastButtonPressed.contains(GamePad.BUTTON_CROSS)) lastButtonPressed.add(GamePad.BUTTON_CROSS);
             }
 
             if (isMoving() && !player.getCurrentAnim().equals(AnimatedSprite.JUMP)) {
@@ -392,15 +393,8 @@ public class Level5 extends DisplayObjectContainer {
 
             }
 
-//            if (shadow && controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
-//                toggleShadows();
-//            } else if (shadowClock > shadowClockMax / 4){
-//                if (!shadow && controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
-//                    toggleShadows();
-//                }
-//            }
 
-            if (controller.isButtonPressed(GamePad.BUTTON_SQUARE)) {
+            if (controller.isButtonPressed(GamePad.BUTTON_SQUARE) && !lastButtonPressed.contains(GamePad.BUTTON_SQUARE)) {
                 if (!shadow) {
                     if (shadowClock > shadowClockMax/4) {
                         toggleShadows();
@@ -408,7 +402,17 @@ public class Level5 extends DisplayObjectContainer {
                 } else if (shadow) {
                     toggleShadows();
                 }
+                if (!lastButtonPressed.contains(GamePad.BUTTON_SQUARE)) lastButtonPressed.add(GamePad.BUTTON_SQUARE);
             }
+
+            if (!controller.isButtonPressed(GamePad.BUTTON_SQUARE) && lastButtonPressed.contains(GamePad.BUTTON_SQUARE)) {
+                lastButtonPressed.remove(GamePad.BUTTON_SQUARE);
+            }
+
+            if (!controller.isButtonPressed(GamePad.BUTTON_CROSS) && lastButtonPressed.contains(GamePad.BUTTON_CROSS)) {
+                lastButtonPressed.remove(GamePad.BUTTON_CROSS);
+            }
+
 
         }
 
@@ -611,7 +615,7 @@ public class Level5 extends DisplayObjectContainer {
             }
         }
 
-        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE)){
+        if(landed && !jumpReady && !pressedKeys.contains(KeyEvent.VK_SPACE) && !lastButtonPressed.contains(GamePad.BUTTON_CROSS)){
             jumpReady = true;
         }
 
