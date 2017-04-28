@@ -107,13 +107,13 @@ public class Level2 extends DisplayObjectContainer {
         //Initialize game object parameters
         platform1.setPosition(225, game.centerY);
 
-        platform2.setPosition(player.getPosX()+225, game.centerY-100);
+        platform2.setPosition(player.getPosX()+200, game.centerY-100);
         platform2.setOnlyShadow(true);
 
         platform3.setPosition(platform2.getPosX()+225, game.centerY);
         platform6.setPosition(platform3.getPosX(), platform3.getPosY()-200);
 
-        platform5.setPosition(platform3.getPosX()+225, game.centerY-100);
+        platform5.setPosition(platform3.getPosX()+200, game.centerY-100);
         platform5.setOnlyShadow(true);
 
         platform4.setPosition(platform5.getPosX()+225, game.centerY);
@@ -154,6 +154,11 @@ public class Level2 extends DisplayObjectContainer {
             platform.addRigidBody2D();
             platform.getRigidBody().toggleGravity(false);
         }
+
+
+        platform2.setScaleX(0.2f);
+        platform5.setScaleX(0.2f);
+
 
         moveDown(50);
 

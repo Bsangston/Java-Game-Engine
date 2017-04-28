@@ -176,7 +176,7 @@ public class Level4 extends DisplayObjectContainer {
 
 
         for (DisplayObject platform : Platforms.getChildren()) {
-            platform.setScale(0.175f); //original 0.135
+            platform.setScale(0.2f); //original 0.135
             platform.addRigidBody2D();
             platform.getRigidBody().toggleGravity(false);
         }
@@ -370,10 +370,11 @@ public class Level4 extends DisplayObjectContainer {
             if (platform2left) {
                 if (platform2.getPosX() < platform1.getPosX()+225) {
                     platform2left = false;
+                    platform2active = false;
                 }
                 platform2.moveRight(-speed / 4);
             } else {
-                if (platform2.getPosX() + platform2.getScaledWidth() >= platform3.getPosX() - platform2.halfWidth()) {
+                if (platform2.getPosX() + platform2.getScaledWidth() >= platform3.getPosX() - platform2.halfWidth() + 25) {
                     platform2left = true;
                 }
                 platform2.moveRight(speed / 4);
@@ -388,6 +389,7 @@ public class Level4 extends DisplayObjectContainer {
             } else {
                 if (platform4.getPosY() >= platform3.getPosY()) {
                     platform4Up = true;
+                    platform4active = false;
                 }
                 platform4.moveDown(speed/4);
             }

@@ -466,6 +466,7 @@ public class Level5 extends DisplayObjectContainer {
             } else {
                 if (platform7.getPosX() + platform7.getScaledWidth() >= platform6.getPosX() - platform7.halfWidth()) {
                     platform7left = true;
+                    platform7active = false;
                 }
                 platform7.moveRight(speed / 4);
             }
