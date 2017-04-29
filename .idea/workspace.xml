@@ -5,23 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ee991f7-9467-49bf-9f93-902544a2ca2c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/AnimatedShadowSoundSprite.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/AnimatedShadowSoundSprite.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/Sprite.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/engine/display/Sprite.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/lab4test/LabFourGame.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/lab4test/LabFourGame.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/lab5test/LabFiveGame.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/lab5test/LabFiveGame.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/lab6test/LabSixGame.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/lab6test/LabSixGame.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level1.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level2.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level3.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level4.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level5.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Level5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/StartScreen.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/StartScreen.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Stimulus.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/levels/Stimulus.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/prototype/LevelOne.class" afterPath="$PROJECT_DIR$/out/production/Java-Game-Engine/edu/virginia/prototype/LevelOne.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/levels/Level2.java" afterPath="$PROJECT_DIR$/src/edu/virginia/levels/Level2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/levels/Level4.java" afterPath="$PROJECT_DIR$/src/edu/virginia/levels/Level4.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/levels/Level5.java" afterPath="$PROJECT_DIR$/src/edu/virginia/levels/Level5.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/virginia/levels/Stimulus.java" afterPath="$PROJECT_DIR$/src/edu/virginia/levels/Stimulus.java" />
     </list>
     <ignored path="Java-Game-Engine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,12 +32,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Stimulus.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Stimulus.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Stimulus.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="24" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-              <folding />
+            <state relative-caret-position="260">
+              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,21 +49,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="29" column="38" lean-forward="false" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2013#2014#0" expanded="false" />
-                <element signature="e#2057#2058#0" expanded="false" />
-                <element signature="e#2487#2488#0" expanded="false" />
-                <element signature="e#2512#2513#0" expanded="false" />
-                <element signature="e#4533#4534#0" expanded="false" />
-                <element signature="e#4553#4554#0" expanded="false" />
-                <element signature="e#5611#5612#0" expanded="false" />
-                <element signature="e#5639#5640#0" expanded="false" />
-                <element signature="e#5896#5897#0" expanded="false" />
-                <element signature="e#5920#5921#0" expanded="false" />
-                <element signature="e#9373#9374#0" expanded="false" />
-                <element signature="e#9396#9397#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -79,8 +57,8 @@
       <file leaf-file-name="StartScreen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+            <state relative-caret-position="340">
+              <caret line="49" column="41" lean-forward="true" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,11 +66,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="LevelEventManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/events/LevelEventManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="21" column="34" lean-forward="true" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Level1.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="233" column="49" lean-forward="true" selection-start-line="233" selection-start-column="49" selection-end-line="233" selection-end-column="49" />
+            <state relative-caret-position="3225">
+              <caret line="233" column="49" lean-forward="false" selection-start-line="233" selection-start-column="49" selection-end-line="233" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -103,9 +91,25 @@
       <file leaf-file-name="Level2.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="99" column="44" lean-forward="true" selection-start-line="99" selection-start-column="44" selection-end-line="99" selection-end-column="44" />
-              <folding />
+            <state relative-caret-position="1275">
+              <caret line="99" column="44" lean-forward="false" selection-start-line="99" selection-start-column="44" selection-end-line="99" selection-end-column="44" />
+              <folding>
+                <marker date="1493491571000" expanded="true" signature="6681:6858" ph="/**...*/" />
+                <marker date="1493491571000" expanded="true" signature="6957:14014" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="14020:14235" ph="/**...*/" />
+                <marker date="1493491571000" expanded="true" signature="14283:15432" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="15473:15587" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="15633:15725" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="15770:15931" ph="{...}" />
+                <marker date="1493491571000" expanded="false" signature="15974:15985" ph=" { " />
+                <marker date="1493491571000" expanded="false" signature="16029:16035" ph=" }" />
+                <marker date="1493491571000" expanded="true" signature="16082:16176" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="16210:17094" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="17129:17496" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="17557:18399" ph="{...}" />
+                <marker date="1493491571000" expanded="false" signature="18427:18438" ph=" { " />
+                <marker date="1493491571000" expanded="false" signature="18480:18486" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -113,8 +117,8 @@
       <file leaf-file-name="Level3.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="437" column="63" lean-forward="true" selection-start-line="437" selection-start-column="63" selection-end-line="437" selection-end-column="63" />
+            <state relative-caret-position="6345">
+              <caret line="437" column="63" lean-forward="false" selection-start-line="437" selection-start-column="63" selection-end-line="437" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -123,20 +127,34 @@
       <file leaf-file-name="Level4.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level4.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
-              <caret line="176" column="0" lean-forward="true" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+            <state relative-caret-position="2430">
+              <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <marker date="1493491571000" expanded="true" signature="14715:19334" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="19340:19555" ph="/**...*/" />
+                <marker date="1493491571000" expanded="true" signature="19603:20752" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="20793:20907" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="20953:21045" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="21090:21251" ph="{...}" />
+                <marker date="1493491571000" expanded="false" signature="21294:21305" ph=" { " />
+                <marker date="1493491571000" expanded="false" signature="21349:21355" ph=" }" />
+                <marker date="1493491571000" expanded="true" signature="21402:21496" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="21530:22414" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="22449:22816" ph="{...}" />
+                <marker date="1493491571000" expanded="true" signature="22877:23719" ph="{...}" />
+                <marker date="1493491571000" expanded="false" signature="23747:23758" ph=" { " />
+                <marker date="1493491571000" expanded="false" signature="23800:23806" ph=" }" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Level5.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Level5.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level5.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7">
-              <caret line="445" column="32" lean-forward="true" selection-start-line="445" selection-start-column="32" selection-end-line="445" selection-end-column="32" />
+            <state relative-caret-position="-5770">
+              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -167,6 +185,9 @@
       <find>enemy1</find>
       <find>toggleShadow</find>
       <find>setScale</find>
+      <find>add</find>
+      <find>gameWon</find>
+      <find>currentLevel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -235,9 +256,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="837" />
+    <option name="y" value="22" />
+    <option name="width" value="2560" />
+    <option name="height" value="1375" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -254,8 +275,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -352,13 +373,39 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Java-Game-Engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Java-Game-Engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="virginia" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="display" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -790,8 +837,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="837" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="22" width="2560" height="1375" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -802,13 +849,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16145833" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16079633" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294271" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16041666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16015625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -994,9 +1041,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,7 +1056,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="50" column="31" lean-forward="false" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1042,9 +1085,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1067,11 +1107,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="81" column="9" lean-forward="false" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/events/LevelEventManager.java" />
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/events/Collision.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="355">
@@ -1084,7 +1122,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1103,58 +1140,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="29" column="38" lean-forward="false" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2013#2014#0" expanded="false" />
-            <element signature="e#2057#2058#0" expanded="false" />
-            <element signature="e#2487#2488#0" expanded="false" />
-            <element signature="e#2512#2513#0" expanded="false" />
-            <element signature="e#4533#4534#0" expanded="false" />
-            <element signature="e#4553#4554#0" expanded="false" />
-            <element signature="e#5611#5612#0" expanded="false" />
-            <element signature="e#5639#5640#0" expanded="false" />
-            <element signature="e#5896#5897#0" expanded="false" />
-            <element signature="e#5920#5921#0" expanded="false" />
-            <element signature="e#9373#9374#0" expanded="false" />
-            <element signature="e#9396#9397#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Stimulus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="24" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="99" column="44" lean-forward="true" selection-start-line="99" selection-start-column="44" selection-end-line="99" selection-end-column="44" />
-          <folding />
+        <state relative-caret-position="1275">
+          <caret line="99" column="44" lean-forward="false" selection-start-line="99" selection-start-column="44" selection-end-line="99" selection-end-column="44" />
+          <folding>
+            <marker date="1493491571000" expanded="true" signature="6681:6858" ph="/**...*/" />
+            <marker date="1493491571000" expanded="true" signature="6957:14014" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="14020:14235" ph="/**...*/" />
+            <marker date="1493491571000" expanded="true" signature="14283:15432" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="15473:15587" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="15633:15725" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="15770:15931" ph="{...}" />
+            <marker date="1493491571000" expanded="false" signature="15974:15985" ph=" { " />
+            <marker date="1493491571000" expanded="false" signature="16029:16035" ph=" }" />
+            <marker date="1493491571000" expanded="true" signature="16082:16176" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="16210:17094" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="17129:17496" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="17557:18399" ph="{...}" />
+            <marker date="1493491571000" expanded="false" signature="18427:18438" ph=" { " />
+            <marker date="1493491571000" expanded="false" signature="18480:18486" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="233" column="49" lean-forward="true" selection-start-line="233" selection-start-column="49" selection-end-line="233" selection-end-column="49" />
+        <state relative-caret-position="3225">
+          <caret line="233" column="49" lean-forward="false" selection-start-line="233" selection-start-column="49" selection-end-line="233" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1163,26 +1176,76 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="437" column="63" lean-forward="true" selection-start-line="437" selection-start-column="63" selection-end-line="437" selection-end-column="63" />
+        <state relative-caret-position="6345">
+          <caret line="437" column="63" lean-forward="false" selection-start-line="437" selection-start-column="63" selection-end-line="437" selection-end-column="63" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="176" column="0" lean-forward="true" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+        <state relative-caret-position="2430">
+          <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1493491571000" expanded="true" signature="14715:19334" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="19340:19555" ph="/**...*/" />
+            <marker date="1493491571000" expanded="true" signature="19603:20752" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="20793:20907" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="20953:21045" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="21090:21251" ph="{...}" />
+            <marker date="1493491571000" expanded="false" signature="21294:21305" ph=" { " />
+            <marker date="1493491571000" expanded="false" signature="21349:21355" ph=" }" />
+            <marker date="1493491571000" expanded="true" signature="21402:21496" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="21530:22414" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="22449:22816" ph="{...}" />
+            <marker date="1493491571000" expanded="true" signature="22877:23719" ph="{...}" />
+            <marker date="1493491571000" expanded="false" signature="23747:23758" ph=" { " />
+            <marker date="1493491571000" expanded="false" signature="23800:23806" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/display/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="29" column="38" lean-forward="false" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5770">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Level5.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/virginia/engine/events/LevelEventManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7">
-          <caret line="445" column="32" lean-forward="true" selection-start-line="445" selection-start-column="32" selection-end-line="445" selection-end-column="32" />
+        <state relative-caret-position="270">
+          <caret line="21" column="34" lean-forward="true" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/StartScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="49" column="41" lean-forward="true" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/virginia/levels/Stimulus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -72,12 +72,6 @@ public class Stimulus extends Game{
     public void update(ArrayList<Integer> pressedKeys, ArrayList<GamePad> gamePads) {
         super.update(pressedKeys, gamePads);
 
-        if (frameClock >= 10) {
-            PdBase.sendBang("Clear");
-            frameClock = 0;
-        }
-
-        ++frameClock;
     }
 
     @Override
