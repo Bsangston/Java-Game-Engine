@@ -120,6 +120,7 @@ public class Level1 extends DisplayObjectContainer {
         coin.addNewAnimation("spin", new int[] {0,1,2,3,4,5,6,7,8,9});
         coin.centerPivot();
         coin.setPosition(platform4.getPosX(), platform4.getPosY() - 50);
+
         coin.setScale(0.25);
         coin.setAnim("spin");
         coin.playAnim();
@@ -299,12 +300,13 @@ public class Level1 extends DisplayObjectContainer {
             if (coin.isVisible()) {
                 soundManager.loadSoundEffect("coin", "coin.wav");
             }
-            coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
-            questManager.completeQuest("Learning the Ropes");
+            //coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
+            //questManager.completeQuest("Learning the Ropes");
 
             if(shadow)
                 toggleShadows();
 
+            player.setPosition(225, g.centerY - 150);
             this.dispatchEvent(new Event("end_level_1", this));
 
         }
@@ -450,10 +452,10 @@ public class Level1 extends DisplayObjectContainer {
 
         if (g.getScenePanel().getBackground() != Color.BLACK) {
             g.getScenePanel().setBackground(Color.BLACK);
-            PdBase.sendBang("shadow_off");
+            //PdBase.sendBang("shadow_off");
         } else {
             g.getScenePanel().setBackground(Color.WHITE);
-            PdBase.sendBang("shadow_on");
+            //PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;

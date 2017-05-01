@@ -31,6 +31,7 @@ public class StartScreen extends DisplayObjectContainer {
     boolean landed;
 
     ArrayList<String> lastButtonPressed = new ArrayList<>();
+    ArrayList<Integer> unlockedLevels;
 
     //Animated Sprites
     AnimatedSprite mario = new AnimatedSprite("Mario", "bigmario_sprites.png", 4, 2);
@@ -42,6 +43,10 @@ public class StartScreen extends DisplayObjectContainer {
 
     Font f1 = new Font("GUI", Font.BOLD, 55);
     Font f2 = new Font("GUI", Font.BOLD, 20);
+    Font f3 = new Font("GUI", Font.BOLD, 12);
+
+    String unlockedLevelsMessage = "";
+    String levelSelectInstructions = "(Press keyboard number for level you wish to play)";
 
     public StartScreen(Game wrapper, int currentLevel) {
         super("Startscreen");
@@ -89,6 +94,9 @@ public class StartScreen extends DisplayObjectContainer {
 
         platform2.setScaleX(.5);
         mario.addEventListener(this, edu.virginia.engine.events.Event.COLLISION);
+
+        unlockedLevels = new ArrayList<>();
+        unlockedLevels.add(1);
     }
 
     /**
@@ -226,12 +234,25 @@ public class StartScreen extends DisplayObjectContainer {
                 this.dispatchEvent(new Event("start_level_" + currentLevel, this));
             }
 
-            if(gameWon){
-                coin1.setVisible(false);
-                platform2.setVisible(false);
-            }
-
             g.mouseEvents.clear();
+
+            unlockedLevelsMessage = "Unlocked Levels: ";
+            for(Integer level : unlockedLevels){
+                String addition = level.toString() + ", ";
+                unlockedLevelsMessage = unlockedLevelsMessage.concat(addition);
+            }
+            unlockedLevelsMessage = unlockedLevelsMessage.substring(0, unlockedLevelsMessage.length() - 2);
+
+            if(pressedKeys.contains(KeyEvent.VK_1) && unlockedLevels.contains(1))
+                currentLevel = 1;
+            else if(pressedKeys.contains(KeyEvent.VK_2) && unlockedLevels.contains(2))
+                currentLevel = 2;
+            else if(pressedKeys.contains(KeyEvent.VK_3) && unlockedLevels.contains(3))
+                currentLevel = 3;
+            else if(pressedKeys.contains(KeyEvent.VK_4) && unlockedLevels.contains(4))
+                currentLevel = 4;
+            else if(pressedKeys.contains(KeyEvent.VK_5) && unlockedLevels.contains(5))
+                currentLevel = 5;
     }
 
     /**
@@ -248,6 +269,10 @@ public class StartScreen extends DisplayObjectContainer {
 
         g.setFont(f2);
         g.drawString("Level " + currentLevel, coin1.getPosX() - 40, coin1.getPosY() - 25);
+
+        g.drawString(unlockedLevelsMessage, this.g.centerX - 150, this.g.centerY + 300);
+        g.setFont(f3);
+        g.drawString(levelSelectInstructions, this.g.centerX - 180, this.g.centerY + 325);
 
         if(gameWon){
             g.setFont(f1);
@@ -315,6 +340,10 @@ public class StartScreen extends DisplayObjectContainer {
 
     public void setGameWon(boolean gameWon) {
         this.gameWon = gameWon;
+    }
+
+    public ArrayList<Integer> getUnlockedLevels() {
+        return unlockedLevels;
     }
 
 }

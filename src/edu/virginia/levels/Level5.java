@@ -216,6 +216,7 @@ public class Level5 extends DisplayObjectContainer {
         coin.addNewAnimation("spin", new int[] {0,1,2,3,4,5,6,7,8,9});
         coin.centerPivot();
         coin.setPosition(platform17.getPosX(), platform17.getPosY() - 50);
+
         coin.setScale(0.25);
         coin.setAnim("spin");
         coin.playAnim();
@@ -425,8 +426,8 @@ public class Level5 extends DisplayObjectContainer {
             if (coin.isVisible()) {
                 soundManager.loadSoundEffect("coin", "coin.wav");
             }
-            coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
-            questManager.completeQuest("The Gauntlet");
+            //coin.dispatchEvent(new Event(Event.COIN_PICKED_UP, coin));
+            //questManager.completeQuest("The Gauntlet");
 
             if(shadow)
                 toggleShadows();
@@ -605,7 +606,7 @@ public class Level5 extends DisplayObjectContainer {
                         closestEnemyDistance = distList.get(i);
                     }
                 }
-                PdBase.sendFloat("enemy_distance", closestEnemyDistance);
+                //PdBase.sendFloat("enemy_distance", closestEnemyDistance);
 
             }
 
@@ -725,10 +726,10 @@ public class Level5 extends DisplayObjectContainer {
 
         if (game.getScenePanel().getBackground() != Color.BLACK) {
             game.getScenePanel().setBackground(Color.BLACK);
-            PdBase.sendBang("shadow_off");
+            //PdBase.sendBang("shadow_off");
         } else {
             game.getScenePanel().setBackground(Color.WHITE);
-            PdBase.sendBang("shadow_on");
+            //PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;

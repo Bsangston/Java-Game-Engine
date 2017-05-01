@@ -41,24 +41,38 @@ public class LevelEventManager extends EventDispatcher implements IEventListener
             s.removeChildren();
             s.getStartScreen().setCurrentLevel(2);
             s.addChild(s.getStartScreen());
+
+            if(!s.getStartScreen().getUnlockedLevels().contains(2))
+                s.getStartScreen().getUnlockedLevels().add(2);
         }
         if(event.eventType.equals("end_level_2")){
             s.removeChildren();
             s.getStartScreen().setCurrentLevel(3);
             s.addChild(s.getStartScreen());
+
+            if(!s.getStartScreen().getUnlockedLevels().contains(3))
+                s.getStartScreen().getUnlockedLevels().add(3);
         }
         if(event.eventType.equals("end_level_3")){
             s.removeChildren();
             s.getStartScreen().setCurrentLevel(4);
             s.addChild(s.getStartScreen());
+
+            if(!s.getStartScreen().getUnlockedLevels().contains(4))
+                s.getStartScreen().getUnlockedLevels().add(4);
         }
         if(event.eventType.equals("end_level_4")){
             s.removeChildren();
             s.getStartScreen().setCurrentLevel(5);
             s.addChild(s.getStartScreen());
+
+            if(!s.getStartScreen().getUnlockedLevels().contains(5))
+                s.getStartScreen().getUnlockedLevels().add(5);
         }
         if(event.eventType.equals("end_level_5")){
+            s.removeChildren();
             s.getStartScreen().setGameWon(true);
+            s.addChild(s.getStartScreen());
         }
     }
 }
