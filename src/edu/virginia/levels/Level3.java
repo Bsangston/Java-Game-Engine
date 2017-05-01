@@ -342,6 +342,7 @@ public class Level3 extends DisplayObjectContainer {
             if(shadow)
                 toggleShadows();
 
+            player.setPosition(112, game.centerY - 150);
             this.dispatchEvent(new Event("end_level_3", this));
 
         }
