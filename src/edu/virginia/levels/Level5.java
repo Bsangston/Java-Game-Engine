@@ -606,7 +606,7 @@ public class Level5 extends DisplayObjectContainer {
                         closestEnemyDistance = distList.get(i);
                     }
                 }
-                //PdBase.sendFloat("enemy_distance", closestEnemyDistance);
+                PdBase.sendFloat("enemy_distance", closestEnemyDistance);
 
             }
 
@@ -726,10 +726,10 @@ public class Level5 extends DisplayObjectContainer {
 
         if (game.getScenePanel().getBackground() != Color.BLACK) {
             game.getScenePanel().setBackground(Color.BLACK);
-            //PdBase.sendBang("shadow_off");
+            PdBase.sendBang("shadow_off");
         } else {
             game.getScenePanel().setBackground(Color.WHITE);
-            //PdBase.sendBang("shadow_on");
+            PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;

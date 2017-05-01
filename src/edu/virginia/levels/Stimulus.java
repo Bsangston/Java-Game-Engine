@@ -49,7 +49,7 @@ public class Stimulus extends Game{
 
         this.addChild(home);
 
-        /*
+
         JavaSoundThread audioThread = new JavaSoundThread(44100, 2, 16);
         try {
             int patch = PdBase.openPatch("resources/AUTOMATONISM/main.pd");
@@ -66,7 +66,7 @@ public class Stimulus extends Game{
         PdBase.sendFloat("_RandomSeed", rand.nextInt(86400));
         PdBase.sendFloat("_Key", rand.nextInt(12));
         PdBase.sendFloat("_Global_Bpm", 68);
-        */
+
 
     }
 
