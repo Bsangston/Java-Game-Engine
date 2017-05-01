@@ -33,7 +33,7 @@ public class Level1 extends DisplayObjectContainer {
     int speed = 4;
     int frameClock = 0;
     int timeRemaining = 60, prevTime = 0;
-    int jmpHeight = 10, jmp = 0;
+    int jmpHeight = 12, jmp = 0;
     boolean jumping = false;
 
     //Stimulus mechanics parameters
@@ -452,10 +452,10 @@ public class Level1 extends DisplayObjectContainer {
 
         if (g.getScenePanel().getBackground() != Color.BLACK) {
             g.getScenePanel().setBackground(Color.BLACK);
-            //PdBase.sendBang("shadow_off");
+            PdBase.sendBang("shadow_off");
         } else {
             g.getScenePanel().setBackground(Color.WHITE);
-            //PdBase.sendBang("shadow_on");
+            PdBase.sendBang("shadow_on");
         }
 
         shadow = !shadow;

@@ -24,7 +24,7 @@ public class StartScreen extends DisplayObjectContainer {
     boolean startScreen = true;
 
     int speed = 4;
-    int jmpHeight = 10;
+    int jmpHeight = 12;
     int jmp = 0;
     boolean jumping = false;
     boolean jumpReady;
@@ -41,6 +41,8 @@ public class StartScreen extends DisplayObjectContainer {
     Sprite platform1 = new Sprite("Platform1", "basic_platform.png");
     Sprite platform2 = new Sprite("Platform2", "basic_platform.png");
 
+    Sprite background = new Sprite("Background", "background1.png");
+
     Font f1 = new Font("GUI", Font.BOLD, 55);
     Font f2 = new Font("GUI", Font.BOLD, 20);
     Font f3 = new Font("GUI", Font.BOLD, 12);
@@ -53,6 +55,8 @@ public class StartScreen extends DisplayObjectContainer {
 
         g = wrapper;
         this.currentLevel = currentLevel;
+
+        background.setPosition(g.center);
 
         mario.addEventListener(this, Event.COLLISION);
 
@@ -79,6 +83,7 @@ public class StartScreen extends DisplayObjectContainer {
         coin1.playAnim();
         coin1.setAnimSpeed(6);
 
+        addChild(background);
         addChild(mario);
         addChild(platforms);
         addChild(coin1);

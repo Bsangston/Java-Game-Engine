@@ -29,7 +29,7 @@ public class Level4 extends DisplayObjectContainer {
     int speed = 4;
     int frameClock = 0;
     int timeRemaining = 60, prevTime = 0;
-    int jmpHeight = 10, jmp = 0;
+    int jmpHeight = 12, jmp = 0;
     boolean jumping = false;
 
     //Stimulus mechanics parameters
